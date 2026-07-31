@@ -1,17 +1,26 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import { FaApple, FaSteam, FaWindows } from "react-icons/fa";
-import Shuffle from "@/components/Shuffle";
+import {
+  AppleIcon,
+  SteamIcon,
+  WindowsIcon,
+} from "@/components/PlatformIcons";
 import { useTranslations } from "@/i18n/client";
+
+const Shuffle = dynamic(() => import("@/components/Shuffle"), { ssr: false });
 
 export function Hero() {
   const t = useTranslations();
+  const headline = t("hero.headline");
+  const headlineClassName =
+    "-mt-1 max-w-3xl font-display text-[clamp(1.35rem,3.4vw,2.35rem)] font-bold leading-[1.15] tracking-tight text-fg md:mt-0";
 
   const platforms = [
-    { id: "apple", label: t("hero.platformApple"), Icon: FaApple },
-    { id: "windows", label: t("hero.platformWindows"), Icon: FaWindows },
-    { id: "steam", label: t("hero.platformSteam"), Icon: FaSteam },
+    { id: "apple", label: t("hero.platformApple"), Icon: AppleIcon },
+    { id: "windows", label: t("hero.platformWindows"), Icon: WindowsIcon },
+    { id: "steam", label: t("hero.platformSteam"), Icon: SteamIcon },
   ] as const;
 
   return (
@@ -20,10 +29,10 @@ export function Hero() {
       className="relative min-h-[calc(100svh-84px)] overflow-hidden px-5 pb-16 pt-10 md:px-8 md:pb-24 md:pt-16"
     >
       <Image
-        src="/Main.png"
+        src="/Main.webp"
         alt=""
         fill
-        preload
+        priority
         sizes="100vw"
         className="pointer-events-none object-cover object-center"
       />
@@ -45,9 +54,9 @@ export function Hero() {
         </h1>
 
         <Shuffle
-          text={t("hero.headline")}
+          text={headline}
           tag="h2"
-          className="-mt-1 max-w-3xl font-display text-[clamp(1.35rem,3.4vw,2.35rem)] font-bold leading-[1.15] tracking-tight text-fg md:mt-0"
+          className={headlineClassName}
           shuffleDirection="right"
           duration={0.35}
           animationMode="evenodd"
@@ -57,11 +66,12 @@ export function Hero() {
           threshold={0.1}
           rootMargin="0px"
           triggerOnce={true}
-          triggerOnHover={true}
+          triggerOnHover={false}
           respectReducedMotion={true}
           scrambleCharset="01ABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
-          colorFrom="rgba(94, 234, 212, 0.55)"
+          colorFrom="rgba(255, 154, 69, 0.55)"
           colorTo="var(--fg)"
+          onShuffleComplete={() => {}}
         />
 
         <div className="reveal reveal-delay-3 mt-8 flex flex-wrap items-center justify-center gap-5">
@@ -85,7 +95,7 @@ export function Hero() {
                 aria-label={label}
                 title={label}
               >
-                <Icon className="h-5 w-5" aria-hidden />
+                <Icon className="h-5 w-5" />
               </a>
             </li>
           ))}

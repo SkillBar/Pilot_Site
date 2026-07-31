@@ -46,7 +46,7 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const sections = [
+    const ids = [
       "about",
       "download",
       "tracks",
@@ -54,51 +54,52 @@ export function Header() {
       "stack",
       "team",
       "investors",
-    ]
+    ];
+    const sections = ids
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
-    let frameId = 0;
 
-    const syncActiveSection = () => {
-      frameId = 0;
-      const activationLine = window.innerHeight * 0.38;
-      let currentSection = sections[0];
+    if (sections.length === 0) return;
 
-      if (
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight - 2
-      ) {
-        currentSection = sections[sections.length - 1] ?? currentSection;
-      } else {
+    // One IO instead of getBoundingClientRect on every scroll frame.
+    const ratios = new Map<string, number>();
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          ratios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+        }
+
+        let bestId = sections[0]?.id ?? "about";
+        let bestRatio = -1;
         for (const section of sections) {
-          if (section.getBoundingClientRect().top <= activationLine) {
-            currentSection = section;
-          } else {
-            break;
+          const ratio = ratios.get(section.id) ?? 0;
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestId = section.id;
           }
         }
-      }
 
-      if (currentSection) {
-        setActiveSection(`#${currentSection.id}`);
-      }
-    };
+        // Near page bottom — pin last nav item.
+        if (
+          window.scrollY + window.innerHeight >=
+          document.documentElement.scrollHeight - 2
+        ) {
+          bestId = sections[sections.length - 1]?.id ?? bestId;
+        }
 
-    const handleSectionScroll = () => {
-      if (frameId === 0) {
-        frameId = requestAnimationFrame(syncActiveSection);
-      }
-    };
+        setActiveSection(`#${bestId}`);
+      },
+      {
+        root: null,
+        threshold: [0.15, 0.35, 0.55, 0.75],
+        rootMargin: "-28% 0px -42% 0px",
+      },
+    );
 
-    syncActiveSection();
-    window.addEventListener("scroll", handleSectionScroll, { passive: true });
-    window.addEventListener("resize", handleSectionScroll);
+    for (const section of sections) io.observe(section);
 
-    return () => {
-      if (frameId !== 0) cancelAnimationFrame(frameId);
-      window.removeEventListener("scroll", handleSectionScroll);
-      window.removeEventListener("resize", handleSectionScroll);
-    };
+    return () => io.disconnect();
   }, []);
 
   const toggleTheme = () => {

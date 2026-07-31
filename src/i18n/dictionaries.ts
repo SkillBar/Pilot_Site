@@ -143,6 +143,46 @@ export type Dictionary = {
     sam: { title: string; text: string; value: string };
     som: { title: string; text: string; value: string; share: string };
   };
+  worldMap: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  distribution: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    colCountry: string;
+    colPilot: string;
+    colUnior: string;
+    colLauncher: string;
+    colPotential: string;
+    pending: string;
+    regions: {
+      cis: string;
+      latam: string;
+      mena: string;
+      na: string;
+    };
+    cities: {
+      la: string;
+    };
+    countries: {
+      ru: string;
+      by: string;
+      kz: string;
+      am: string;
+      kg: string;
+      uz: string;
+      br: string;
+      sv: string;
+      ar: string;
+      uy: string;
+      ae: string;
+      tr: string;
+      us: string;
+    };
+  };
   investors: {
     eyebrow: string;
     title: string;
@@ -378,6 +418,48 @@ export const dictionaries: Record<Locale, Dictionary> = {
         text: "Наша реалистичная доля при фокусе и преимуществах.",
         value: "~2,1 млрд $",
         share: "2,2%",
+      },
+    },
+    worldMap: {
+      eyebrow: "// GLOBAL_GRID",
+      title: "ТЦ и серверы",
+      description:
+        "Маршруты для медиа, матчей и телеметрии — условная схема связности ключевых точек Pilot.",
+    },
+    distribution: {
+      eyebrow: "// MARKET_FOOTPRINT",
+      title: "Рынок распространения",
+      description:
+        "Потенциал точек Pilot / Unior / Launcher по странам. Разбивка по продуктам уточняется.",
+      colCountry: "Страна",
+      colPilot: "Pilot",
+      colUnior: "Unior",
+      colLauncher: "Launcher",
+      colPotential: "Потенциал",
+      pending: "—",
+      regions: {
+        cis: "СНГ",
+        latam: "Латинская Америка",
+        mena: "Ближний Восток",
+        na: "Северная Америка",
+      },
+      cities: {
+        la: "Los Angeles",
+      },
+      countries: {
+        ru: "Россия",
+        by: "Беларусь",
+        kz: "Казахстан",
+        am: "Армения",
+        kg: "Киргизия",
+        uz: "Узбекистан",
+        br: "Бразилия",
+        sv: "Сальвадор",
+        ar: "Аргентина",
+        uy: "Уругвай",
+        ae: "ОАЭ",
+        tr: "Турция",
+        us: "США",
       },
     },
     investors: {
@@ -616,6 +698,48 @@ export const dictionaries: Record<Locale, Dictionary> = {
         share: "2.2%",
       },
     },
+    worldMap: {
+      eyebrow: "// GLOBAL_GRID",
+      title: "DCs and servers",
+      description:
+        "Routes for media, matches, and telemetry — a schematic of Pilot connectivity across key hubs.",
+    },
+    distribution: {
+      eyebrow: "// MARKET_FOOTPRINT",
+      title: "Market footprint",
+      description:
+        "Potential Pilot / Unior / Launcher points by country. Product split TBD.",
+      colCountry: "Country",
+      colPilot: "Pilot",
+      colUnior: "Unior",
+      colLauncher: "Launcher",
+      colPotential: "Potential",
+      pending: "—",
+      regions: {
+        cis: "CIS",
+        latam: "Latin America",
+        mena: "Middle East",
+        na: "North America",
+      },
+      cities: {
+        la: "Los Angeles",
+      },
+      countries: {
+        ru: "Russia",
+        by: "Belarus",
+        kz: "Kazakhstan",
+        am: "Armenia",
+        kg: "Kyrgyzstan",
+        uz: "Uzbekistan",
+        br: "Brazil",
+        sv: "El Salvador",
+        ar: "Argentina",
+        uy: "Uruguay",
+        ae: "UAE",
+        tr: "Turkey",
+        us: "USA",
+      },
+    },
     investors: {
       eyebrow: "// INVESTOR_CHANNEL",
       title: "INVESTOR APPLICATION",
@@ -850,6 +974,48 @@ export const dictionaries: Record<Locale, Dictionary> = {
         text: "Unser realistischer Anteil mit klarem Fokus und Vorteilen.",
         value: "~2,1 Mrd. $",
         share: "2,2%",
+      },
+    },
+    worldMap: {
+      eyebrow: "// GLOBAL_GRID",
+      title: "Rechenzentren und Server",
+      description:
+        "Routen für Medien, Matches und Telemetrie — eine schematische Pilot-Vernetzung über Schlüsselknoten.",
+    },
+    distribution: {
+      eyebrow: "// MARKET_FOOTPRINT",
+      title: "Marktpräsenz",
+      description:
+        "Potenzial der Pilot-/Unior-/Launcher-Punkte nach Ländern. Produkt-Split folgt.",
+      colCountry: "Land",
+      colPilot: "Pilot",
+      colUnior: "Unior",
+      colLauncher: "Launcher",
+      colPotential: "Potenzial",
+      pending: "—",
+      regions: {
+        cis: "GUS",
+        latam: "Lateinamerika",
+        mena: "Naher Osten",
+        na: "Nordamerika",
+      },
+      cities: {
+        la: "Los Angeles",
+      },
+      countries: {
+        ru: "Russland",
+        by: "Belarus",
+        kz: "Kasachstan",
+        am: "Armenien",
+        kg: "Kirgisistan",
+        uz: "Usbekistan",
+        br: "Brasilien",
+        sv: "El Salvador",
+        ar: "Argentinien",
+        uy: "Uruguay",
+        ae: "VAE",
+        tr: "Türkei",
+        us: "USA",
       },
     },
     investors: {

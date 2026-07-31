@@ -1,8 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
-import { FaApple, FaSteam, FaWindows } from "react-icons/fa";
+import { useEffect, useMemo, useState, type ComponentType, type SVGProps } from "react";
+import {
+  AppleIcon,
+  SteamIcon,
+  WindowsIcon,
+} from "@/components/PlatformIcons";
 import { SectionHeader } from "@/components/SectionHeader";
 import { useTranslations } from "@/i18n/client";
 import {
@@ -11,32 +15,34 @@ import {
 } from "@/lib/detectPlatform";
 import { cn } from "@/lib/utils";
 
+type PlatformIcon = ComponentType<SVGProps<SVGSVGElement>>;
+
 const BUILDS: Record<
   DownloadPlatform,
   {
     labelKey: "download.platformWindows" | "download.platformMac" | "download.platformSteam";
     file: string;
     href: string;
-    Icon: typeof FaWindows;
+    Icon: PlatformIcon;
   }
 > = {
   windows: {
     labelKey: "download.platformWindows",
     file: "pilot-launcher-win.exe",
     href: "#",
-    Icon: FaWindows,
+    Icon: WindowsIcon,
   },
   macos: {
     labelKey: "download.platformMac",
     file: "pilot-launcher-mac.dmg",
     href: "#",
-    Icon: FaApple,
+    Icon: AppleIcon,
   },
   steam: {
     labelKey: "download.platformSteam",
     file: "steam",
     href: "#",
-    Icon: FaSteam,
+    Icon: SteamIcon,
   },
 };
 
@@ -69,12 +75,11 @@ export function DownloadSection() {
           description={t("download.description")}
           before={
             <Image
-              src="/Logo_App.png"
+              src="/Logo_App.webp"
               alt="Pilot Launcher"
-              width={160}
-              height={160}
+              width={96}
+              height={96}
               className="mx-auto mb-5 h-20 w-20 object-contain md:h-24 md:w-24"
-              priority
             />
           }
           after={

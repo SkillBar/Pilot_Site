@@ -1,7 +1,7 @@
 "use client";
 
 import { FadeIn } from "@/components/FadeIn";
-import ScrollFloat from "@/components/ScrollFloat";
+import { LazyScrollFloat } from "@/components/LazyScrollFloat";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
@@ -18,8 +18,7 @@ type SectionHeaderProps = {
 };
 
 /**
- * Shared section intro — one type scale and rhythm across the landing.
- * Matches Business Tracks: center stack, 2xl→3xl title, mono descriptor.
+ * Shared section intro — ScrollFloat look preserved, GSAP deferred until near viewport.
  */
 export function SectionHeader({
   eyebrow,
@@ -54,12 +53,12 @@ export function SectionHeader({
         </p>
       ) : null}
 
-      <ScrollFloat
+      <LazyScrollFloat
         containerClassName={cn(eyebrow ? "mt-4" : "mt-0", !centered && "text-left")}
         textClassName="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl"
       >
         {title}
-      </ScrollFloat>
+      </LazyScrollFloat>
 
       {description ? (
         <FadeIn

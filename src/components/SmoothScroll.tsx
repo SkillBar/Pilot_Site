@@ -1,68 +1,89 @@
 "use client";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 import { useEffect, type ReactNode } from "react";
-import "lenis/dist/lenis.css";
 
-gsap.registerPlugin(ScrollTrigger);
-
+/**
+ * Smooth scroll is desktop-only and loaded async so GSAP/Lenis
+ * stay off the critical path. Visual of the page is unchanged.
+ */
 export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const coarsePointer = window.matchMedia("(pointer: coarse)");
+    if (reduceMotion.matches || coarsePointer.matches) {
       return;
     }
 
-    const lenis = new Lenis({
-      autoRaf: false,
-      lerp: 0.08,
-      duration: 1.15,
-      smoothWheel: true,
-      syncTouch: true,
-      touchMultiplier: 1.1,
-      wheelMultiplier: 0.9,
-    });
+    let disposed = false;
+    let cleanup = () => {};
 
-    lenis.on("scroll", ScrollTrigger.update);
+    void (async () => {
+      const [{ gsap }, { ScrollTrigger }, { default: Lenis }] =
+        await Promise.all([
+          import("gsap"),
+          import("gsap/ScrollTrigger"),
+          import("lenis"),
+        ]);
+      await import("lenis/dist/lenis.css");
 
-    const update = (time: number) => {
-      lenis.raf(time * 1000);
-    };
+      if (disposed) return;
 
-    gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(0);
+      gsap.registerPlugin(ScrollTrigger);
 
-    const refresh = () => ScrollTrigger.refresh();
-    refresh();
-    requestAnimationFrame(refresh);
-    window.addEventListener("load", refresh);
-    document.fonts?.ready?.then(refresh);
+      const lenis = new Lenis({
+        autoRaf: false,
+        lerp: 0.08,
+        duration: 1.15,
+        smoothWheel: true,
+        syncTouch: false,
+        wheelMultiplier: 0.9,
+      });
 
-    const onClick = (event: MouseEvent) => {
-      const anchor = (event.target as HTMLElement | null)?.closest(
-        'a[href^="#"]',
-      );
-      if (!anchor) return;
+      lenis.on("scroll", ScrollTrigger.update);
 
-      const href = anchor.getAttribute("href");
-      if (!href || href === "#") return;
+      const update = (time: number) => {
+        lenis.raf(time * 1000);
+      };
 
-      const target = document.querySelector(href);
-      if (!target) return;
+      gsap.ticker.add(update);
+      gsap.ticker.lagSmoothing(0);
 
-      event.preventDefault();
-      lenis.scrollTo(target as HTMLElement, { offset: -84 });
-    };
+      const refresh = () => ScrollTrigger.refresh();
+      refresh();
+      requestAnimationFrame(refresh);
+      window.addEventListener("load", refresh);
+      document.fonts?.ready?.then(refresh);
 
-    document.addEventListener("click", onClick);
+      const onClick = (event: MouseEvent) => {
+        const anchor = (event.target as HTMLElement | null)?.closest(
+          'a[href^="#"]',
+        );
+        if (!anchor) return;
+
+        const href = anchor.getAttribute("href");
+        if (!href || href === "#") return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        event.preventDefault();
+        lenis.scrollTo(target as HTMLElement, { offset: -84 });
+      };
+
+      document.addEventListener("click", onClick);
+
+      cleanup = () => {
+        document.removeEventListener("click", onClick);
+        window.removeEventListener("load", refresh);
+        lenis.off("scroll", ScrollTrigger.update);
+        gsap.ticker.remove(update);
+        lenis.destroy();
+      };
+    })();
 
     return () => {
-      document.removeEventListener("click", onClick);
-      window.removeEventListener("load", refresh);
-      lenis.off("scroll", ScrollTrigger.update);
-      gsap.ticker.remove(update);
-      lenis.destroy();
+      disposed = true;
+      cleanup();
     };
   }, []);
 

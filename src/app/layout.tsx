@@ -8,18 +8,21 @@ import "./globals.css";
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
 });
 
 const unbounded = Unbounded({
   variable: "--font-display",
   subsets: ["latin", "cyrillic"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
+  display: "swap",
 });
 
 const defaultDictionary = dictionaries[defaultLocale];
@@ -47,6 +50,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="v-grid flex min-h-full flex-col">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("pilot-theme");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t;document.documentElement.classList.toggle("dark",t==="dark");}}catch(e){}})();`,
+          }}
+        />
         <Providers>{children}</Providers>
       </body>
     </html>

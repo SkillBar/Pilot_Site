@@ -3,13 +3,6 @@
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTranslations } from "@/i18n/client";
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { VectorLogo } from "./VectorLogo";
@@ -45,32 +38,32 @@ export function VectorUtilityBar({
         aria-label={t("header.vectorAria")}
       >
         <VectorLogo />
-        <Separator orientation="vertical" className="hidden h-4 sm:block" />
+        <span
+          aria-hidden
+          className="hidden h-4 w-px bg-border sm:block"
+        />
         <span className="hidden font-sans text-[11px] font-medium tracking-[0.08em] text-muted-foreground uppercase sm:inline">
           {t("header.eduPlatform")}
         </span>
       </a>
 
       <div className="flex items-center gap-1.5 md:gap-2">
-        <NavigationMenu
-          className="hidden lg:flex"
+        <nav
+          className="hidden items-center gap-0.5 lg:flex"
           aria-label={t("header.utilityNavAria")}
         >
-          <NavigationMenuList className="gap-0.5">
-            {utilityNav.map((item) => (
-              <NavigationMenuItem key={item.href}>
-                <NavigationMenuLink
-                  href={item.href}
-                  className="h-7 rounded-md px-2.5 py-0 font-sans text-[11px] font-medium tracking-[0.04em] text-muted-foreground hover:bg-secondary hover:text-foreground focus:bg-secondary focus:text-foreground data-active:bg-secondary data-active:text-foreground"
-                >
-                  {item.label}
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+          {utilityNav.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="inline-flex h-7 items-center rounded-md px-2.5 font-sans text-[11px] font-medium tracking-[0.04em] text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:bg-secondary focus-visible:text-foreground focus-visible:outline-none"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-        <Separator orientation="vertical" className="mx-1 hidden h-4 sm:block" />
+        <span aria-hidden className="mx-1 hidden h-4 w-px bg-border sm:block" />
 
         <LanguageSwitcher />
 
