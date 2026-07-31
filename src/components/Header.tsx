@@ -35,12 +35,27 @@ export function Header() {
     document.documentElement.classList.toggle("dark", initialTheme === "dark");
     const themeFrame = requestAnimationFrame(() => setTheme(initialTheme));
 
-    const handleScroll = () => setIsAtTop(window.scrollY < 8);
-    handleScroll();
+    let frame = 0;
+    let lastAtTop = window.scrollY < 8;
+    setIsAtTop(lastAtTop);
+
+    const handleScroll = () => {
+      if (frame !== 0) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const next = window.scrollY < 8;
+        if (next !== lastAtTop) {
+          lastAtTop = next;
+          setIsAtTop(next);
+        }
+      });
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       cancelAnimationFrame(themeFrame);
+      if (frame !== 0) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -88,12 +103,13 @@ export function Header() {
           bestId = sections[sections.length - 1]?.id ?? bestId;
         }
 
-        setActiveSection(`#${bestId}`);
+        const next = `#${bestId}`;
+        setActiveSection((prev) => (prev === next ? prev : next));
       },
       {
         root: null,
-        threshold: [0.15, 0.35, 0.55, 0.75],
-        rootMargin: "-28% 0px -42% 0px",
+        threshold: [0.2, 0.45, 0.7],
+        rootMargin: "-30% 0px -45% 0px",
       },
     );
 
@@ -112,7 +128,7 @@ export function Header() {
 
   return (
     <>
-      <header className="header-shell fixed inset-x-0 top-0 z-50 border-b border-line backdrop-blur-xl">
+      <header className="header-shell fixed inset-x-0 top-0 z-50 border-b border-line">
         <div
           className={`header-utility relative z-[60] border-b border-border/80 transition-[height,opacity] duration-300 ease-out ${
             isAtTop

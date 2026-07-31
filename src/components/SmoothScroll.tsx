@@ -3,8 +3,10 @@
 import { useEffect, type ReactNode } from "react";
 
 /**
- * Smooth scroll is desktop-only and loaded async so GSAP/Lenis
- * stay off the critical path. Visual of the page is unchanged.
+ * Desktop-only Lenis. Tuned for responsive feel:
+ * - higher lerp (less mushy catch-up)
+ * - own RAF loop (no GSAP ticker coupling)
+ * - ScrollTrigger updated from Lenis scroll only
  */
 export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -15,44 +17,50 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     }
 
     let disposed = false;
+    let rafId = 0;
     let cleanup = () => {};
 
     void (async () => {
-      const [{ gsap }, { ScrollTrigger }, { default: Lenis }] =
-        await Promise.all([
-          import("gsap"),
-          import("gsap/ScrollTrigger"),
-          import("lenis"),
-        ]);
+      const [{ ScrollTrigger }, { default: Lenis }] = await Promise.all([
+        import("gsap/ScrollTrigger"),
+        import("lenis"),
+      ]);
       await import("lenis/dist/lenis.css");
 
       if (disposed) return;
 
-      gsap.registerPlugin(ScrollTrigger);
-
       const lenis = new Lenis({
-        autoRaf: false,
-        lerp: 0.08,
-        duration: 1.15,
+        // Snappier than 0.08 — low lerp + ScrollTrigger scrub felt like lag.
+        lerp: 0.14,
         smoothWheel: true,
         syncTouch: false,
-        wheelMultiplier: 0.9,
+        touchMultiplier: 1,
+        wheelMultiplier: 1,
+        // Avoid fighting native anchor / overscroll jank.
+        anchors: false,
       });
 
+      // Keep ScrollTrigger in sync; don't double-drive via gsap.ticker.
       lenis.on("scroll", ScrollTrigger.update);
 
-      const update = (time: number) => {
-        lenis.raf(time * 1000);
+      const tick = (time: number) => {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(tick);
+      };
+      rafId = requestAnimationFrame(tick);
+
+      // One deferred refresh after layout settles — avoid refresh storms.
+      let refreshTimer = 0;
+      const scheduleRefresh = () => {
+        window.clearTimeout(refreshTimer);
+        refreshTimer = window.setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 120);
       };
 
-      gsap.ticker.add(update);
-      gsap.ticker.lagSmoothing(0);
-
-      const refresh = () => ScrollTrigger.refresh();
-      refresh();
-      requestAnimationFrame(refresh);
-      window.addEventListener("load", refresh);
-      document.fonts?.ready?.then(refresh);
+      scheduleRefresh();
+      window.addEventListener("load", scheduleRefresh, { once: true });
+      document.fonts?.ready?.then(scheduleRefresh);
 
       const onClick = (event: MouseEvent) => {
         const anchor = (event.target as HTMLElement | null)?.closest(
@@ -67,16 +75,20 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         if (!target) return;
 
         event.preventDefault();
-        lenis.scrollTo(target as HTMLElement, { offset: -84 });
+        lenis.scrollTo(target as HTMLElement, {
+          offset: -84,
+          // Immediate enough that nav doesn't feel delayed.
+          duration: 1.05,
+        });
       };
 
       document.addEventListener("click", onClick);
 
       cleanup = () => {
         document.removeEventListener("click", onClick);
-        window.removeEventListener("load", refresh);
-        lenis.off("scroll", ScrollTrigger.update);
-        gsap.ticker.remove(update);
+        window.removeEventListener("load", scheduleRefresh);
+        window.clearTimeout(refreshTimer);
+        cancelAnimationFrame(rafId);
         lenis.destroy();
       };
     })();

@@ -13,11 +13,10 @@ const ScrollFloat = ({
   scrollContainerRef,
   containerClassName = '',
   textClassName = '',
-  animationDuration = 1.4,
-  ease = 'back.inOut(2)',
-  scrollStart = 'top bottom+=15%',
-  scrollEnd = 'center top+=25%',
-  stagger = 0.05
+  animationDuration = 0.9,
+  ease = 'power3.out',
+  scrollStart = 'top 88%',
+  stagger = 0.018
 }) => {
   const containerRef = useRef(null);
 
@@ -34,6 +33,10 @@ const ScrollFloat = ({
     const el = containerRef.current;
     if (!el) return;
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
     const scroller =
       scrollContainerRef && scrollContainerRef.current
         ? scrollContainerRef.current
@@ -42,36 +45,35 @@ const ScrollFloat = ({
     const charElements = el.querySelectorAll('.char');
     if (!charElements.length) return;
 
+    // One-shot on enter — NOT scrubbed.
+    // Scrub + Lenis was double-smoothing and felt like floating lag.
     const tween = gsap.fromTo(
       charElements,
       {
-        willChange: 'opacity, transform',
         opacity: 0,
-        yPercent: 120,
-        scaleY: 2.3,
-        scaleX: 0.7,
+        yPercent: 110,
+        scaleY: 1.8,
+        scaleX: 0.85,
         transformOrigin: '50% 0%'
       },
       {
         duration: animationDuration,
-        ease: ease,
+        ease,
         opacity: 1,
         yPercent: 0,
         scaleY: 1,
         scaleX: 1,
-        stagger: stagger,
+        stagger,
+        force3D: true,
         scrollTrigger: {
           trigger: el,
           scroller,
           start: scrollStart,
-          end: scrollEnd,
-          scrub: 1.6,
-          invalidateOnRefresh: true
+          once: true,
+          // No scrub — play through once when title enters.
         }
       }
     );
-
-    ScrollTrigger.refresh();
 
     return () => {
       tween.scrollTrigger?.kill();
@@ -83,7 +85,6 @@ const ScrollFloat = ({
     animationDuration,
     ease,
     scrollStart,
-    scrollEnd,
     stagger
   ]);
 

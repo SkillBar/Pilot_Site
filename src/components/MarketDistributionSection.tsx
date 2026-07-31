@@ -153,14 +153,14 @@ function CountryFlag({ colors, code }: { colors: string[]; code: CountryCode }) 
   );
 }
 
-function PlusMarks() {
+function PlusMarks({ className = "dist-plus" }: { className?: string }) {
   return (
-    <>
-      <span className="dist-plus dist-plus--tl" aria-hidden />
-      <span className="dist-plus dist-plus--tr" aria-hidden />
-      <span className="dist-plus dist-plus--bl" aria-hidden />
-      <span className="dist-plus dist-plus--br" aria-hidden />
-    </>
+    <span className={className} aria-hidden>
+      <span />
+      <span />
+      <span />
+      <span />
+    </span>
   );
 }
 
@@ -190,10 +190,11 @@ export function MarketDistributionSection() {
         />
 
         <div className="dist-board mt-12 md:mt-16">
-          <PlusMarks />
+          <PlusMarks className="dist-plus dist-plus--board" />
 
           <div className="dist-board-inner">
             <div className="dist-head" role="row">
+              <PlusMarks className="dist-plus dist-plus--row" />
               <span className="dist-cell dist-cell--rank">#</span>
               <span className="dist-cell dist-cell--country">
                 {t("distribution.colCountry")}
@@ -237,6 +238,7 @@ export function MarketDistributionSection() {
 
                       return (
                         <div key={row.code} className="dist-row" role="row">
+                          <PlusMarks className="dist-plus dist-plus--row" />
                           <span className="dist-cell dist-cell--rank">
                             {rankLabel}
                           </span>
