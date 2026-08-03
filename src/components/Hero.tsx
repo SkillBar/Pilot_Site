@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import {
   AppleIcon,
   SteamIcon,
@@ -10,6 +11,53 @@ import {
 import { useTranslations } from "@/i18n/client";
 
 const Shuffle = dynamic(() => import("@/components/Shuffle"), { ssr: false });
+
+const SCALES = ["1:64", "1:43", "1:24", "1:10", "1:8"] as const;
+
+function HeroScaleTicker() {
+  const t = useTranslations();
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduceMotion) return;
+
+    let fadeTimeout = 0;
+    const id = window.setInterval(() => {
+      setVisible(false);
+      fadeTimeout = window.setTimeout(() => {
+        setIndex((prev) => (prev + 1) % SCALES.length);
+        setVisible(true);
+      }, 220);
+    }, 1800);
+
+    return () => {
+      window.clearInterval(id);
+      window.clearTimeout(fadeTimeout);
+    };
+  }, []);
+
+  return (
+    <p
+      className="reveal reveal-delay-2 mt-5 font-mono text-[13px] tracking-[0.28em] text-white/55 uppercase md:text-[14px]"
+      aria-live="polite"
+      aria-label={t("hero.scalesAria")}
+    >
+      <span
+        className="inline-block min-w-[4.5ch] transition-all duration-200"
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(6px)",
+        }}
+      >
+        {SCALES[index]}
+      </span>
+    </p>
+  );
+}
 
 export function Hero() {
   const t = useTranslations();
@@ -74,7 +122,9 @@ export function Hero() {
           onShuffleComplete={() => {}}
         />
 
-        <div className="reveal reveal-delay-3 mt-8 flex flex-wrap items-center justify-center gap-5">
+        <HeroScaleTicker />
+
+        <div className="reveal reveal-delay-3 mt-7 flex flex-wrap items-center justify-center gap-5">
           <a href="#download" className="btn-tech font-mono text-[12px]">
             <span>{t("hero.ctaDownload")}</span>
           </a>

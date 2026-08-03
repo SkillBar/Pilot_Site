@@ -17,17 +17,19 @@ type CountryCode =
   | "uy"
   | "ae"
   | "tr"
-  | "us";
+  | "us"
+  | "cn";
 
-type RegionId = "cis" | "latam" | "mena" | "na";
+type RegionId = "cis" | "latam" | "mena" | "na" | "asia";
 
 type DistRow = {
   code: CountryCode;
   region: RegionId;
   nameKey: MessageKey;
   cityKey?: MessageKey;
-  /** Potential points; null = уточняется */
-  potential: number | null;
+  /** Product points; null = уточняется */
+  pilot: number | null;
+  unior: number | null;
   flag: string[];
 };
 
@@ -36,84 +38,96 @@ const ROWS: DistRow[] = [
     code: "ru",
     region: "cis",
     nameKey: "distribution.countries.ru",
-    potential: 10,
+    pilot: 10,
+    unior: 40,
     flag: ["#FFFFFF", "#0039A6", "#D52B1E"],
   },
   {
     code: "by",
     region: "cis",
     nameKey: "distribution.countries.by",
-    potential: 5,
+    pilot: 2,
+    unior: 10,
     flag: ["#FFFFFF", "#00966E", "#D22730"],
   },
   {
     code: "kz",
     region: "cis",
     nameKey: "distribution.countries.kz",
-    potential: 10,
+    pilot: 2,
+    unior: 10,
     flag: ["#00AFCA", "#FEC50C"],
   },
   {
     code: "am",
     region: "cis",
     nameKey: "distribution.countries.am",
-    potential: 2,
+    pilot: 1,
+    unior: 3,
     flag: ["#D90012", "#0033A0", "#F2A800"],
   },
   {
     code: "kg",
     region: "cis",
     nameKey: "distribution.countries.kg",
-    potential: 1,
+    pilot: 1,
+    unior: 3,
     flag: ["#E8112D", "#FFFFFF", "#000000"],
   },
   {
     code: "uz",
     region: "cis",
     nameKey: "distribution.countries.uz",
-    potential: 4,
+    pilot: 1,
+    unior: 4,
     flag: ["#1EB53A", "#0099B5", "#CE1126", "#FFFFFF"],
   },
   {
     code: "br",
     region: "latam",
     nameKey: "distribution.countries.br",
-    potential: null,
+    pilot: 2,
+    unior: 6,
     flag: ["#009C3B", "#FFDF00", "#002776"],
   },
   {
     code: "sv",
     region: "latam",
     nameKey: "distribution.countries.sv",
-    potential: null,
+    pilot: 1,
+    unior: 3,
     flag: ["#0047AB", "#FFFFFF"],
   },
   {
     code: "ar",
     region: "latam",
     nameKey: "distribution.countries.ar",
-    potential: null,
+    pilot: 1,
+    unior: 3,
     flag: ["#74ACDF", "#FFFFFF", "#F6B40E"],
   },
   {
     code: "uy",
     region: "latam",
     nameKey: "distribution.countries.uy",
-    potential: null,
+    pilot: 1,
+    unior: 3,
     flag: ["#0038A8", "#FFFFFF"],
   },
   {
     code: "ae",
     region: "mena",
     nameKey: "distribution.countries.ae",
-    potential: null,
+    pilot: null,
+    unior: null,
     flag: ["#00732F", "#FFFFFF", "#FF0000", "#000000"],
   },
   {
     code: "tr",
     region: "mena",
     nameKey: "distribution.countries.tr",
-    potential: null,
+    pilot: 4,
+    unior: 10,
     flag: ["#E30A17", "#FFFFFF"],
   },
   {
@@ -121,25 +135,51 @@ const ROWS: DistRow[] = [
     region: "na",
     nameKey: "distribution.countries.us",
     cityKey: "distribution.cities.la",
-    potential: null,
+    pilot: 20,
+    unior: 100,
     flag: ["#B22234", "#FFFFFF", "#3C3B6E"],
+  },
+  {
+    code: "cn",
+    region: "asia",
+    nameKey: "distribution.countries.cn",
+    pilot: 20,
+    unior: 100,
+    flag: ["#DE2910"],
   },
 ];
 
-const REGION_ORDER: RegionId[] = ["cis", "latam", "mena", "na"];
+const REGION_ORDER: RegionId[] = ["cis", "asia", "mena", "na", "latam"];
 
 const REGION_KEYS: Record<RegionId, MessageKey> = {
   cis: "distribution.regions.cis",
   latam: "distribution.regions.latam",
   mena: "distribution.regions.mena",
   na: "distribution.regions.na",
+  asia: "distribution.regions.asia",
 };
+
+function rowScore(row: DistRow) {
+  return (row.pilot ?? 0) + (row.unior ?? 0);
+}
 
 function CountryFlag({ colors, code }: { colors: string[]; code: CountryCode }) {
   if (code === "tr") {
     return (
       <span className="dist-flag dist-flag--tr" aria-hidden>
         <span className="dist-flag-crescent" />
+      </span>
+    );
+  }
+
+  if (code === "cn") {
+    return (
+      <span className="dist-flag dist-flag--cn" aria-hidden>
+        <span className="dist-flag-cn-star dist-flag-cn-star--lg" />
+        <span className="dist-flag-cn-star dist-flag-cn-star--s1" />
+        <span className="dist-flag-cn-star dist-flag-cn-star--s2" />
+        <span className="dist-flag-cn-star dist-flag-cn-star--s3" />
+        <span className="dist-flag-cn-star dist-flag-cn-star--s4" />
       </span>
     );
   }
@@ -173,6 +213,14 @@ export function MarketDistributionSection() {
   const t = useTranslations();
   const pending = t("distribution.pending");
 
+  const totals = ROWS.reduce(
+    (acc, row) => ({
+      pilot: acc.pilot + (row.pilot ?? 0),
+      unior: acc.unior + (row.unior ?? 0),
+    }),
+    { pilot: 0, unior: 0 },
+  );
+
   let rank = 0;
 
   return (
@@ -205,12 +253,6 @@ export function MarketDistributionSection() {
               <span className="dist-cell dist-cell--num">
                 {t("distribution.colUnior")}
               </span>
-              <span className="dist-cell dist-cell--num">
-                {t("distribution.colLauncher")}
-              </span>
-              <span className="dist-cell dist-cell--num dist-cell--total">
-                {t("distribution.colPotential")}
-              </span>
             </div>
 
             <div
@@ -220,7 +262,7 @@ export function MarketDistributionSection() {
             >
               {REGION_ORDER.map((region) => {
                 const rows = ROWS.filter((row) => row.region === region).sort(
-                  (a, b) => (b.potential ?? -1) - (a.potential ?? -1),
+                  (a, b) => rowScore(b) - rowScore(a),
                 );
 
                 if (rows.length === 0) return null;
@@ -234,7 +276,6 @@ export function MarketDistributionSection() {
                     {rows.map((row) => {
                       rank += 1;
                       const rankLabel = String(rank).padStart(2, "0");
-                      const potentialLabel = formatValue(row.potential, pending);
 
                       return (
                         <div key={row.code} className="dist-row" role="row">
@@ -253,21 +294,19 @@ export function MarketDistributionSection() {
                               ) : null}
                             </span>
                           </span>
-                          <span className="dist-cell dist-cell--num dist-cell--muted">
-                            {pending}
-                          </span>
-                          <span className="dist-cell dist-cell--num dist-cell--muted">
-                            {pending}
-                          </span>
-                          <span className="dist-cell dist-cell--num dist-cell--muted">
-                            {pending}
-                          </span>
                           <span
-                            className={`dist-cell dist-cell--num dist-cell--total${
-                              row.potential === null ? " dist-cell--muted" : ""
+                            className={`dist-cell dist-cell--num${
+                              row.pilot === null ? " dist-cell--muted" : ""
                             }`}
                           >
-                            {potentialLabel}
+                            {formatValue(row.pilot, pending)}
+                          </span>
+                          <span
+                            className={`dist-cell dist-cell--num${
+                              row.unior === null ? " dist-cell--muted" : ""
+                            }`}
+                          >
+                            {formatValue(row.unior, pending)}
                           </span>
                         </div>
                       );
@@ -275,6 +314,18 @@ export function MarketDistributionSection() {
                   </div>
                 );
               })}
+
+              <div className="dist-row dist-row--total" role="row">
+                <PlusMarks className="dist-plus dist-plus--row" />
+                <span className="dist-cell dist-cell--rank">Σ</span>
+                <span className="dist-cell dist-cell--country">
+                  <span className="dist-country-text">
+                    <span>{t("distribution.total")}</span>
+                  </span>
+                </span>
+                <span className="dist-cell dist-cell--num">{totals.pilot}</span>
+                <span className="dist-cell dist-cell--num">{totals.unior}</span>
+              </div>
             </div>
           </div>
         </div>

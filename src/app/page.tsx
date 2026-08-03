@@ -5,9 +5,30 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { PartnersStrip } from "@/components/PartnersStrip";
 
+const PhygitalSection = dynamic(
+  () => import("@/components/PhygitalSection").then((m) => m.PhygitalSection),
+  { loading: () => <SectionSkeleton /> },
+);
+const BentoSection = dynamic(
+  () => import("@/components/BentoSection").then((m) => m.BentoSection),
+  { loading: () => <SectionSkeleton /> },
+);
+const AudienceSection = dynamic(
+  () => import("@/components/AudienceSection").then((m) => m.AudienceSection),
+  { loading: () => <SectionSkeleton /> },
+);
+const CompaniesSection = dynamic(
+  () => import("@/components/CompaniesSection").then((m) => m.CompaniesSection),
+  { loading: () => <SectionSkeleton /> },
+);
 const BusinessTracksSection = dynamic(
   () =>
     import("@/components/BusinessTracksSection").then((m) => m.BusinessTracksSection),
+  { loading: () => <SectionSkeleton /> },
+);
+const SubscriptionSection = dynamic(
+  () =>
+    import("@/components/SubscriptionSection").then((m) => m.SubscriptionSection),
   { loading: () => <SectionSkeleton /> },
 );
 const AnatomySection = dynamic(
@@ -20,6 +41,31 @@ const TechStackSection = dynamic(
 );
 const TeamSection = dynamic(
   () => import("@/components/TeamSection").then((m) => m.TeamSection),
+  { loading: () => <SectionSkeleton /> },
+);
+const BusinessModelSection = dynamic(
+  () =>
+    import("@/components/BusinessModelSection").then(
+      (m) => m.BusinessModelSection,
+    ),
+  { loading: () => <SectionSkeleton /> },
+);
+const CapTableSection = dynamic(
+  () => import("@/components/CapTableSection").then((m) => m.CapTableSection),
+  { loading: () => <SectionSkeleton /> },
+);
+const ArenaPanelSection = dynamic(
+  () =>
+    import("@/components/ArenaPanelSection").then((m) => m.ArenaPanelSection),
+  { loading: () => <SectionSkeleton /> },
+);
+const OrgStructureSection = dynamic(
+  () =>
+    import("@/components/OrgStructureSection").then((m) => m.OrgStructureSection),
+  { loading: () => <SectionSkeleton /> },
+);
+const RoadmapSection = dynamic(
+  () => import("@/components/RoadmapSection").then((m) => m.RoadmapSection),
   { loading: () => <SectionSkeleton /> },
 );
 const MarketSection = dynamic(
@@ -62,11 +108,21 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <PartnersStrip />
+        <PhygitalSection />
+        <BentoSection />
+        <AudienceSection />
+        <CompaniesSection />
         <DownloadSection />
         <BusinessTracksSection />
+        <SubscriptionSection />
+        <ArenaPanelSection />
         <AnatomySection />
         <TechStackSection />
         <TeamSection />
+        <BusinessModelSection />
+        <CapTableSection />
+        <OrgStructureSection />
+        <RoadmapSection />
         <MarketSection />
         <WorldMapSection />
         <MarketDistributionSection />

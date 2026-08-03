@@ -14,11 +14,7 @@ export function Header() {
 
   const primaryNav = [
     { href: "#about", label: t("header.navProject") },
-    { href: "#download", label: t("header.navLauncher") },
-    { href: "#tracks", label: t("header.navTracks") },
-    { href: "#system", label: t("header.navSystem") },
-    { href: "#stack", label: t("header.navStack") },
-    { href: "#team", label: t("header.navTeam") },
+    { href: "#bento", label: t("header.navBento") },
     { href: "#investors", label: t("header.navInvestors") },
   ];
   const activeNavIndex = Math.max(
@@ -61,15 +57,7 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const ids = [
-      "about",
-      "download",
-      "tracks",
-      "system",
-      "stack",
-      "team",
-      "investors",
-    ];
+    const ids = ["about", "bento", "investors"];
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);

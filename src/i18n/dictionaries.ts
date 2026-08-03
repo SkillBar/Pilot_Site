@@ -25,11 +25,15 @@ export type Dictionary = {
     games: string;
     apps: string;
     navProject: string;
+    navBento: string;
     navSystem: string;
     navTracks: string;
     navLauncher: string;
     navStack: string;
     navTeam: string;
+    navModel: string;
+    navCapTable: string;
+    navRoadmap: string;
     navInvestors: string;
   };
   hero: {
@@ -38,6 +42,7 @@ export type Dictionary = {
     description: string;
     ctaDownload: string;
     ctaInvestors: string;
+    scalesAria: string;
     platformsAria: string;
     platformApple: string;
     platformWindows: string;
@@ -47,6 +52,191 @@ export type Dictionary = {
     aria: string;
     official: string;
     partners: string;
+  };
+  companies: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    logoSlot: string;
+    partnerLabel: string;
+  };
+  arenaPanel: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    captions: {
+      hero: string;
+      plan: string;
+      cut: string;
+      moduleTrack: string;
+      moduleDyn: string;
+      feedNote: string;
+      carsScale: string;
+      carsSlot: string;
+    };
+    kickers: {
+      params: string;
+      feed: string;
+      zones: string;
+      kit: string;
+    };
+    specs: {
+      formatK: string;
+      formatV: string;
+      fpvK: string;
+      fpvV: string;
+      controlK: string;
+      controlV: string;
+      viewersK: string;
+      viewersV: string;
+    };
+    kit: {
+      frame: string;
+      cover: string;
+      barriers: string;
+      light: string;
+      cameras: string;
+      radio: string;
+    };
+    zones: {
+      z1: string;
+      z2: string;
+      z3: string;
+      z4: string;
+      z5: string;
+      z6: string;
+    };
+  };
+  orgStructure: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    badge: string;
+    companyTag: string;
+    tierTop: string;
+    tierBranch: string;
+    nodes: {
+      company: string;
+      pilot: string;
+      launcher: string;
+      unior: string;
+    };
+    tags: {
+      racing: string;
+      venues: string;
+      software: string;
+      telemetry: string;
+      education: string;
+      kids: string;
+    };
+  };
+  phygital: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    physical: string;
+    digital: string;
+    merge: string;
+  };
+  bento: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    modes: {
+      drift: string;
+      formula: string;
+      city: string;
+      free: string;
+    };
+    platforms: {
+      pc: string;
+      mobile: string;
+      vr: string;
+      kiosk: string;
+    };
+    cards: {
+      universe: { title: string; text: string };
+      modes: { title: string };
+      physics: { title: string; text: string };
+      platforms: { title: string };
+      build: { title: string; text: string };
+      friends: { title: string; text: string };
+      raceControl: {
+        title: string;
+        leaderboard: string;
+        circuit: string;
+      };
+      tracks: { title: string; text: string };
+      tech: { title: string; text: string };
+    };
+    advantages: {
+      eyebrow: string;
+      title: string;
+      media: string;
+      unique: { title: string; text: string };
+      ar: { title: string; text: string };
+      map: { title: string; text: string };
+      app: { title: string; text: string };
+      boards: { title: string; text: string };
+      production: { title: string; text: string };
+    };
+  };
+  audience: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    segments: {
+      kids: { title: string; text: string; tag: string };
+      gamers: { title: string; text: string };
+      teens: { title: string; text: string };
+      growth: { title: string; text: string };
+      thinkers: { title: string; text: string };
+      racing: { title: string; text: string };
+      cars: { title: string; text: string };
+    };
+    everyone: { title: string; text: string };
+  };
+  subscription: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    popular: string;
+    cta: string;
+    pilotBoard: {
+      kicker: string;
+      colTime: string;
+      colSolo: string;
+      colPerMin: string;
+      colDuo: string;
+      colSave: string;
+      minutes: string;
+      hit: string;
+    };
+    uniorBoard: {
+      kicker: string;
+      minutes: string;
+      solo: string;
+      withParent: string;
+    };
+    plans: {
+      unior: {
+        name: string;
+        info: string;
+      };
+      pilot: {
+        name: string;
+        info: string;
+      };
+      launcher: {
+        name: string;
+        info: string;
+        period: string;
+        f1: string;
+        f2: string;
+        f3: string;
+        f4: string;
+      };
+    };
   };
   anatomy: {
     eyebrow: string;
@@ -155,14 +345,14 @@ export type Dictionary = {
     colCountry: string;
     colPilot: string;
     colUnior: string;
-    colLauncher: string;
-    colPotential: string;
+    total: string;
     pending: string;
     regions: {
       cis: string;
       latam: string;
       mena: string;
       na: string;
+      asia: string;
     };
     cities: {
       la: string;
@@ -181,6 +371,79 @@ export type Dictionary = {
       ae: string;
       tr: string;
       us: string;
+      cn: string;
+    };
+  };
+  businessModel: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    streams: {
+      hardware: { title: string; text: string; tag: string };
+      unior: { title: string; text: string; tag: string };
+      software: { title: string; text: string; tag: string };
+      media: { title: string; text: string; tag: string };
+    };
+  };
+  capTable: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    colHolder: string;
+    colRole: string;
+    colShare: string;
+    total: string;
+    pending: string;
+    note: string;
+    holders: {
+      esop: string;
+      reserve: string;
+    };
+    roles: {
+      founder: string;
+      hardware: string;
+      game: string;
+      esop: string;
+      reserve: string;
+    };
+  };
+  roadmap: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    phases: {
+      now: {
+        title: string;
+        text: string;
+        item1: string;
+        item2: string;
+        item3: string;
+        item4: string;
+      };
+      scale: {
+        title: string;
+        text: string;
+        item1: string;
+        item2: string;
+        item3: string;
+        item4: string;
+      };
+      global: {
+        title: string;
+        text: string;
+        item1: string;
+        item2: string;
+        item3: string;
+        item4: string;
+      };
+      network: {
+        title: string;
+        text: string;
+        item1: string;
+        item2: string;
+        item3: string;
+        item4: string;
+      };
     };
   };
   investors: {
@@ -245,11 +508,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
       games: "Игры",
       apps: "Приложения",
       navProject: "Проект",
+      navBento: "Вселенная",
       navSystem: "Система",
       navTracks: "Линейки",
       navLauncher: "Лаунчер",
       navStack: "Стек",
       navTeam: "Команда",
+      navModel: "Модель",
+      navCapTable: "Cap Table",
+      navRoadmap: "Roadmap",
       navInvestors: "Инвесторам",
     },
     hero: {
@@ -259,6 +526,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "FPV-гонки в реальном мире на мини-тачках. Один лаунчер — вход в трассу, телеметрию и сеть пилотов.",
       ctaDownload: "Скачать лаунчер",
       ctaInvestors: "Для инвесторов",
+      scalesAria: "Масштабы машин",
       platformsAria: "Доступные платформы",
       platformApple: "Apple",
       platformWindows: "Windows",
@@ -268,6 +536,261 @@ export const dictionaries: Record<Locale, Dictionary> = {
       aria: "Партнёры проекта",
       official: "Official",
       partners: "Partners",
+    },
+    companies: {
+      eyebrow: "// PARTNERS",
+      title: "Компании, с которыми мы работаем",
+      description:
+        "Экосистема вокруг Pilot: продуктовые, технологические и операционные партнёры.",
+      logoSlot: "Логотип",
+      partnerLabel: "Партнёр экосистемы",
+    },
+    arenaPanel: {
+      eyebrow: "// ARENA_PANEL",
+      title: "Арена на панели",
+      description: "Общий вид, схемы, параметры и зоны арены.",
+      captions: {
+        hero: "Ключевой ракурс · арена в сборе",
+        plan: "План · траектория / зоны",
+        cut: "Разрез · уровни FPV",
+        moduleTrack: "Модуль траектории",
+        moduleDyn: "Модуль динамики",
+        feedNote: "Отдельный кадр: свет, ночь, графика на трассе.",
+        carsScale: "Масштаб машин",
+        carsSlot: "Слот на треке",
+      },
+      kickers: {
+        params: "Параметры",
+        feed: "Подача картинки",
+        zones: "Зоны трека",
+        kit: "Состав комплекта",
+      },
+      specs: {
+        formatK: "Формат",
+        formatV: "слот / заезд",
+        fpvK: "FPV-линк",
+        fpvV: "целевая задержка",
+        controlK: "Управление",
+        controlV: "руль · интерфейс",
+        viewersK: "Зрители",
+        viewersV: "экран · шлем",
+      },
+      kit: {
+        frame: "Каркас",
+        cover: "Покрытие",
+        barriers: "Ограждения",
+        light: "Свет",
+        cameras: "Камеры",
+        radio: "Радиоконтур",
+      },
+      zones: {
+        z1: "Зона 1",
+        z2: "Зона 2",
+        z3: "Зона 3",
+        z4: "Зона 4",
+        z5: "Зона 5",
+        z6: "Зона 6",
+      },
+    },
+    orgStructure: {
+      eyebrow: "// STRUCTURE",
+      title: "Структура группы компаний",
+      description: "Компания PILOT и проекты внутри продуктовой линейки.",
+      badge: "Структура компаний",
+      companyTag: "Company",
+      tierTop: "Компания",
+      tierBranch: "Проекты и направления",
+      nodes: {
+        company: "Фиджитал-гоночная компания: трассы, софт и образовательные форматы.",
+        pilot: "Основной продукт: реальные FPV-гонки и арены.",
+        launcher: "Цифровой слой: лаунчер, телеметрия, рейтинги и сеть игроков.",
+        unior: "Образовательное направление для детей и школ.",
+      },
+      tags: {
+        racing: "Racing",
+        venues: "Arenas",
+        software: "Software",
+        telemetry: "Telemetry",
+        education: "Education",
+        kids: "Kids 3–10",
+      },
+    },
+    phygital: {
+      eyebrow: "// PHYGITAL",
+      title: "Два мира сходятся в одной точке",
+      description:
+        "Фиджитал-игры — это формат, где физический мир и цифра не конкурируют, а усиливают друг друга. Реальная трасса, настоящие машины и ощущения пилота встречаются с лаунчером, телеметрией, рейтингами и сетью игроков. Pilot соединяет их в одну точку: ты едешь вживую — и одновременно играешь в системе.",
+      physical: "Physical",
+      digital: "Digital",
+      merge: "Phygital",
+    },
+    bento: {
+      eyebrow: "// PILOT_UNIVERSE",
+      title: "Фиджитал гоночная вселенная",
+      description:
+        "Режимы, платформы, кастомизация и реальные трассы — в одном bento-обзоре продукта.",
+      modes: {
+        drift: "Drift",
+        formula: "Formula",
+        city: "City",
+        free: "Free Ride",
+      },
+      platforms: {
+        pc: "PC",
+        mobile: "Mobile",
+        vr: "VR",
+        kiosk: "Kiosk",
+      },
+      cards: {
+        universe: {
+          title: "Фиджитал гоночная вселенная",
+          text: "Реальные FPV-гонки на мини-машинах — спорт, игра и сеть пилотов.",
+        },
+        modes: {
+          title: "Выбирай свой режим",
+        },
+        physics: {
+          title: "Физика, которая впечатляет",
+          text: "Телеметрия, сцепление и отклик — ощущение настоящей трассы.",
+        },
+        platforms: {
+          title: "Cross-platform play",
+        },
+        build: {
+          title: "Создавай уникальный болид",
+          text: "Настройка внешнего вида и характера машины под свой стиль пилота.",
+        },
+        friends: {
+          title: "Гоняй вместе с друзьями",
+          text: "Общие заезды, рейтинги и сетка пилотов в одном лаунчере.",
+        },
+        raceControl: {
+          title: "Race control",
+          leaderboard: "Лидерборд",
+          circuit: "Карта трассы",
+        },
+        tracks: {
+          title: "Реальные трассы по всему миру",
+          text: "От СНГ до США и Китая — площадки, где гонки происходят live.",
+        },
+        tech: {
+          title: "Технологии сегодня — победы завтра",
+          text: "Computer Vision, link и grid — стек, который держит матч.",
+        },
+      },
+      advantages: {
+        eyebrow: "// ADVANTAGES",
+        title: "Преимущества",
+        media: "Место под изображение",
+        unique: {
+          title: "Нет аналогов в СНГ",
+          text: "Офлайн-формат с полным FPV-погружением — редкость для региона.",
+        },
+        ar: {
+          title: "AR в игре",
+          text: "Дополненная реальность усиливает заезд и восприятие трассы.",
+        },
+        map: {
+          title: "Бесконечная карта",
+          text: "Масштабируемое пространство без ощущения потолка контента.",
+        },
+        app: {
+          title: "Приложение",
+          text: "Клиент для расписания, прогресса, команды и сети пилотов.",
+        },
+        boards: {
+          title: "Лидерборды",
+          text: "Соревнование и командные сценарии держат вовлечение.",
+        },
+        production: {
+          title: "Своё производство",
+          text: "Полный цикл: от прототипа машинки до шоу на площадке.",
+        },
+      },
+    },
+    audience: {
+      eyebrow: "// TARGET_AUDIENCE",
+      title: "Целевая аудитория",
+      description:
+        "Pilot объединяет людей с разными интересами вокруг одного сильного опыта — управлять настоящей машиной как в игре.",
+      segments: {
+        kids: {
+          title: "Дети 3–10 лет",
+          text: "Безопасный первый опыт управления, игра и развитие реакции через реальные мини-гонки.",
+          tag: "Pilot Unior",
+        },
+        gamers: {
+          title: "Те, кто играл в VR",
+          text: "Игроки, которым нужен следующий уровень погружения — уже в реальном мире.",
+        },
+        teens: {
+          title: "Подростки",
+          text: "Соревнование, технологии и сообщество в понятном игровом формате.",
+        },
+        growth: {
+          title: "Саморазвитие",
+          text: "Навыки управления, концентрация, реакция и инженерное мышление.",
+        },
+        thinkers: {
+          title: "Интеллектуалы",
+          text: "Стратегия, телеметрия и поиск лучшей траектории на каждом круге.",
+        },
+        racing: {
+          title: "Любители гонок",
+          text: "Азарт старта, борьба за позицию и настоящий соревновательный драйв.",
+        },
+        cars: {
+          title: "Любители тачек",
+          text: "Техника, кастомизация и характер собственного гоночного болида.",
+        },
+      },
+      everyone: {
+        title: "И всем, кому это интересно",
+        text: "Pilot открыт каждому, кто хочет попробовать новый спорт на стыке реального и цифрового миров.",
+      },
+    },
+    subscription: {
+      eyebrow: "// ARENA",
+      title: "Подписка ARENA",
+      description:
+        "Тарифы на линейки Pilot, Pilot Unior и доступ к Launcher.",
+      popular: "Популярный",
+      cta: "Оставить заявку",
+      pilotBoard: {
+        kicker: "Раздел Pilot",
+        colTime: "Время",
+        colSolo: "Одиночная игра, ₽",
+        colPerMin: "Цена за минуту, ₽",
+        colDuo: "Игра вдвоём, ₽",
+        colSave: "Выгода, ₽",
+        minutes: "{n} минут",
+        hit: "Хит!",
+      },
+      uniorBoard: {
+        kicker: "Раздел Pilot Unior",
+        minutes: "{n} мин",
+        solo: "Одиночная игра",
+        withParent: "С родителем",
+      },
+      plans: {
+        unior: {
+          name: "Pilot Unior",
+          info: "Детский формат: 12 минут на трассе.",
+        },
+        pilot: {
+          name: "Pilot",
+          info: "Цены на заезды: одиночная игра и игра вдвоём.",
+        },
+        launcher: {
+          name: "Launcher",
+          info: "Цифровой клиент · ежемесячно",
+          period: "в месяц",
+          f1: "Клиент входа на трассу",
+          f2: "Телеметрия матчей",
+          f3: "Сеть пилотов и матчмейкинг",
+          f4: "Обновления и новые режимы",
+        },
+      },
     },
     anatomy: {
       eyebrow: "// CUTAWAY_VIEW",
@@ -430,18 +953,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
       eyebrow: "// MARKET_FOOTPRINT",
       title: "Рынок распространения",
       description:
-        "Потенциал точек Pilot / Unior / Launcher по странам. Разбивка по продуктам уточняется.",
+        "Потенциал точек Pilot и Pilot Unior по странам. Разбивка уточняется.",
       colCountry: "Страна",
       colPilot: "Pilot",
       colUnior: "Unior",
-      colLauncher: "Launcher",
-      colPotential: "Потенциал",
+      total: "Итого",
       pending: "—",
       regions: {
         cis: "СНГ",
         latam: "Латинская Америка",
         mena: "Ближний Восток",
         na: "Северная Америка",
+        asia: "Азия",
       },
       cities: {
         la: "Los Angeles",
@@ -460,6 +983,98 @@ export const dictionaries: Record<Locale, Dictionary> = {
         ae: "ОАЭ",
         tr: "Турция",
         us: "США",
+        cn: "Китай",
+      },
+    },
+    businessModel: {
+      eyebrow: "// BUSINESS_MODEL",
+      title: "Бизнес-модель",
+      description:
+        "Четыре потока выручки вокруг реальных FPV-гонок: железо, образование, софт и медиа.",
+      streams: {
+        hardware: {
+          title: "Железо и трассы",
+          text: "Продажа машин, трасс и комплектов площадкам, клубам и партнёрам. Разовый CAPEX с повторяемыми апгрейдами.",
+          tag: "Hardware",
+        },
+        unior: {
+          title: "Pilot Unior",
+          text: "Лицензии и программы для школ и вузов: образование как масштабируемый B2B/B2G канал.",
+          tag: "Education",
+        },
+        software: {
+          title: "Launcher и сеть",
+          text: "Клиент входа, телеметрия, матчи и доступ к сети пилотов — подписки и комиссия с активности.",
+          tag: "Software",
+        },
+        media: {
+          title: "Медиа и ивенты",
+          text: "Трансляции, спонсорство и турниры: внимание аудитории конвертируется в партнёрский revenue.",
+          tag: "Media",
+        },
+      },
+    },
+    capTable: {
+      eyebrow: "// CAP_TABLE",
+      title: "Cap Table",
+      description:
+        "Предварительная структура долей команды и резервов. Финальный сплит уточняется перед раундом.",
+      colHolder: "Держатель",
+      colRole: "Роль",
+      colShare: "Доля",
+      total: "Итого",
+      pending: "—",
+      note: "Illustrative · pre-round · subject to term sheet",
+      holders: {
+        esop: "Team ESOP",
+        reserve: "Reserve",
+      },
+      roles: {
+        founder: "Founder / CEO",
+        hardware: "Hardware Lead",
+        game: "Game Lead",
+        esop: "Опционный пул команды",
+        reserve: "Резерв под раунд",
+      },
+    },
+    roadmap: {
+      eyebrow: "// ROADMAP",
+      title: "Roadmap",
+      description:
+        "От первых трасс и лаунчера — к глобальной сети пилотов, образованию и медиа.",
+      phases: {
+        now: {
+          title: "Now",
+          text: "Запуск продукта и первые живые площадки.",
+          item1: "Pilot Launcher для Windows / macOS / Linux",
+          item2: "Пилотные трассы в СНГ",
+          item3: "Телеметрия матчей и базовая сетка пилотов",
+          item4: "Инвест-дек и партнёрский канал",
+        },
+        scale: {
+          title: "2026 H1",
+          text: "Масштабирование железа и образовательного трека.",
+          item1: "Серийное производство машин и комплектов трасс",
+          item2: "Pilot Unior: пилоты со школами и вузами",
+          item3: "Выход в LatAm (Бразилия и хабы)",
+          item4: "Партнёрская сеть операторов площадок",
+        },
+        global: {
+          title: "2026 H2",
+          text: "Крупные рынки и медиа-слой вокруг гонок.",
+          item1: "США / Los Angeles — флагманский хаб",
+          item2: "Китай: локальный партнёр и поставки",
+          item3: "Трансляции, спонсорства и турнирный календарь",
+          item4: "Подписки и комиссия в Launcher-сети",
+        },
+        network: {
+          title: "2027+",
+          text: "Глобальная лига и экосистема вокруг Pilot.",
+          item1: "Международный чемпионат и сезонный рейтинг",
+          item2: "Franchise-модель площадок",
+          item3: "Полный стек: CV / link / grid в проде",
+          item4: "Сетевой эффект: пилоты ↔ площадки ↔ медиа",
+        },
       },
     },
     investors: {
@@ -523,11 +1138,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
       games: "Games",
       apps: "Apps",
       navProject: "Project",
+      navBento: "Universe",
       navSystem: "System",
       navTracks: "Lines",
       navLauncher: "Launcher",
       navStack: "Stack",
       navTeam: "Team",
+      navModel: "Model",
+      navCapTable: "Cap Table",
+      navRoadmap: "Roadmap",
       navInvestors: "Investors",
     },
     hero: {
@@ -537,6 +1156,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "FPV racing in the real world on mini cars. One launcher — entry to the track, telemetry, and the pilot network.",
       ctaDownload: "Download launcher",
       ctaInvestors: "For investors",
+      scalesAria: "Car scales",
       platformsAria: "Available platforms",
       platformApple: "Apple",
       platformWindows: "Windows",
@@ -546,6 +1166,260 @@ export const dictionaries: Record<Locale, Dictionary> = {
       aria: "Project partners",
       official: "Official",
       partners: "Partners",
+    },
+    companies: {
+      eyebrow: "// PARTNERS",
+      title: "Companies we work with",
+      description:
+        "The Pilot ecosystem: product, technology, and operations partners.",
+      logoSlot: "Logo",
+      partnerLabel: "Ecosystem partner",
+    },
+    arenaPanel: {
+      eyebrow: "// ARENA_PANEL",
+      title: "Arena on the board",
+      description: "Overview, schematics, specs, and track zones.",
+      captions: {
+        hero: "Hero angle · full arena",
+        plan: "Plan · trajectory / zones",
+        cut: "Section · FPV levels",
+        moduleTrack: "Trajectory module",
+        moduleDyn: "Dynamics module",
+        feedNote: "Separate frame: light, night, track graphics.",
+        carsScale: "Car scale",
+        carsSlot: "Track slot",
+      },
+      kickers: {
+        params: "Specs",
+        feed: "Picture feed",
+        zones: "Track zones",
+        kit: "Kit contents",
+      },
+      specs: {
+        formatK: "Format",
+        formatV: "slot / heat",
+        fpvK: "FPV link",
+        fpvV: "target latency",
+        controlK: "Controls",
+        controlV: "wheel · UI",
+        viewersK: "Spectators",
+        viewersV: "screen · headset",
+      },
+      kit: {
+        frame: "Frame",
+        cover: "Surface",
+        barriers: "Barriers",
+        light: "Lighting",
+        cameras: "Cameras",
+        radio: "Radio loop",
+      },
+      zones: {
+        z1: "Zone 1",
+        z2: "Zone 2",
+        z3: "Zone 3",
+        z4: "Zone 4",
+        z5: "Zone 5",
+        z6: "Zone 6",
+      },
+    },
+    orgStructure: {
+      eyebrow: "// STRUCTURE",
+      title: "Group company structure",
+      description: "PILOT company and the projects inside the product line.",
+      badge: "Company structure",
+      companyTag: "Company",
+      tierTop: "Company",
+      tierBranch: "Projects & directions",
+      nodes: {
+        company: "Phygital racing company: tracks, software, and education formats.",
+        pilot: "Core product: real FPV racing and arenas.",
+        launcher: "Digital layer: launcher, telemetry, rankings, and player network.",
+        unior: "Education vertical for kids and schools.",
+      },
+      tags: {
+        racing: "Racing",
+        venues: "Arenas",
+        software: "Software",
+        telemetry: "Telemetry",
+        education: "Education",
+        kids: "Kids 3–10",
+      },
+    },
+    phygital: {
+      eyebrow: "// PHYGITAL",
+      title: "Two worlds meet at one point",
+      description:
+        "Phygital games are a format where the physical world and digital layer don’t compete — they amplify each other. A real track, real cars, and real pilot feel meet the launcher, telemetry, rankings, and player network. Pilot brings them to one point: you race live — and play inside the system at the same time.",
+      physical: "Physical",
+      digital: "Digital",
+      merge: "Phygital",
+    },
+    bento: {
+      eyebrow: "// PILOT_UNIVERSE",
+      title: "Phygital racing universe",
+      description:
+        "Modes, platforms, customization, and real tracks — a bento overview of Pilot.",
+      modes: {
+        drift: "Drift",
+        formula: "Formula",
+        city: "City",
+        free: "Free Ride",
+      },
+      platforms: {
+        pc: "PC",
+        mobile: "Mobile",
+        vr: "VR",
+        kiosk: "Kiosk",
+      },
+      cards: {
+        universe: {
+          title: "Phygital racing universe",
+          text: "Real-life FPV racing on mini cars — sport, play, and a pilot network.",
+        },
+        modes: {
+          title: "Choose your mode",
+        },
+        physics: {
+          title: "Physics that impress",
+          text: "Telemetry, grip, and response — the feel of a real track.",
+        },
+        platforms: {
+          title: "Cross-platform play",
+        },
+        build: {
+          title: "Build a unique car",
+          text: "Tune look and handling to match your pilot style.",
+        },
+        friends: {
+          title: "Race with friends",
+          text: "Shared races, rankings, and the pilot grid in one launcher.",
+        },
+        raceControl: {
+          title: "Race control",
+          leaderboard: "Leaderboard",
+          circuit: "Circuit map",
+        },
+        tracks: {
+          title: "Real tracks worldwide",
+          text: "From CIS to the USA and China — venues where races go live.",
+        },
+        tech: {
+          title: "Tech today — wins tomorrow",
+          text: "Computer Vision, link, and grid — the stack that holds the match.",
+        },
+      },
+      advantages: {
+        eyebrow: "// ADVANTAGES",
+        title: "Advantages",
+        media: "Image placeholder",
+        unique: {
+          title: "No CIS offline peers",
+          text: "An offline FPV immersion format that is rare for the region.",
+        },
+        ar: {
+          title: "In-game AR",
+          text: "Augmented reality elevates the race and track perception.",
+        },
+        map: {
+          title: "Endless map",
+          text: "Scalable play space without a content ceiling feel.",
+        },
+        app: {
+          title: "App layer",
+          text: "Client for schedule, progress, teams, and the pilot network.",
+        },
+        boards: {
+          title: "Leaderboards",
+          text: "Competition and team modes that keep retention high.",
+        },
+        production: {
+          title: "Own production",
+          text: "Full cycle — from car prototype to a live venue show.",
+        },
+      },
+    },
+    audience: {
+      eyebrow: "// TARGET_AUDIENCE",
+      title: "Target audience",
+      description:
+        "Pilot brings different interests together around one powerful experience — driving a real car like a game.",
+      segments: {
+        kids: {
+          title: "Kids 3–10",
+          text: "A safe first driving experience — play and reaction skills through real mini racing.",
+          tag: "Pilot Unior",
+        },
+        gamers: {
+          title: "VR players",
+          text: "Players looking for the next level of immersion — now in the real world.",
+        },
+        teens: {
+          title: "Teenagers",
+          text: "Competition, technology, and community in a familiar game format.",
+        },
+        growth: {
+          title: "Self-development",
+          text: "Control skills, focus, reaction, and engineering thinking.",
+        },
+        thinkers: {
+          title: "Thinkers",
+          text: "Strategy, telemetry, and the search for the best line on every lap.",
+        },
+        racing: {
+          title: "Racing fans",
+          text: "Start-line tension, position battles, and real competitive drive.",
+        },
+        cars: {
+          title: "Car enthusiasts",
+          text: "Technology, customization, and the character of your own race car.",
+        },
+      },
+      everyone: {
+        title: "And everyone curious",
+        text: "Pilot is open to anyone who wants to try a new sport where physical and digital worlds meet.",
+      },
+    },
+    subscription: {
+      eyebrow: "// ARENA",
+      title: "ARENA subscription",
+      description: "Plans for Pilot, Pilot Unior, and Launcher access.",
+      popular: "Popular",
+      cta: "Apply now",
+      pilotBoard: {
+        kicker: "Pilot section",
+        colTime: "Time",
+        colSolo: "Single play, ₽",
+        colPerMin: "Per minute, ₽",
+        colDuo: "Two players, ₽",
+        colSave: "Savings, ₽",
+        minutes: "{n} minutes",
+        hit: "Hit!",
+      },
+      uniorBoard: {
+        kicker: "Pilot Unior section",
+        minutes: "{n} min",
+        solo: "Single play",
+        withParent: "With a parent",
+      },
+      plans: {
+        unior: {
+          name: "Pilot Unior",
+          info: "Kids format: 12 minutes on track.",
+        },
+        pilot: {
+          name: "Pilot",
+          info: "Session prices: solo and duo races.",
+        },
+        launcher: {
+          name: "Launcher",
+          info: "Digital client · monthly",
+          period: "per month",
+          f1: "Track entry client",
+          f2: "Match telemetry",
+          f3: "Pilot network and matchmaking",
+          f4: "Updates and new modes",
+        },
+      },
     },
     anatomy: {
       eyebrow: "// CUTAWAY_VIEW",
@@ -708,18 +1582,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
       eyebrow: "// MARKET_FOOTPRINT",
       title: "Market footprint",
       description:
-        "Potential Pilot / Unior / Launcher points by country. Product split TBD.",
+        "Potential Pilot and Pilot Unior points by country. Split TBD.",
       colCountry: "Country",
       colPilot: "Pilot",
       colUnior: "Unior",
-      colLauncher: "Launcher",
-      colPotential: "Potential",
+      total: "Total",
       pending: "—",
       regions: {
         cis: "CIS",
         latam: "Latin America",
         mena: "Middle East",
         na: "North America",
+        asia: "Asia",
       },
       cities: {
         la: "Los Angeles",
@@ -738,6 +1612,98 @@ export const dictionaries: Record<Locale, Dictionary> = {
         ae: "UAE",
         tr: "Turkey",
         us: "USA",
+        cn: "China",
+      },
+    },
+    businessModel: {
+      eyebrow: "// BUSINESS_MODEL",
+      title: "Business model",
+      description:
+        "Four revenue streams around real-life FPV racing: hardware, education, software, and media.",
+      streams: {
+        hardware: {
+          title: "Hardware & tracks",
+          text: "Cars, tracks, and kits sold to venues, clubs, and partners. One-time CAPEX with recurring upgrades.",
+          tag: "Hardware",
+        },
+        unior: {
+          title: "Pilot Unior",
+          text: "Licenses and programs for schools and universities — education as a scalable B2B/B2G channel.",
+          tag: "Education",
+        },
+        software: {
+          title: "Launcher & network",
+          text: "Entry client, telemetry, matches, and pilot network access — subscriptions and activity fees.",
+          tag: "Software",
+        },
+        media: {
+          title: "Media & events",
+          text: "Broadcasts, sponsorships, and tournaments: audience attention converted into partner revenue.",
+          tag: "Media",
+        },
+      },
+    },
+    capTable: {
+      eyebrow: "// CAP_TABLE",
+      title: "Cap Table",
+      description:
+        "Preliminary ownership for the team and reserves. Final split locks before the round.",
+      colHolder: "Holder",
+      colRole: "Role",
+      colShare: "Share",
+      total: "Total",
+      pending: "—",
+      note: "Illustrative · pre-round · subject to term sheet",
+      holders: {
+        esop: "Team ESOP",
+        reserve: "Reserve",
+      },
+      roles: {
+        founder: "Founder / CEO",
+        hardware: "Hardware Lead",
+        game: "Game Lead",
+        esop: "Team option pool",
+        reserve: "Round reserve",
+      },
+    },
+    roadmap: {
+      eyebrow: "// ROADMAP",
+      title: "Roadmap",
+      description:
+        "From first tracks and the launcher to a global pilot network, education, and media.",
+      phases: {
+        now: {
+          title: "Now",
+          text: "Product launch and the first live venues.",
+          item1: "Pilot Launcher for Windows / macOS / Linux",
+          item2: "Pilot tracks across the CIS",
+          item3: "Match telemetry and a basic pilot grid",
+          item4: "Investor deck and partner channel",
+        },
+        scale: {
+          title: "2026 H1",
+          text: "Scale hardware and the education track.",
+          item1: "Serial production of cars and track kits",
+          item2: "Pilot Unior pilots with schools and universities",
+          item3: "LatAm expansion (Brazil and hubs)",
+          item4: "Partner network of venue operators",
+        },
+        global: {
+          title: "2026 H2",
+          text: "Major markets and a media layer around racing.",
+          item1: "USA / Los Angeles flagship hub",
+          item2: "China: local partner and supply",
+          item3: "Broadcasts, sponsorships, and tournament calendar",
+          item4: "Subscriptions and fees in the Launcher network",
+        },
+        network: {
+          title: "2027+",
+          text: "A global league and ecosystem around Pilot.",
+          item1: "International championship and seasonal ranking",
+          item2: "Venue franchise model",
+          item3: "Full stack live: CV / link / grid",
+          item4: "Network effects: pilots ↔ venues ↔ media",
+        },
       },
     },
     investors: {
@@ -801,11 +1767,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
       games: "Spiele",
       apps: "Apps",
       navProject: "Projekt",
+      navBento: "Universum",
       navSystem: "System",
       navTracks: "Linien",
       navLauncher: "Launcher",
       navStack: "Stack",
       navTeam: "Team",
+      navModel: "Modell",
+      navCapTable: "Cap Table",
+      navRoadmap: "Roadmap",
       navInvestors: "Investoren",
     },
     hero: {
@@ -815,6 +1785,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "FPV-Rennen in der realen Welt mit Mini-Autos. Ein Launcher — Zugang zur Strecke, Telemetrie und dem Pilotennetzwerk.",
       ctaDownload: "Launcher laden",
       ctaInvestors: "Für Investoren",
+      scalesAria: "Auto-Maßstäbe",
       platformsAria: "Verfügbare Plattformen",
       platformApple: "Apple",
       platformWindows: "Windows",
@@ -824,6 +1795,260 @@ export const dictionaries: Record<Locale, Dictionary> = {
       aria: "Projektpartner",
       official: "Official",
       partners: "Partners",
+    },
+    companies: {
+      eyebrow: "// PARTNERS",
+      title: "Unternehmen, mit denen wir arbeiten",
+      description:
+        "Das Pilot-Ökosystem: Produkt-, Technologie- und Operations-Partner.",
+      logoSlot: "Logo",
+      partnerLabel: "Ökosystem-Partner",
+    },
+    arenaPanel: {
+      eyebrow: "// ARENA_PANEL",
+      title: "Arena auf dem Board",
+      description: "Gesamtansicht, Schemata, Parameter und Streckenzonen.",
+      captions: {
+        hero: "Hauptansicht · Arena komplett",
+        plan: "Plan · Trajektorie / Zonen",
+        cut: "Schnitt · FPV-Ebenen",
+        moduleTrack: "Trajektorie-Modul",
+        moduleDyn: "Dynamik-Modul",
+        feedNote: "Separater Frame: Licht, Nacht, Streckengrafik.",
+        carsScale: "Auto-Maßstab",
+        carsSlot: "Slot auf der Strecke",
+      },
+      kickers: {
+        params: "Parameter",
+        feed: "Bildzufuhr",
+        zones: "Streckenzonen",
+        kit: "Kit-Inhalt",
+      },
+      specs: {
+        formatK: "Format",
+        formatV: "Slot / Heat",
+        fpvK: "FPV-Link",
+        fpvV: "Ziel-Latenz",
+        controlK: "Steuerung",
+        controlV: "Lenkrad · UI",
+        viewersK: "Zuschauer",
+        viewersV: "Screen · Headset",
+      },
+      kit: {
+        frame: "Rahmen",
+        cover: "Belag",
+        barriers: "Barrieren",
+        light: "Licht",
+        cameras: "Kameras",
+        radio: "Funkkreis",
+      },
+      zones: {
+        z1: "Zone 1",
+        z2: "Zone 2",
+        z3: "Zone 3",
+        z4: "Zone 4",
+        z5: "Zone 5",
+        z6: "Zone 6",
+      },
+    },
+    orgStructure: {
+      eyebrow: "// STRUCTURE",
+      title: "Struktur der Unternehmensgruppe",
+      description: "Unternehmen PILOT und die Projekte in der Produktlinie.",
+      badge: "Unternehmensstruktur",
+      companyTag: "Company",
+      tierTop: "Unternehmen",
+      tierBranch: "Projekte & Richtungen",
+      nodes: {
+        company: "Phygital-Racing-Unternehmen: Strecken, Software und Bildungsformate.",
+        pilot: "Kernprodukt: echtes FPV-Racing und Arenen.",
+        launcher: "Digitale Schicht: Launcher, Telemetrie, Rankings und Spielernetzwerk.",
+        unior: "Bildungsrichtung für Kinder und Schulen.",
+      },
+      tags: {
+        racing: "Racing",
+        venues: "Arenas",
+        software: "Software",
+        telemetry: "Telemetry",
+        education: "Education",
+        kids: "Kids 3–10",
+      },
+    },
+    phygital: {
+      eyebrow: "// PHYGITAL",
+      title: "Zwei Welten treffen sich in einem Punkt",
+      description:
+        "Phygital Games sind ein Format, in dem physische Welt und digitale Schicht sich nicht ersetzen, sondern verstärken. Echte Strecke, echte Autos und das Pilot-Feeling treffen auf Launcher, Telemetrie, Rankings und Spielernetzwerk. Pilot verbindet sie in einem Punkt: du fährst live — und spielst gleichzeitig im System.",
+      physical: "Physical",
+      digital: "Digital",
+      merge: "Phygital",
+    },
+    bento: {
+      eyebrow: "// PILOT_UNIVERSE",
+      title: "Phygital Racing-Universum",
+      description:
+        "Modi, Plattformen, Customizing und echte Strecken — Bento-Überblick zu Pilot.",
+      modes: {
+        drift: "Drift",
+        formula: "Formula",
+        city: "City",
+        free: "Free Ride",
+      },
+      platforms: {
+        pc: "PC",
+        mobile: "Mobile",
+        vr: "VR",
+        kiosk: "Kiosk",
+      },
+      cards: {
+        universe: {
+          title: "Phygital Racing-Universum",
+          text: "Echtes FPV-Racing mit Mini-Autos — Sport, Play und Pilot-Netzwerk.",
+        },
+        modes: {
+          title: "Wähle deinen Modus",
+        },
+        physics: {
+          title: "Physik, die beeindruckt",
+          text: "Telemetrie, Grip und Response — das Gefühl einer echten Strecke.",
+        },
+        platforms: {
+          title: "Cross-platform play",
+        },
+        build: {
+          title: "Bau deinen Unique Bolide",
+          text: "Optik und Handling an deinen Pilot-Stil anpassen.",
+        },
+        friends: {
+          title: "Rase mit Freunden",
+          text: "Shared Races, Rankings und Pilot-Grid in einem Launcher.",
+        },
+        raceControl: {
+          title: "Race control",
+          leaderboard: "Leaderboard",
+          circuit: "Streckenkarte",
+        },
+        tracks: {
+          title: "Echte Strecken weltweit",
+          text: "Von der GUS bis USA und China — Locations mit Live-Racing.",
+        },
+        tech: {
+          title: "Tech heute — Siege morgen",
+          text: "Computer Vision, Link und Grid — der Stack fürs Match.",
+        },
+      },
+      advantages: {
+        eyebrow: "// ADVANTAGES",
+        title: "Vorteile",
+        media: "Bildplatzhalter",
+        unique: {
+          title: "Keine Offline-Pendants in der GUS",
+          text: "Offline-FPV-Immersion — selten in der Region.",
+        },
+        ar: {
+          title: "AR im Game",
+          text: "Augmented Reality steigert Rennen und Streckenwahrnehmung.",
+        },
+        map: {
+          title: "Endlose Map",
+          text: "Skalierbarer Playspace ohne Content-Decke.",
+        },
+        app: {
+          title: "App-Layer",
+          text: "Client für Schedule, Progress, Teams und Pilot-Netzwerk.",
+        },
+        boards: {
+          title: "Leaderboards",
+          text: "Wettbewerb und Team-Szenarien halten Engagement hoch.",
+        },
+        production: {
+          title: "Eigene Produktion",
+          text: "Full Cycle — vom Auto-Prototyp bis zur Live-Show.",
+        },
+      },
+    },
+    audience: {
+      eyebrow: "// TARGET_AUDIENCE",
+      title: "Zielgruppe",
+      description:
+        "Pilot verbindet unterschiedliche Interessen durch ein starkes Erlebnis — ein echtes Auto wie im Game zu steuern.",
+      segments: {
+        kids: {
+          title: "Kinder 3–10",
+          text: "Sicherer Ersteinstieg: Spiel und Reaktionstraining durch echte Mini-Rennen.",
+          tag: "Pilot Unior",
+        },
+        gamers: {
+          title: "VR-Spieler",
+          text: "Spieler auf der Suche nach dem nächsten Immersionslevel — jetzt in der realen Welt.",
+        },
+        teens: {
+          title: "Teenager",
+          text: "Wettbewerb, Technologie und Community in einem vertrauten Game-Format.",
+        },
+        growth: {
+          title: "Weiterentwicklung",
+          text: "Steuerung, Fokus, Reaktion und technisches Denken.",
+        },
+        thinkers: {
+          title: "Denker",
+          text: "Strategie, Telemetrie und die beste Linie in jeder Runde.",
+        },
+        racing: {
+          title: "Racing-Fans",
+          text: "Startspannung, Positionskämpfe und echter Wettbewerbs-Drive.",
+        },
+        cars: {
+          title: "Auto-Enthusiasten",
+          text: "Technik, Customizing und der Charakter des eigenen Boliden.",
+        },
+      },
+      everyone: {
+        title: "Und alle Neugierigen",
+        text: "Pilot ist für alle offen, die einen neuen Sport zwischen physischer und digitaler Welt erleben wollen.",
+      },
+    },
+    subscription: {
+      eyebrow: "// ARENA",
+      title: "ARENA Abo",
+      description: "Tarife für Pilot, Pilot Unior und Launcher-Zugang.",
+      popular: "Beliebt",
+      cta: "Anfrage senden",
+      pilotBoard: {
+        kicker: "Pilot-Bereich",
+        colTime: "Zeit",
+        colSolo: "Einzelspiel, ₽",
+        colPerMin: "Preis / Minute, ₽",
+        colDuo: "Zu zweit, ₽",
+        colSave: "Vorteil, ₽",
+        minutes: "{n} Minuten",
+        hit: "Hit!",
+      },
+      uniorBoard: {
+        kicker: "Pilot-Unior-Bereich",
+        minutes: "{n} Min",
+        solo: "Einzelspiel",
+        withParent: "Mit Elternteil",
+      },
+      plans: {
+        unior: {
+          name: "Pilot Unior",
+          info: "Kinderformat: 12 Minuten auf der Strecke.",
+        },
+        pilot: {
+          name: "Pilot",
+          info: "Sessionpreise: Solo und Duo.",
+        },
+        launcher: {
+          name: "Launcher",
+          info: "Digital Client · monatlich",
+          period: "pro Monat",
+          f1: "Einstiegs-Client zur Strecke",
+          f2: "Match-Telemetrie",
+          f3: "Pilot-Netzwerk und Matchmaking",
+          f4: "Updates und neue Modi",
+        },
+      },
     },
     anatomy: {
       eyebrow: "// CUTAWAY_VIEW",
@@ -986,18 +2211,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
       eyebrow: "// MARKET_FOOTPRINT",
       title: "Marktpräsenz",
       description:
-        "Potenzial der Pilot-/Unior-/Launcher-Punkte nach Ländern. Produkt-Split folgt.",
+        "Potenzial der Pilot- und Pilot-Unior-Punkte nach Ländern. Split folgt.",
       colCountry: "Land",
       colPilot: "Pilot",
       colUnior: "Unior",
-      colLauncher: "Launcher",
-      colPotential: "Potenzial",
+      total: "Summe",
       pending: "—",
       regions: {
         cis: "GUS",
         latam: "Lateinamerika",
         mena: "Naher Osten",
         na: "Nordamerika",
+        asia: "Asien",
       },
       cities: {
         la: "Los Angeles",
@@ -1016,6 +2241,98 @@ export const dictionaries: Record<Locale, Dictionary> = {
         ae: "VAE",
         tr: "Türkei",
         us: "USA",
+        cn: "China",
+      },
+    },
+    businessModel: {
+      eyebrow: "// BUSINESS_MODEL",
+      title: "Geschäftsmodell",
+      description:
+        "Vier Umsatzströme rund um echtes FPV-Racing: Hardware, Bildung, Software und Media.",
+      streams: {
+        hardware: {
+          title: "Hardware & Strecken",
+          text: "Autos, Strecken und Kits für Locations, Clubs und Partner. CAPEX mit wiederkehrenden Upgrades.",
+          tag: "Hardware",
+        },
+        unior: {
+          title: "Pilot Unior",
+          text: "Lizenzen und Programme für Schulen und Unis — Bildung als skalierbarer B2B/B2G-Kanal.",
+          tag: "Education",
+        },
+        software: {
+          title: "Launcher & Netzwerk",
+          text: "Einstiegs-Client, Telemetrie, Matches und Pilot-Netzwerk — Abos und Aktivitätsgebühren.",
+          tag: "Software",
+        },
+        media: {
+          title: "Media & Events",
+          text: "Broadcasts, Sponsoring und Turniere: Reichweite wird zu Partner-Revenue.",
+          tag: "Media",
+        },
+      },
+    },
+    capTable: {
+      eyebrow: "// CAP_TABLE",
+      title: "Cap Table",
+      description:
+        "Vorläufige Anteilsstruktur für Team und Reserven. Finaler Split vor der Runde.",
+      colHolder: "Inhaber",
+      colRole: "Rolle",
+      colShare: "Anteil",
+      total: "Summe",
+      pending: "—",
+      note: "Illustrative · pre-round · subject to term sheet",
+      holders: {
+        esop: "Team ESOP",
+        reserve: "Reserve",
+      },
+      roles: {
+        founder: "Founder / CEO",
+        hardware: "Hardware Lead",
+        game: "Game Lead",
+        esop: "Team-Optionspool",
+        reserve: "Runden-Reserve",
+      },
+    },
+    roadmap: {
+      eyebrow: "// ROADMAP",
+      title: "Roadmap",
+      description:
+        "Von ersten Strecken und dem Launcher zu einem globalen Pilot-Netzwerk, Bildung und Media.",
+      phases: {
+        now: {
+          title: "Now",
+          text: "Produktlaunch und erste Live-Locations.",
+          item1: "Pilot Launcher für Windows / macOS / Linux",
+          item2: "Pilot-Strecken in der GUS",
+          item3: "Match-Telemetrie und Basis-Pilot-Grid",
+          item4: "Investor-Deck und Partnerkanal",
+        },
+        scale: {
+          title: "2026 H1",
+          text: "Hardware und Education-Track skalieren.",
+          item1: "Serienproduktion von Autos und Strecken-Kits",
+          item2: "Pilot Unior mit Schulen und Unis",
+          item3: "LatAm-Expansion (Brasilien und Hubs)",
+          item4: "Partnernetzwerk für Location-Betreiber",
+        },
+        global: {
+          title: "2026 H2",
+          text: "Große Märkte und Media-Layer rund um Racing.",
+          item1: "USA / Los Angeles Flagship-Hub",
+          item2: "China: lokaler Partner und Supply",
+          item3: "Broadcasts, Sponsoring und Turnierkalender",
+          item4: "Abos und Gebühren im Launcher-Netzwerk",
+        },
+        network: {
+          title: "2027+",
+          text: "Globale Liga und Ökosystem um Pilot.",
+          item1: "Internationales Championship und Saison-Ranking",
+          item2: "Franchise-Modell für Locations",
+          item3: "Full Stack live: CV / Link / Grid",
+          item4: "Netzwerkeffekt: Piloten ↔ Locations ↔ Media",
+        },
       },
     },
     investors: {

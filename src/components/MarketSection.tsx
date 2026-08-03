@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
+import { RaceCheckers } from "@/components/RaceCheckers";
 import { SectionHeader } from "@/components/SectionHeader";
 import { useTranslations } from "@/i18n/client";
 import type { MessageKey } from "@/i18n/getMessage";
@@ -48,9 +49,11 @@ export function MarketSection() {
   return (
     <section
       id="market"
-      className="market-section relative overflow-hidden border-t border-line px-5 py-16 md:px-8 md:py-24"
+      className="market-section relative flex min-h-dvh flex-col justify-center overflow-hidden border-t border-line px-5 py-16 md:px-8 md:py-24"
     >
-      <div className="relative z-10 mx-auto max-w-6xl">
+      <RaceCheckers className="race-checkers--top-left" />
+
+      <div className="relative z-10 mx-auto w-full max-w-6xl">
         <SectionHeader
           eyebrow={t("market.eyebrow")}
           title={t("market.title")}
@@ -58,7 +61,7 @@ export function MarketSection() {
           eyebrowClassName="market-accent"
         />
 
-        <div className="market-funnel mt-14" aria-label={t("market.title")}>
+        <div className="market-funnel mt-14 md:mt-16" aria-label={t("market.title")}>
           <svg
             className="pointer-events-none absolute h-0 w-0"
             aria-hidden
