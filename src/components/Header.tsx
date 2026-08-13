@@ -14,9 +14,11 @@ export function Header() {
 
   const primaryNav = [
     { href: "#about", label: t("header.navProject") },
-    { href: "#bento", label: t("header.navBento") },
+    { href: "#bento", label: t("header.navProduct") },
+    { href: "#subscription", label: t("header.navPricing") },
+    { href: "#org-structure", label: t("header.navStructure") },
     { href: "#investors", label: t("header.navInvestors") },
-  ];
+  ] as const;
   const activeNavIndex = Math.max(
     primaryNav.findIndex((item) => item.href === activeSection),
     0,
@@ -57,7 +59,13 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const ids = ["about", "bento", "investors"];
+    const ids = [
+      "about",
+      "bento",
+      "subscription",
+      "org-structure",
+      "investors",
+    ];
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
@@ -182,7 +190,7 @@ export function Header() {
                       href={item.href}
                       onClick={() => setActiveSection(item.href)}
                       aria-current={isActive ? "page" : undefined}
-                      className={`pilot-nav-item group relative z-10 flex w-[4.5rem] shrink-0 items-center justify-center px-2 font-display text-[9px] font-bold tracking-[0.06em] uppercase transition-colors duration-300 lg:w-24 lg:px-4 lg:text-[10px] ${
+                      className={`pilot-nav-item group relative z-10 flex w-[5.25rem] shrink-0 items-center justify-center px-1.5 font-display text-[9px] font-bold tracking-[0.05em] uppercase transition-colors duration-300 lg:w-[6.5rem] lg:px-3 lg:text-[10px] ${
                         isActive
                           ? "text-white"
                           : "text-white/38 hover:bg-white/[0.035] hover:text-white/75"

@@ -1,37 +1,44 @@
 "use client";
 
+import { useMemo } from "react";
 import { SectionHeader } from "@/components/SectionHeader";
+import { OrgFlowCanvas } from "@/components/org-flow/OrgFlowCanvas";
+import { createGroupStructureFlow } from "@/components/org-flow/group-structure-data";
 import { useTranslations } from "@/i18n/client";
-import type { MessageKey } from "@/i18n/getMessage";
-
-const PROJECTS: {
-  id: string;
-  name: string;
-  textKey: MessageKey;
-  tags?: MessageKey[];
-}[] = [
-  {
-    id: "pilot",
-    name: "Pilot",
-    textKey: "orgStructure.nodes.pilot",
-    tags: ["orgStructure.tags.racing", "orgStructure.tags.venues"],
-  },
-  {
-    id: "launcher",
-    name: "Pilot Launcher",
-    textKey: "orgStructure.nodes.launcher",
-    tags: ["orgStructure.tags.software", "orgStructure.tags.telemetry"],
-  },
-  {
-    id: "unior",
-    name: "Pilot Unior",
-    textKey: "orgStructure.nodes.unior",
-    tags: ["orgStructure.tags.education", "orgStructure.tags.kids"],
-  },
-];
 
 export function OrgStructureSection() {
   const t = useTranslations();
+
+  const { nodes, edges } = useMemo(
+    () =>
+      createGroupStructureFlow({
+        company: t("orgStructure.nodes.company"),
+        pilot: t("orgStructure.nodes.pilot"),
+        launcher: t("orgStructure.nodes.launcher"),
+        unior: t("orgStructure.nodes.unior"),
+        people: {
+          ceo: {
+            name: t("orgStructure.people.ceo.name"),
+            role: t("orgStructure.people.ceo.role"),
+            description: t("orgStructure.people.ceo.description"),
+          },
+          coo: {
+            name: t("orgStructure.people.coo.name"),
+            role: t("orgStructure.people.coo.role"),
+            description: t("orgStructure.people.coo.description"),
+          },
+        },
+        tags: {
+          racing: t("orgStructure.tags.racing"),
+          venues: t("orgStructure.tags.venues"),
+          software: t("orgStructure.tags.software"),
+          telemetry: t("orgStructure.tags.telemetry"),
+          education: t("orgStructure.tags.education"),
+          kids: t("orgStructure.tags.kids"),
+        },
+      }),
+    [t],
+  );
 
   return (
     <section
@@ -47,46 +54,14 @@ export function OrgStructureSection() {
           descriptionClassName="max-w-xl text-black/55"
         />
 
-        <div className="org-frame mt-12 md:mt-16">
+        <div className="org-frame org-frame--flow mt-12 md:mt-16">
           <span className="org-badge">{t("orgStructure.badge")}</span>
-
-          <div className="org-tier">
-            <p className="org-tier-label">{t("orgStructure.tierTop")}</p>
-            <article className="org-card org-card--company">
-              <div className="org-card-top">
-                <h3>PILOT</h3>
-                <span className="org-chip">{t("orgStructure.companyTag")}</span>
-              </div>
-              <p>{t("orgStructure.nodes.company")}</p>
-            </article>
-          </div>
-
-          <div className="org-bridge org-bridge--3" aria-hidden>
-            <span />
-            <span />
-            <span />
-          </div>
-
-          <div className="org-tier">
-            <p className="org-tier-label">{t("orgStructure.tierBranch")}</p>
-            <div className="org-grid org-grid--projects">
-              {PROJECTS.map((project) => (
-                <article key={project.id} className="org-card org-card--target">
-                  <div className="org-card-top">
-                    <h3>{project.name}</h3>
-                  </div>
-                  <p>{t(project.textKey)}</p>
-                  {project.tags?.length ? (
-                    <ul className="org-acts">
-                      {project.tags.map((tag) => (
-                        <li key={tag}>{t(tag)}</li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </article>
-              ))}
-            </div>
-          </div>
+          <OrgFlowCanvas
+            nodes={nodes}
+            edges={edges}
+            ariaLabel={t("orgStructure.title")}
+            className="org-flow-canvas--group"
+          />
         </div>
       </div>
     </section>

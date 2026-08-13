@@ -25,15 +25,9 @@ export type Dictionary = {
     games: string;
     apps: string;
     navProject: string;
-    navBento: string;
-    navSystem: string;
-    navTracks: string;
-    navLauncher: string;
-    navStack: string;
-    navTeam: string;
-    navModel: string;
-    navCapTable: string;
-    navRoadmap: string;
+    navProduct: string;
+    navPricing: string;
+    navStructure: string;
     navInvestors: string;
   };
   hero: {
@@ -121,6 +115,10 @@ export type Dictionary = {
       launcher: string;
       unior: string;
     };
+    people: {
+      ceo: { name: string; role: string; description: string };
+      coo: { name: string; role: string; description: string };
+    };
     tags: {
       racing: string;
       venues: string;
@@ -128,6 +126,21 @@ export type Dictionary = {
       telemetry: string;
       education: string;
       kids: string;
+    };
+  };
+  orgDepartments: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    label: string;
+    items: {
+      alpha: string;
+      betta: string;
+      gamma: string;
+      delta: string;
+      epsilon: string;
+      omega: string;
+      mega: string;
     };
   };
   phygital: {
@@ -508,20 +521,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
       games: "Игры",
       apps: "Приложения",
       navProject: "Проект",
-      navBento: "Вселенная",
-      navSystem: "Система",
-      navTracks: "Линейки",
-      navLauncher: "Лаунчер",
-      navStack: "Стек",
-      navTeam: "Команда",
-      navModel: "Модель",
-      navCapTable: "Cap Table",
-      navRoadmap: "Roadmap",
+      navProduct: "Продукт",
+      navPricing: "Цены",
+      navStructure: "Структура",
       navInvestors: "Инвесторам",
     },
     hero: {
       eyebrow: "Pitch Deck",
-      headline: "Гонки на реальных машинах в уменьшенном масштабе",
+      headline: "Гонки на реальных машинах в масштабе",
       description:
         "FPV-гонки в реальном мире на мини-тачках. Один лаунчер — вход в трассу, телеметрию и сеть пилотов.",
       ctaDownload: "Скачать лаунчер",
@@ -595,7 +602,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     orgStructure: {
       eyebrow: "// STRUCTURE",
       title: "Структура группы компаний",
-      description: "Компания PILOT и проекты внутри продуктовой линейки.",
+      description: "Компания PILOT, лидерство и проекты внутри продуктовой линейки.",
       badge: "Структура компаний",
       companyTag: "Company",
       tierTop: "Компания",
@@ -606,6 +613,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
         launcher: "Цифровой слой: лаунчер, телеметрия, рейтинги и сеть игроков.",
         unior: "Образовательное направление для детей и школ.",
       },
+      people: {
+        ceo: {
+          name: "Денис Зарубин",
+          role: "CEO",
+          description: "Стратегия, продукт и развитие компании Pilot.",
+        },
+        coo: {
+          name: "Антон Чикуров",
+          role: "COO",
+          description: "Операции, процессы, стандарты и эффективность команд.",
+        },
+      },
       tags: {
         racing: "Racing",
         venues: "Arenas",
@@ -613,6 +632,22 @@ export const dictionaries: Record<Locale, Dictionary> = {
         telemetry: "Telemetry",
         education: "Education",
         kids: "Kids 3–10",
+      },
+    },
+    orgDepartments: {
+      eyebrow: "// ORG_CHART",
+      title: "Организационная структура компании Pilot",
+      description:
+        "Отделы платформы: от администрации и коммуникаций до техники, производства и масштабирования.",
+      label: "Отделы",
+      items: {
+        alpha: "Административный центр",
+        betta: "Центр персонала и коммуникации",
+        gamma: "Маркетинговый центр",
+        delta: "Финансовый центр",
+        epsilon: "Технический центр",
+        omega: "Центр производства",
+        mega: "Отдел масштабирования",
       },
     },
     phygital: {
@@ -1138,20 +1173,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
       games: "Games",
       apps: "Apps",
       navProject: "Project",
-      navBento: "Universe",
-      navSystem: "System",
-      navTracks: "Lines",
-      navLauncher: "Launcher",
-      navStack: "Stack",
-      navTeam: "Team",
-      navModel: "Model",
-      navCapTable: "Cap Table",
-      navRoadmap: "Roadmap",
+      navProduct: "Product",
+      navPricing: "Pricing",
+      navStructure: "Structure",
       navInvestors: "Investors",
     },
     hero: {
       eyebrow: "Pitch Deck",
-      headline: "Racing on real cars at a reduced scale",
+      headline: "Racing on real cars at scale",
       description:
         "FPV racing in the real world on mini cars. One launcher — entry to the track, telemetry, and the pilot network.",
       ctaDownload: "Download launcher",
@@ -1225,7 +1254,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     orgStructure: {
       eyebrow: "// STRUCTURE",
       title: "Group company structure",
-      description: "PILOT company and the projects inside the product line.",
+      description: "PILOT company, leadership, and projects inside the product line.",
       badge: "Company structure",
       companyTag: "Company",
       tierTop: "Company",
@@ -1236,6 +1265,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
         launcher: "Digital layer: launcher, telemetry, rankings, and player network.",
         unior: "Education vertical for kids and schools.",
       },
+      people: {
+        ceo: {
+          name: "Denis Zarubin",
+          role: "CEO",
+          description: "Strategy, product vision, and company growth at Pilot.",
+        },
+        coo: {
+          name: "Anton Chikurov",
+          role: "COO",
+          description: "Operations, processes, quality standards, and team efficiency.",
+        },
+      },
       tags: {
         racing: "Racing",
         venues: "Arenas",
@@ -1243,6 +1284,22 @@ export const dictionaries: Record<Locale, Dictionary> = {
         telemetry: "Telemetry",
         education: "Education",
         kids: "Kids 3–10",
+      },
+    },
+    orgDepartments: {
+      eyebrow: "// ORG_CHART",
+      title: "Pilot company org structure",
+      description:
+        "Platform departments: from admin and communications to tech, production, and scaling.",
+      label: "Departments",
+      items: {
+        alpha: "Administrative center",
+        betta: "People & communications center",
+        gamma: "Marketing center",
+        delta: "Finance center",
+        epsilon: "Technical center",
+        omega: "Production center",
+        mega: "Scaling department",
       },
     },
     phygital: {
@@ -1767,20 +1824,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
       games: "Spiele",
       apps: "Apps",
       navProject: "Projekt",
-      navBento: "Universum",
-      navSystem: "System",
-      navTracks: "Linien",
-      navLauncher: "Launcher",
-      navStack: "Stack",
-      navTeam: "Team",
-      navModel: "Modell",
-      navCapTable: "Cap Table",
-      navRoadmap: "Roadmap",
+      navProduct: "Produkt",
+      navPricing: "Preise",
+      navStructure: "Struktur",
       navInvestors: "Investoren",
     },
     hero: {
       eyebrow: "Pitch Deck",
-      headline: "Rennen mit echten Autos im verkleinerten Maßstab",
+      headline: "Rennen mit echten Autos im Maßstab",
       description:
         "FPV-Rennen in der realen Welt mit Mini-Autos. Ein Launcher — Zugang zur Strecke, Telemetrie und dem Pilotennetzwerk.",
       ctaDownload: "Launcher laden",
@@ -1854,7 +1905,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     orgStructure: {
       eyebrow: "// STRUCTURE",
       title: "Struktur der Unternehmensgruppe",
-      description: "Unternehmen PILOT und die Projekte in der Produktlinie.",
+      description: "Unternehmen PILOT, Führung und Projekte in der Produktlinie.",
       badge: "Unternehmensstruktur",
       companyTag: "Company",
       tierTop: "Unternehmen",
@@ -1865,6 +1916,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
         launcher: "Digitale Schicht: Launcher, Telemetrie, Rankings und Spielernetzwerk.",
         unior: "Bildungsrichtung für Kinder und Schulen.",
       },
+      people: {
+        ceo: {
+          name: "Denis Zarubin",
+          role: "CEO",
+          description: "Strategie, Produktvision und Wachstum von Pilot.",
+        },
+        coo: {
+          name: "Anton Chikurov",
+          role: "COO",
+          description: "Operationen, Prozesse, Qualitätsstandards und Team-Effizienz.",
+        },
+      },
       tags: {
         racing: "Racing",
         venues: "Arenas",
@@ -1872,6 +1935,22 @@ export const dictionaries: Record<Locale, Dictionary> = {
         telemetry: "Telemetry",
         education: "Education",
         kids: "Kids 3–10",
+      },
+    },
+    orgDepartments: {
+      eyebrow: "// ORG_CHART",
+      title: "Organisationsstruktur von Pilot",
+      description:
+        "Plattform-Abteilungen: von Admin und Kommunikation bis Technik, Produktion und Skalierung.",
+      label: "Abteilungen",
+      items: {
+        alpha: "Administratives Zentrum",
+        betta: "Personal- und Kommunikationszentrum",
+        gamma: "Marketingzentrum",
+        delta: "Finanzzentrum",
+        epsilon: "Technisches Zentrum",
+        omega: "Produktionszentrum",
+        mega: "Skalierungsabteilung",
       },
     },
     phygital: {

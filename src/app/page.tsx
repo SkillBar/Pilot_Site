@@ -64,6 +64,13 @@ const OrgStructureSection = dynamic(
     import("@/components/OrgStructureSection").then((m) => m.OrgStructureSection),
   { loading: () => <SectionSkeleton /> },
 );
+const OrgDepartmentsSection = dynamic(
+  () =>
+    import("@/components/OrgDepartmentsSection").then(
+      (m) => m.OrgDepartmentsSection,
+    ),
+  { loading: () => <SectionSkeleton /> },
+);
 const RoadmapSection = dynamic(
   () => import("@/components/RoadmapSection").then((m) => m.RoadmapSection),
   { loading: () => <SectionSkeleton /> },
@@ -122,6 +129,7 @@ export default function Home() {
         <BusinessModelSection />
         <CapTableSection />
         <OrgStructureSection />
+        <OrgDepartmentsSection />
         <RoadmapSection />
         <MarketSection />
         <WorldMapSection />

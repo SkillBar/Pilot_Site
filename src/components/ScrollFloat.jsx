@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ScrollFloat = ({
   children,
-  scrollContainerRef,
+  scrollContainerRef = null,
   containerClassName = '',
   textClassName = '',
   animationDuration = 0.9,

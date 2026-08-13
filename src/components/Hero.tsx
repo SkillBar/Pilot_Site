@@ -1,69 +1,18 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import {
   AppleIcon,
   SteamIcon,
   WindowsIcon,
 } from "@/components/PlatformIcons";
+import RotatingText from "@/components/RotatingText";
 import { useTranslations } from "@/i18n/client";
 
-const Shuffle = dynamic(() => import("@/components/Shuffle"), { ssr: false });
-
-const SCALES = ["1:64", "1:43", "1:24", "1:10", "1:8"] as const;
-
-function HeroScaleTicker() {
-  const t = useTranslations();
-  const [index, setIndex] = useState(0);
-  const [visible, setVisible] = useState(true);
-
-  useEffect(() => {
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (reduceMotion) return;
-
-    let fadeTimeout = 0;
-    const id = window.setInterval(() => {
-      setVisible(false);
-      fadeTimeout = window.setTimeout(() => {
-        setIndex((prev) => (prev + 1) % SCALES.length);
-        setVisible(true);
-      }, 220);
-    }, 1800);
-
-    return () => {
-      window.clearInterval(id);
-      window.clearTimeout(fadeTimeout);
-    };
-  }, []);
-
-  return (
-    <p
-      className="reveal reveal-delay-2 mt-5 font-mono text-[13px] tracking-[0.28em] text-white/55 uppercase md:text-[14px]"
-      aria-live="polite"
-      aria-label={t("hero.scalesAria")}
-    >
-      <span
-        className="inline-block min-w-[4.5ch] transition-all duration-200"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(6px)",
-        }}
-      >
-        {SCALES[index]}
-      </span>
-    </p>
-  );
-}
+const SCALES = ["1:64", "1:43", "1:24", "1:10", "1:8"];
 
 export function Hero() {
   const t = useTranslations();
-  const headline = t("hero.headline");
-  const headlineClassName =
-    "-mt-1 max-w-3xl font-display text-[clamp(1.35rem,3.4vw,2.35rem)] font-bold leading-[1.15] tracking-tight text-fg md:mt-0";
 
   const platforms = [
     { id: "apple", label: t("hero.platformApple"), Icon: AppleIcon },
@@ -101,30 +50,26 @@ export function Hero() {
           />
         </h1>
 
-        <Shuffle
-          text={headline}
-          tag="h2"
-          className={headlineClassName}
-          shuffleDirection="right"
-          duration={0.35}
-          animationMode="evenodd"
-          shuffleTimes={1}
-          ease="power3.out"
-          stagger={0.03}
-          threshold={0.1}
-          rootMargin="0px"
-          triggerOnce={true}
-          triggerOnHover={false}
-          respectReducedMotion={true}
-          scrambleCharset="01ABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
-          colorFrom="rgba(255, 154, 69, 0.55)"
-          colorTo="var(--fg)"
-          onShuffleComplete={() => {}}
-        />
+        <h2
+          className="reveal reveal-delay-1 -mt-1 flex max-w-4xl flex-wrap items-center justify-center gap-x-2.5 gap-y-2 font-display text-[clamp(1.35rem,3.4vw,2.35rem)] font-bold leading-[1.15] tracking-tight text-fg md:mt-0"
+          aria-label={`${t("hero.headline")} ${t("hero.scalesAria")}`}
+        >
+          <span>{t("hero.headline")}</span>
+          <RotatingText
+            texts={SCALES}
+            mainClassName="hero-scale-chip inline-flex h-[1.05em] min-w-[3.6em] items-center justify-center overflow-hidden rounded-[0.28em] bg-[#ef5a16] px-[0.45em] font-mono text-[0.72em] font-bold tracking-[0.22em] text-white uppercase align-middle"
+            staggerFrom="last"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-120%" }}
+            staggerDuration={0.025}
+            splitLevelClassName="overflow-hidden pb-[0.05em]"
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            rotationInterval={2000}
+          />
+        </h2>
 
-        <HeroScaleTicker />
-
-        <div className="reveal reveal-delay-3 mt-7 flex flex-wrap items-center justify-center gap-5">
+        <div className="reveal reveal-delay-3 mt-8 flex flex-wrap items-center justify-center gap-5">
           <a href="#download" className="btn-tech font-mono text-[12px]">
             <span>{t("hero.ctaDownload")}</span>
           </a>

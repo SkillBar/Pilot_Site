@@ -26,12 +26,12 @@ const LAUNCHER: LauncherPlan = {
 };
 
 const PILOT_ROWS = [
-  { minutes: 8, solo: 600, perMin: 75, duo: 1000, save: 200 },
-  { minutes: 10, solo: 700, perMin: 70, duo: 1200, save: 200 },
-  { minutes: 15, solo: 1000, perMin: 67, duo: 1600, save: 400, hit: true },
-  { minutes: 20, solo: 1200, perMin: 60, duo: 1800, save: 600 },
-  { minutes: 25, solo: 1400, perMin: 56, duo: 2000, save: 800 },
-  { minutes: 30, solo: 1600, perMin: 54, duo: 2300, save: 900 },
+  { minutes: 8, solo: 400, perMin: 50, duo: 650, save: 150, hit: false },
+  { minutes: 10, solo: 450, perMin: 45, duo: 750, save: 150, hit: false },
+  { minutes: 15, solo: 650, perMin: 43, duo: 1050, save: 250, hit: true },
+  { minutes: 20, solo: 800, perMin: 40, duo: 1200, save: 400, hit: false },
+  { minutes: 25, solo: 900, perMin: 36, duo: 1300, save: 500, hit: false },
+  { minutes: 30, solo: 1050, perMin: 35, duo: 1500, save: 600, hit: false },
 ] as const;
 
 const UNIOR_ROWS = [
