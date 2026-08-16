@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { PartnersStrip } from "@/components/PartnersStrip";
+import { PilotInfrastructureSection } from "@/components/PilotInfrastructureSection";
 
 const PhygitalSection = dynamic(
   () => import("@/components/PhygitalSection").then((m) => m.PhygitalSection),
@@ -119,6 +120,7 @@ export default function Home() {
         <BentoSection />
         <AudienceSection />
         <CompaniesSection />
+        <PilotInfrastructureSection />
         <DownloadSection />
         <BusinessTracksSection />
         <SubscriptionSection />
