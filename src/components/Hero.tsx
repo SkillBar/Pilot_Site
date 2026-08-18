@@ -26,7 +26,7 @@ export function Hero() {
       className="relative min-h-[calc(100svh-84px)] overflow-hidden px-5 pb-16 pt-10 md:px-8 md:pb-24 md:pt-16"
     >
       <Image
-        src="/Main.webp"
+        src="/hero-race.webp"
         alt=""
         fill
         priority

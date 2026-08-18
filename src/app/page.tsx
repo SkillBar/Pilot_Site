@@ -9,6 +9,20 @@ const PhygitalSection = dynamic(
   () => import("@/components/PhygitalSection").then((m) => m.PhygitalSection),
   { loading: () => <SectionSkeleton /> },
 );
+const ScaleShowcaseSection = dynamic(
+  () =>
+    import("@/components/ScaleShowcaseSection").then(
+      (m) => m.ScaleShowcaseSection,
+    ),
+  { loading: () => <SectionSkeleton /> },
+);
+const CircuitCalendarSection = dynamic(
+  () =>
+    import("@/components/CircuitCalendarSection").then(
+      (m) => m.CircuitCalendarSection,
+    ),
+  { loading: () => <SectionSkeleton /> },
+);
 const BentoSection = dynamic(
   () => import("@/components/BentoSection").then((m) => m.BentoSection),
   { loading: () => <SectionSkeleton /> },
@@ -47,6 +61,13 @@ const BusinessModelSection = dynamic(
   () =>
     import("@/components/BusinessModelSection").then(
       (m) => m.BusinessModelSection,
+    ),
+  { loading: () => <SectionSkeleton /> },
+);
+const FinancialForecastSection = dynamic(
+  () =>
+    import("@/components/FinancialForecastSection").then(
+      (m) => m.FinancialForecastSection,
     ),
   { loading: () => <SectionSkeleton /> },
 );
@@ -116,6 +137,8 @@ export default function Home() {
         <Hero />
         <PartnersStrip />
         <PhygitalSection />
+        <ScaleShowcaseSection />
+        <CircuitCalendarSection />
         <BentoSection />
         <AudienceSection />
         <CompaniesSection />
@@ -127,6 +150,7 @@ export default function Home() {
         <TechStackSection />
         <TeamSection />
         <BusinessModelSection />
+        <FinancialForecastSection />
         <CapTableSection />
         <OrgStructureSection />
         <OrgDepartmentsSection />

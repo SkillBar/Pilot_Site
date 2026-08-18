@@ -734,7 +734,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
           text: "Клиент для расписания, прогресса, команды и сети пилотов.",
         },
         boards: {
-          title: "Лидерборды",
+          title: "VR",
           text: "Соревнование и командные сценарии держат вовлечение.",
         },
         production: {
@@ -1386,7 +1386,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
           text: "Client for schedule, progress, teams, and the pilot network.",
         },
         boards: {
-          title: "Leaderboards",
+          title: "VR",
           text: "Competition and team modes that keep retention high.",
         },
         production: {
@@ -2037,7 +2037,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
           text: "Client für Schedule, Progress, Teams und Pilot-Netzwerk.",
         },
         boards: {
-          title: "Leaderboards",
+          title: "VR",
           text: "Wettbewerb und Team-Szenarien halten Engagement hoch.",
         },
         production: {

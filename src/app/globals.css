@@ -3971,6 +3971,34 @@ body {
   display: block;
 }
 
+.bento-media-slot--image {
+  overflow: hidden;
+  isolation: isolate;
+  border-bottom-style: solid;
+  background: #111318;
+}
+
+.bento-media-slot--image::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  background: linear-gradient(115deg, rgba(17, 19, 24, 0.14), rgba(17, 19, 24, 0.02) 55%, rgba(23, 105, 255, 0.3));
+}
+
+.bento-media-caption {
+  position: absolute;
+  z-index: 2;
+  right: 0.85rem;
+  bottom: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  padding: 0.25rem 0.4rem;
+  color: #fff;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+}
+
 @media (hover: hover) {
   .bento-card:hover {
     transform: translateY(-2px);

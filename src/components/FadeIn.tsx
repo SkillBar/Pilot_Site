@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { observeReveal } from "@/lib/revealObserver";
 import {
+  createElement,
   useEffect,
   useRef,
   type CSSProperties,
@@ -41,9 +42,9 @@ export function FadeIn({
       ? ({ "--fade-delay": `${delayMs}ms` } as CSSProperties)
       : undefined;
 
-  return (
-    <Tag ref={ref} className={cn("fade-in", className)} style={style}>
-      {children}
-    </Tag>
+  return createElement(
+    Tag,
+    { ref, className: cn("fade-in", className), style },
+    children,
   );
 }

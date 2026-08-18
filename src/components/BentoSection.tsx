@@ -94,7 +94,16 @@ function BrandMark() {
   return <span className="bento-brand">PILOT</span>;
 }
 
-function MediaSlot({ label }: { label: string }) {
+function MediaSlot({ label, image }: { label: string; image?: { src: string; alt: string; caption: string } }) {
+  if (image) {
+    return (
+      <div className="bento-media-slot bento-media-slot--image">
+        <Image src={image.src} alt={image.alt} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" className="object-cover object-center" />
+        <span className="bento-media-caption">{image.caption}</span>
+      </div>
+    );
+  }
+
   return (
     <div className="bento-media-slot" aria-hidden>
       <ImageIcon size={22} strokeWidth={1.5} />
@@ -316,7 +325,16 @@ export function BentoSection() {
                 item.wide ? " bento-card--wide" : ""
               }`}
             >
-              <MediaSlot label={t("bento.advantages.media")} />
+              <MediaSlot
+                label={t("bento.advantages.media")}
+                image={
+                  item.id === "boards"
+                    ? { src: "/vr-racing.jpg", alt: "Гонщик в VR-гарнитуре за рулём", caption: "VR / RACE MODE" }
+                    : item.id === "app"
+                      ? { src: "/app-launcher.webp", alt: "Экран лаунчера Pilot", caption: "PILOT / LAUNCHER" }
+                      : undefined
+                }
+              />
               <div className="bento-card-body">
                 <BrandMark />
                 <h3>{t(item.titleKey)}</h3>

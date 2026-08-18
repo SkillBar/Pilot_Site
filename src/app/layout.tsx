@@ -1,29 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, JetBrains_Mono, Unbounded } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { defaultLocale, dictionaries } from "@/i18n";
 import { cn } from "@/lib/utils";
 import "./globals.css";
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const unbounded = Unbounded({
-  variable: "--font-display",
-  subsets: ["latin", "cyrillic"],
-  weight: ["600", "700", "800"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500"],
-  display: "swap",
-});
 
 const defaultDictionary = dictionaries[defaultLocale];
 
@@ -40,12 +19,12 @@ export default function RootLayout({
   return (
     <html
       lang={defaultLocale}
-      className={cn(
-        "dark h-full antialiased",
-        geist.variable,
-        unbounded.variable,
-        jetbrainsMono.variable,
-      )}
+      className={cn("dark h-full antialiased")}
+      style={{
+        "--font-sans": "Arial, sans-serif",
+        "--font-display": "Arial, sans-serif",
+        "--font-mono": "Consolas, monospace",
+      } as React.CSSProperties}
       data-theme="dark"
       suppressHydrationWarning
     >
