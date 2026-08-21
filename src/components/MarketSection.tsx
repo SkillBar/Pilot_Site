@@ -53,15 +53,13 @@ export function MarketSection() {
     >
       <RaceCheckers className="race-checkers--top-left" />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1320px]">
         <SectionHeader
-          eyebrow={t("market.eyebrow")}
           title={t("market.title")}
           description={t("market.description")}
-          eyebrowClassName="market-accent"
         />
 
-        <div className="market-funnel mt-14 md:mt-16" aria-label={t("market.title")}>
+        <ol className="market-funnel mt-12 md:mt-16" aria-label={t("market.title")}>
           <svg
             className="pointer-events-none absolute h-0 w-0"
             aria-hidden
@@ -96,23 +94,24 @@ export function MarketSection() {
           </svg>
 
           {SEGMENTS.map((segment, index) => (
-            <article
+            <li
               key={segment.id}
               className={`market-segment market-segment--${segment.id}`}
               style={{ "--market-index": index } as CSSProperties}
+              aria-label={`${segment.label}: ${t(segment.titleKey)}`}
             >
               <div className="market-segment-content">
-                <p className="market-kicker">{segment.label}</p>
+                <p className="market-kicker" aria-hidden>{segment.label}</p>
                 <h3>{t(segment.titleKey)}</h3>
                 <p className="market-copy">{t(segment.textKey)}</p>
-                <div className="market-value">{t(segment.valueKey)}</div>
-                {segment.id === "som" ? (
-                  <span className="market-share">{t("market.som.share")}</span>
-                ) : null}
+                <div className="market-metrics">
+                  <div className="market-value">{t(segment.valueKey)}</div>
+                  {segment.id === "som" ? <span className="market-share">{t("market.som.share")}</span> : null}
+                </div>
               </div>
-            </article>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

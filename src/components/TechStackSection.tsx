@@ -68,7 +68,6 @@ export function TechStackSection() {
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("stack.eyebrow")}
           title={t("stack.title")}
           description={t("stack.description")}
         />

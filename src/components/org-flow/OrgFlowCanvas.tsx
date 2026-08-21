@@ -1,14 +1,14 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   Background,
   BackgroundVariant,
   Controls,
-  PanOnScrollMode,
   ReactFlow,
   ReactFlowProvider,
   type DefaultEdgeOptions,
+  type CoordinateExtent,
   type Edge,
   type ReactFlowInstance,
 } from "@xyflow/react";
@@ -36,55 +36,86 @@ function OrgFlowCanvasInner({
   ariaLabel,
   className = "",
   dark = false,
+  bounds,
+  compact,
+  flowId,
 }: {
   nodes: OrgFlowCardNodeType[];
   edges: Edge[];
   ariaLabel: string;
   className?: string;
   dark?: boolean;
+  bounds: CoordinateExtent;
+  compact: boolean;
+  flowId: string;
 }) {
   const flowRef = useRef<FlowInstance | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const fitCanvas = useCallback((duration = 0) => {
+    flowRef.current?.fitView({
+      padding: compact ? 0.08 : 0.12,
+      duration,
+      minZoom: compact ? 0.55 : 0.3,
+      maxZoom: 1.15,
+    });
+  }, [compact]);
 
   const onInit = useCallback((instance: FlowInstance) => {
     flowRef.current = instance;
-    requestAnimationFrame(() => {
-      instance.fitView({
-        padding: 0.12,
-        duration: 0,
-        minZoom: 0.35,
-        maxZoom: 1.15,
-      });
+    requestAnimationFrame(() => fitCanvas());
+  }, [fitCanvas]);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => fitCanvas());
+    return () => cancelAnimationFrame(frame);
+  }, [bounds, fitCanvas, nodes]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || !("ResizeObserver" in window)) return;
+    let frame = 0;
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => fitCanvas());
     });
-  }, []);
+    observer.observe(container);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [fitCanvas]);
 
   return (
     <div
+      ref={containerRef}
       className={`org-flow-canvas${dark ? " org-flow-canvas--dark" : ""} ${className}`}
       aria-label={ariaLabel}
     >
       <ReactFlow<OrgFlowCardNodeType, Edge>
+        id={flowId}
         nodes={nodes}
         edges={edges}
         nodeTypes={ORG_FLOW_NODE_TYPES}
         defaultEdgeOptions={EDGE_OPTIONS}
         onInit={onInit}
-        nodesDraggable
+        nodesDraggable={false}
         nodesConnectable={false}
-        elementsSelectable
+        elementsSelectable={false}
         nodesFocusable={false}
         edgesFocusable={false}
-        disableKeyboardA11y
         panOnDrag
-        panOnScroll
-        panOnScrollMode={PanOnScrollMode.Free}
-        preventScrolling
+        panOnScroll={false}
+        preventScrolling={false}
         zoomOnScroll={false}
         zoomOnPinch
         zoomOnDoubleClick={false}
         selectNodesOnDrag={false}
         fitView
-        minZoom={0.25}
-        maxZoom={1.4}
+        minZoom={compact ? 0.55 : 0.3}
+        maxZoom={1.15}
+        nodeExtent={bounds}
+        translateExtent={bounds}
         proOptions={{ hideAttribution: true }}
         style={{ width: "100%", height: "100%" }}
       >
@@ -112,6 +143,9 @@ export function OrgFlowCanvas(props: {
   ariaLabel: string;
   className?: string;
   dark?: boolean;
+  bounds: CoordinateExtent;
+  compact: boolean;
+  flowId: string;
 }) {
   return (
     <ReactFlowProvider>

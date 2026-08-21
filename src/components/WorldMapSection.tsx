@@ -25,13 +25,11 @@ export function WorldMapSection() {
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("worldMap.eyebrow")}
           title={t("worldMap.title")}
           description={t("worldMap.description")}
-          eyebrowClassName="market-accent"
         />
 
-        <div className="world-map-frame mt-14">
+        <div className="world-map-frame mt-12 md:mt-16">
           <WorldMap
             className="world-map-live"
             dots={SERVER_LINKS}

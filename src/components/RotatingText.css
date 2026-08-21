@@ -10,6 +10,17 @@
   flex-wrap: nowrap;
   white-space: nowrap;
   vertical-align: middle;
+  flex: 0 0 4.2em;
+  inline-size: 4.2em;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-scale-chip > .text-rotate[aria-hidden="true"] {
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
 }
 
 .text-rotate-sr-only {

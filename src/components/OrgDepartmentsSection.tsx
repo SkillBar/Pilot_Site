@@ -5,11 +5,13 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { OrgFlowCanvas } from "@/components/org-flow/OrgFlowCanvas";
 import { createDepartmentsFlow } from "@/components/org-flow/departments-flow-data";
 import { useTranslations } from "@/i18n/client";
+import { useCompactOrgLayout } from "@/lib/useCompactOrgLayout";
 
 export function OrgDepartmentsSection() {
   const t = useTranslations();
+  const compact = useCompactOrgLayout();
 
-  const { nodes, edges } = useMemo(
+  const { nodes, edges, bounds } = useMemo(
     () =>
       createDepartmentsFlow({
         company: t("orgStructure.nodes.company"),
@@ -22,8 +24,8 @@ export function OrgDepartmentsSection() {
           omega: t("orgDepartments.items.omega"),
           mega: t("orgDepartments.items.mega"),
         },
-      }),
-    [t],
+      }, compact),
+    [compact, t],
   );
 
   return (
@@ -33,19 +35,19 @@ export function OrgDepartmentsSection() {
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          align="left"
-          eyebrow={t("orgDepartments.eyebrow")}
           title={t("orgDepartments.title")}
           description={t("orgDepartments.description")}
-          eyebrowClassName="font-bold tracking-[0.32em] text-[#ef5a16]"
           descriptionClassName="max-w-xl text-black/55"
         />
 
-        <div className="org-frame org-frame--flow mt-10 md:mt-14">
+        <div className="org-frame org-frame--flow mt-12 md:mt-16">
           <span className="org-badge">{t("orgDepartments.label")}</span>
           <OrgFlowCanvas
             nodes={nodes}
             edges={edges}
+            bounds={bounds}
+            compact={compact}
+            flowId="departments-flow"
             ariaLabel={t("orgDepartments.title")}
             className="org-flow-canvas--depts"
           />

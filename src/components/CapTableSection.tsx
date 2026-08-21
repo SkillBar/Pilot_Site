@@ -66,10 +66,8 @@ export function CapTableSection() {
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("capTable.eyebrow")}
           title={t("capTable.title")}
           description={t("capTable.description")}
-          eyebrowClassName="font-bold tracking-[0.32em] text-[#ef5a16]"
           descriptionClassName="max-w-xl text-black/55"
         />
 
@@ -95,69 +93,65 @@ export function CapTableSection() {
           <PlusMarks className="dist-plus dist-plus--board" />
 
           <div className="dist-board-inner">
-            <div className="cap-head" role="row">
-              <PlusMarks className="dist-plus dist-plus--row" />
-              <span className="cap-cell cap-cell--who">
-                {t("capTable.colHolder")}
-              </span>
-              <span className="cap-cell cap-cell--role">
-                {t("capTable.colRole")}
-              </span>
-              <span className="cap-cell cap-cell--share">
-                {t("capTable.colShare")}
-              </span>
-            </div>
-
-            <div
-              className="cap-body"
-              role="table"
-              aria-label={t("capTable.title")}
-            >
+            <table className="cap-table" aria-label={t("capTable.title")}>
+              <thead>
+                <tr className="cap-head">
+                  <th scope="col" className="cap-cell cap-cell--who">
+                    <PlusMarks className="dist-plus dist-plus--row" />
+                    {t("capTable.colHolder")}
+                  </th>
+                  <th scope="col" className="cap-cell cap-cell--role">
+                    {t("capTable.colRole")}
+                  </th>
+                  <th scope="col" className="cap-cell cap-cell--share">
+                    {t("capTable.colShare")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="cap-body">
               {CAP_ROWS.map((row) => (
-                <div key={row.id} className="cap-row" role="row">
-                  <PlusMarks className="dist-plus dist-plus--row" />
-                  <span className="cap-cell cap-cell--who">
+                <tr key={row.id} className="cap-row">
+                  <td className="cap-cell cap-cell--who">
+                    <PlusMarks className="dist-plus dist-plus--row" />
                     <span
                       className="cap-dot"
                       style={{ backgroundColor: row.accent }}
                       aria-hidden
                     />
                     <span>{row.name}</span>
-                  </span>
-                  <span className="cap-cell cap-cell--role cap-cell--muted">
+                  </td>
+                  <td className="cap-cell cap-cell--role cap-cell--muted">
                     {row.roleKey ? t(row.roleKey) : pending}
-                  </span>
-                  <span
+                  </td>
+                  <td
                     className={`cap-cell cap-cell--share${
                       row.share === null ? " cap-cell--muted" : ""
                     }`}
                   >
                     {row.share === null ? pending : `${row.share}%`}
-                  </span>
-                </div>
+                  </td>
+                </tr>
               ))}
 
-              <div className="cap-row cap-row--total" role="row">
-                <PlusMarks className="dist-plus dist-plus--row" />
-                <span className="cap-cell cap-cell--who">
+              <tr className="cap-row cap-row--total">
+                <td className="cap-cell cap-cell--who">
+                  <PlusMarks className="dist-plus dist-plus--row" />
                   {t("capTable.total")}
-                </span>
-                <span className="cap-cell cap-cell--role" />
-                <span
+                </td>
+                <td className="cap-cell cap-cell--role" />
+                <td
                   className={`cap-cell cap-cell--share${
                     allKnown ? "" : " cap-cell--muted"
                   }`}
                 >
                   {allKnown ? `${total}%` : pending}
-                </span>
-              </div>
-            </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <p className="cap-note mt-5 text-center font-mono text-[10px] tracking-[0.18em] text-black/40 uppercase">
-          {t("capTable.note")}
-        </p>
       </div>
     </section>
   );

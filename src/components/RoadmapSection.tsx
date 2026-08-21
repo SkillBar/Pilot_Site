@@ -90,15 +90,13 @@ export function RoadmapSection() {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("roadmap.eyebrow")}
           title={t("roadmap.title")}
           description={t("roadmap.description")}
-          eyebrowClassName="font-bold tracking-[0.32em] text-[#ef5a16]"
           descriptionClassName="max-w-xl text-black/55"
         />
       </div>
 
-      <div className="relative z-10 mt-6 md:mt-10">
+      <div className="relative z-10 mt-12 md:mt-16">
         <Timeline data={data} />
       </div>
     </section>

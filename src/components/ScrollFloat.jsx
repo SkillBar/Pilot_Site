@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { Fragment, useEffect, useMemo, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -13,20 +13,37 @@ const ScrollFloat = ({
   scrollContainerRef = null,
   containerClassName = '',
   textClassName = '',
-  animationDuration = 0.9,
+  animationDuration = 0.6,
   ease = 'power3.out',
   scrollStart = 'top 88%',
-  stagger = 0.018
+  stagger = 0.006
 }) => {
   const containerRef = useRef(null);
 
   const splitText = useMemo(() => {
     const text = typeof children === 'string' ? children : '';
-    return text.split('').map((char, index) => (
-      <span className="char" key={index}>
-        {char === ' ' ? '\u00A0' : char}
-      </span>
-    ));
+    return text.split('\n').map((line, lineIndex, lines) => {
+      const words = line.split(' ');
+      return (
+        <Fragment key={`${line}-${lineIndex}`}>
+          <span className="scroll-float-line">
+            {words.map((word, wordIndex) => (
+              <span className="scroll-float-word" key={`${word}-${wordIndex}`}>
+                {word.split('').map((char, charIndex) => (
+                  <span className="char" key={`${char}-${charIndex}`}>
+                    {char}
+                  </span>
+                ))}
+                {wordIndex < words.length - 1 ? (
+                  <span className="scroll-float-space" aria-hidden="true">{' '}</span>
+                ) : null}
+              </span>
+            ))}
+          </span>
+          {lineIndex < lines.length - 1 ? <br /> : null}
+        </Fragment>
+      );
+    });
   }, [children]);
 
   useEffect(() => {

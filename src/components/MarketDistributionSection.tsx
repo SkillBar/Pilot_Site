@@ -163,6 +163,14 @@ function rowScore(row: DistRow) {
   return (row.pilot ?? 0) + (row.unior ?? 0);
 }
 
+const RANK_BY_COUNTRY = new Map(
+  REGION_ORDER.flatMap((region) =>
+    ROWS.filter((row) => row.region === region).sort(
+      (a, b) => rowScore(b) - rowScore(a),
+    ),
+  ).map((row, index) => [row.code, index + 1]),
+);
+
 function CountryFlag({ colors, code }: { colors: string[]; code: CountryCode }) {
   if (code === "tr") {
     return (
@@ -221,8 +229,6 @@ export function MarketDistributionSection() {
     { pilot: 0, unior: 0 },
   );
 
-  let rank = 0;
-
   return (
     <section
       id="distribution"
@@ -230,10 +236,8 @@ export function MarketDistributionSection() {
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("distribution.eyebrow")}
           title={t("distribution.title")}
           description={t("distribution.description")}
-          eyebrowClassName="font-bold tracking-[0.32em] text-[#ef5a16]"
           descriptionClassName="max-w-xl text-black/55"
         />
 
@@ -274,8 +278,9 @@ export function MarketDistributionSection() {
                     </div>
 
                     {rows.map((row) => {
-                      rank += 1;
-                      const rankLabel = String(rank).padStart(2, "0");
+                      const rankLabel = String(
+                        RANK_BY_COUNTRY.get(row.code) ?? 0,
+                      ).padStart(2, "0");
 
                       return (
                         <div key={row.code} className="dist-row" role="row">

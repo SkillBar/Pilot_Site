@@ -1,7 +1,17 @@
 import { NodeIO } from "@gltf-transform/core";
 import { ALL_EXTENSIONS } from "@gltf-transform/extensions";
-import { prune } from "@gltf-transform/functions";
-import { MeshoptDecoder, MeshoptEncoder } from "meshoptimizer";
+import {
+  dequantize,
+  meshopt,
+  prune,
+  simplify,
+  weld,
+} from "@gltf-transform/functions";
+import {
+  MeshoptDecoder,
+  MeshoptEncoder,
+  MeshoptSimplifier,
+} from "meshoptimizer";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -15,7 +25,11 @@ const models = [
   ["meshy-scale-10.web.glb", "meshy-scale-10.motion.glb"],
 ];
 
-await Promise.all([MeshoptDecoder.ready, MeshoptEncoder.ready]);
+await Promise.all([
+  MeshoptDecoder.ready,
+  MeshoptEncoder.ready,
+  MeshoptSimplifier.ready,
+]);
 
 const io = new NodeIO()
   .registerExtensions(ALL_EXTENSIONS)
@@ -27,13 +41,33 @@ const io = new NodeIO()
 for (const [inputName, outputName] of models) {
   const document = await io.read(path.join(modelDirectory, inputName));
 
+  await document.transform(
+    dequantize(),
+    weld(),
+    simplify({
+      simplifier: MeshoptSimplifier,
+      ratio: 0.35,
+      error: 0.002,
+      lockBorder: true,
+    }),
+  );
+
   // Motion LOD reuses the HQ material in the browser. Removing its own material
   // avoids decoding and allocating a second copy of every 2K texture.
   for (const mesh of document.getRoot().listMeshes()) {
     for (const primitive of mesh.listPrimitives()) primitive.setMaterial(null);
   }
 
-  await document.transform(prune());
+  await document.transform(
+    prune(),
+    meshopt({
+      encoder: MeshoptEncoder,
+      level: "high",
+      quantizePosition: 14,
+      quantizeNormal: 10,
+      quantizeTexcoord: 12,
+    }),
+  );
   await io.write(path.join(modelDirectory, outputName), document);
   console.log(`Generated ${outputName}`);
 }

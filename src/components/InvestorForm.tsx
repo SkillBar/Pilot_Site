@@ -31,10 +31,7 @@ export function InvestorForm() {
   if (state.ok) {
     return (
       <div className="border border-ok/40 bg-ok/10 px-5 py-6 font-mono">
-        <p className="text-[11px] tracking-[0.22em] text-ok uppercase">
-          {t("form.successEyebrow")}
-        </p>
-        <p className="mt-3 text-sm text-fg">{t("form.success")}</p>
+        <p className="text-sm text-fg">{t("form.success")}</p>
       </div>
     );
   }

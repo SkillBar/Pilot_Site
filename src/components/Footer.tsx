@@ -7,9 +7,8 @@ export function Footer() {
 
   return (
     <footer className="border-t border-line px-5 py-6 md:px-8">
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 font-mono text-[11px] tracking-wider text-muted md:flex-row md:items-center md:justify-between">
+      <div className="mx-auto max-w-6xl font-mono text-[11px] tracking-wider text-muted">
         <p>{t("footer.rights", { year: new Date().getFullYear() })}</p>
-        <p className="text-muted/70">{t("footer.status")}</p>
       </div>
     </footer>
   );

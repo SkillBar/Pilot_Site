@@ -1,35 +1,59 @@
 "use client";
 
-import { FleetShowcaseCanvas } from "@/features/three";
-import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+const FleetShowcaseCanvas = dynamic(
+  () =>
+    import("@/features/three/fleet-showcase-canvas").then(
+      (module) => module.FleetShowcaseCanvas,
+    ),
+  { ssr: false },
+);
+
+const compactQuery = "(max-width: 899px)";
+
+function subscribeToMobile(callback: () => void) {
+  const query = window.matchMedia(compactQuery);
+  query.addEventListener("change", callback);
+  return () => query.removeEventListener("change", callback);
+}
+
+function getMobileSnapshot() {
+  return window.matchMedia(compactQuery).matches;
+}
 
 const scaleModels = [
   {
     scale: "1:64",
-    code: "PILOT / POCKET",
-    title: "Городской спринт",
-    modelUrl: "/three/models/dodge.hq.glb",
+    displayName: "Dodge",
+    visualYOffset: 0.52,
+    label: "Dodge, масштаб 1 к 64",
+    modelUrl: "/three/models/dodge.web.glb",
     motionModelUrl: "/three/models/dodge.motion.glb",
   },
   {
     scale: "1:43",
-    code: "PILOT / STREET",
-    title: "Свободный маршрут",
-    modelUrl: "/three/models/meshy-ai-jeep.hq.glb",
+    displayName: "Jeep",
+    visualYOffset: 0,
+    label: "Jeep, масштаб 1 к 43",
+    modelUrl: "/three/models/meshy-ai-jeep.web.glb",
     motionModelUrl: "/three/models/meshy-ai-jeep.motion.glb",
   },
   {
     scale: "1:24",
-    code: "PILOT / RACING",
-    title: "Трековая серия",
-    modelUrl: "/three/models/meshy-scale-24.hq.glb",
+    displayName: "Нива",
+    visualYOffset: 0,
+    label: "Нива, масштаб 1 к 24",
+    modelUrl: "/three/models/meshy-scale-24.web.glb",
     motionModelUrl: "/three/models/meshy-scale-24.motion.glb",
   },
   {
     scale: "1:10",
-    code: "PILOT / PRO",
-    title: "Большая лига",
-    modelUrl: "/three/models/meshy-scale-10.hq.glb",
+    displayName: "Nissan",
+    visualYOffset: 0.56,
+    label: "Nissan, масштаб 1 к 10",
+    modelUrl: "/three/models/meshy-scale-10.web.glb",
     motionModelUrl: "/three/models/meshy-scale-10.motion.glb",
   },
 ] as const;
@@ -38,25 +62,23 @@ export function ScaleShowcaseSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [shouldMount3D, setShouldMount3D] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const isMobile = useSyncExternalStore(
+    subscribeToMobile,
+    getMobileSnapshot,
+    () => false,
+  );
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    if (!("IntersectionObserver" in window)) {
-      const frame = requestAnimationFrame(() => setShouldMount3D(true));
-      return () => cancelAnimationFrame(frame);
-    }
+    let cancelled = false;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return;
-        setShouldMount3D(true);
-        observer.disconnect();
-      },
-      { rootMargin: "600px 0px" },
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
+    void import("@/features/three/fleet-showcase-canvas").then((module) => {
+      module.preloadFleetModels(scaleModels);
+      if (!cancelled) setShouldMount3D(true);
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -68,22 +90,17 @@ export function ScaleShowcaseSection() {
       <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rotate-12 bg-[#ef5a16] opacity-90 [clip-path:polygon(45%_0,58%_34%,100%_20%,66%_48%,100%_70%,59%_60%,51%_100%,39%_64%,0_82%,31%_53%,0_30%,39%_40%)]" />
 
       <div className="relative mx-auto max-w-[1480px]">
-        <div className="flex flex-col gap-7 border-b border-black/15 pb-8 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="font-mono text-[10px] font-bold tracking-[0.3em] text-[#ef5a16] uppercase">
-              Коллекция Pilot
-            </p>
-            <h2 className="mt-3 max-w-4xl font-display text-[clamp(1.6rem,2.5vw,2.35rem)] font-black leading-[1.12] tracking-[-0.03em] uppercase">
-              Выберите свой масштаб
-            </h2>
-          </div>
-          <p className="max-w-sm font-mono text-xs leading-relaxed text-black/50 md:pb-1">
+        <div className="border-b border-black/15 pb-8">
+          <h2 className="max-w-4xl font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.1] tracking-[-0.025em]">
+            Выберите свой масштаб
+          </h2>
+          <p className="mt-4 max-w-2xl font-sans text-base leading-[1.55] text-black/65 md:text-lg">
             Четыре формата одной экосистемы. Вращайте модель и выберите масштаб,
             с которого начнётся ваша гонка.
           </p>
         </div>
 
-        <div className="relative h-[340px] overflow-hidden border-x border-black/10 bg-[#f7f7f5] md:h-[460px]">
+        <div className="relative mt-4 h-[340px] overflow-hidden border-x border-black/10 bg-[#f7f7f5] md:mt-8 md:h-[460px]">
           <span className="pointer-events-none absolute right-4 top-2 z-[1] font-display text-[clamp(4rem,12vw,11rem)] font-black tracking-[-0.08em] text-black/[0.035] uppercase">
             Pilot
           </span>
@@ -91,33 +108,32 @@ export function ScaleShowcaseSection() {
             <FleetShowcaseCanvas
               models={scaleModels}
               activeIndex={activeIndex}
+              activeOnly={isMobile}
             />
           ) : (
             <div className="absolute inset-0 animate-pulse bg-[radial-gradient(ellipse_at_center,rgba(17,19,24,0.06),transparent_58%)]" aria-hidden />
           )}
         </div>
 
-        <div className="grid border-x border-black/10 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-2 border-x border-black/10 lg:grid-cols-4">
           {scaleModels.map((item, index) => (
             <button
               type="button"
               key={item.scale}
               onClick={() => setActiveIndex(index)}
               aria-pressed={index === activeIndex}
-              className={`group relative min-w-0 border-b border-black/10 px-5 py-5 text-left transition-colors duration-300 sm:border-r xl:border-b-0 ${index === activeIndex ? "bg-[#111318] text-white" : "bg-[#f7f7f5] hover:bg-white"}`}
+              aria-label={`Выбрать ${item.displayName}, масштаб ${item.scale}`}
+              className={`group relative min-w-0 border-b border-r border-black/10 px-4 py-4 text-left transition-colors duration-300 odd:border-l-0 even:border-r-0 lg:border-b-0 lg:border-r lg:px-5 lg:py-5 lg:last:border-r-0 ${index === activeIndex ? "bg-[#111318] text-white" : "bg-[#f7f7f5] hover:bg-white"}`}
             >
-              <div className="flex items-start justify-between">
-                <span className={`font-mono text-[9px] font-bold tracking-[0.18em] ${index === activeIndex ? "text-white/35" : "text-black/40"}`}>
-                  0{index + 1} / 04
-                </span>
+              <div className="flex justify-end">
                 <span className={`size-2 rounded-full ${index === activeIndex ? "bg-[#ef5a16] shadow-[0_0_16px_rgba(239,90,22,0.8)]" : "bg-black/15"}`}>
                 </span>
               </div>
-              <div className="mt-6 flex items-end justify-between gap-4">
-                <p className={`font-mono text-[9px] font-bold tracking-[0.14em] uppercase ${index === activeIndex ? "text-white/45" : "text-black/40"}`}>
-                  {item.title}
-                </p>
-                <strong className="font-display text-4xl font-black tracking-[-0.08em] text-[#ef5a16]">
+              <div className="mt-4 flex min-h-[68px] flex-col items-end justify-end gap-1 sm:min-h-[44px] sm:flex-row sm:items-end sm:justify-between sm:gap-3">
+                <span className="max-w-full font-display text-[clamp(0.875rem,1.35vw,1.125rem)] font-semibold leading-[1.2] tracking-[-0.025em] text-current text-balance">
+                  {item.displayName}
+                </span>
+                <strong className="shrink-0 font-display text-[clamp(1.75rem,3vw,2.25rem)] font-bold leading-none tracking-[-0.07em] text-[#ef5a16] tabular-nums">
                   {item.scale}
                 </strong>
               </div>
@@ -125,14 +141,6 @@ export function ScaleShowcaseSection() {
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-black/80 bg-[#111318] px-5 py-3 text-white">
-          <p className="font-mono text-[9px] font-bold tracking-[0.2em] uppercase text-white/55">
-            Digital race / Physical model / One Pilot ID
-          </p>
-          <p className="font-display text-sm font-black italic tracking-[-0.03em] uppercase">
-            Играй. Собирай. Масштабируй.
-          </p>
-        </div>
       </div>
     </section>
   );

@@ -64,10 +64,8 @@ export function ArenaPanelSection() {
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("arenaPanel.eyebrow")}
           title={t("arenaPanel.title")}
           description={t("arenaPanel.description")}
-          eyebrowClassName="font-bold tracking-[0.32em] text-[#ef5a16]"
           descriptionClassName="max-w-xl text-black/55"
         />
 

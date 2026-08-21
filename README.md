@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PILOT — pre-final investor site
 
-## Getting Started
+Предфинальная версия продуктового и инвестиционного сайта PILOT: экосистемы реальных FPV-гонок на масштабных моделях, цифрового лаунчера, инфраструктуры, Arena и инвестиционной модели.
 
-First, run the development server:
+Ветка `pre-final` собирает полный текущий интерфейс и все необходимые локальные ассеты. Это контрольная версия перед финальной контентной вычиткой, подключением реальных ссылок загрузки и публикацией.
+
+## Что входит в версию
+
+- атмосферный Hero и бесшовный видеоблок «Два мира»;
+- интерактивный выбор масштаба с четырьмя оптимизированными 3D-моделями;
+- трассы сезона, фиджитал-вселенная, преимущества и целевая аудитория;
+- партнёрский блок с официальными логотипами;
+- интерактивная инфраструктура PILOT с desktop-вкладками и mobile-accordion;
+- полноформатный блок загрузки PILOT Launcher;
+- Arena, устройство машинки, бизнес-модель и организационные схемы;
+- светлая интерактивная финансовая модель и инвестиционная воронка рынка;
+- адаптивные состояния для desktop, tablet и mobile;
+- локальные Inter, Unbounded и JetBrains Mono без зависимости от внешнего CDN.
+
+## Технологии
+
+- Next.js 16.2.11 и React 19;
+- TypeScript и Tailwind CSS 4;
+- Three.js, React Three Fiber и Drei;
+- React Flow для организационных схем;
+- Motion, GSAP и Lenis для интерфейсной анимации.
+
+## Локальный запуск
+
+Требуется актуальная LTS-версия Node.js.
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+После запуска сайт доступен по адресу `http://127.0.0.1:3000/` или адресу, который выведет Next.js.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production-проверка
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+Перед отправкой ветки проверяются TypeScript, ESLint затронутых файлов и production build.
 
-To learn more about Next.js, take a look at the following resources:
+## Ссылки загрузки Launcher
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Создайте локальный `.env.local` на основе `.env.example`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```dotenv
+NEXT_PUBLIC_PILOT_MACOS_URL=
+NEXT_PUBLIC_PILOT_WINDOWS_URL=
+NEXT_PUBLIC_PILOT_STEAM_URL=
+```
 
-## Deploy on Vercel
+Допускаются только HTTPS-ссылки. Пока ссылка не задана, основная кнопка остаётся демонстрационным контролом без перехода. Перед публичным релизом каждой активной CTA необходимо назначить реальный установщик или согласованный сценарий заявки.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Основные каталоги
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app` — оболочка и глобальная дизайн-система;
+- `src/components` — продуктовые секции страницы;
+- `src/features/three` — 3D-сцена и управление моделями;
+- `public/three` — GLB-модели и LOD;
+- `public/video` — видео секции «Два мира»;
+- `public/pilot-infrastructure` — видео и постеры инфраструктуры;
+- `public/advantages`, `public/audience`, `public/partners` — контентные изображения;
+- `public/fonts` — локальная типографическая система PILOT.
+
+## Статус версии
+
+`pre-final` предназначена для финального визуального и контентного согласования. Перед переносом в основную ветку остаются внешние релизные задачи: подтверждение download URL, подключение реальной доставки формы инвестора и верификация источников финансовых показателей.

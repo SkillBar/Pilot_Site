@@ -14,7 +14,6 @@ export function InvestorsSection() {
     >
       <div className="mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("investors.eyebrow")}
           title={t("investors.title")}
           description={t("investors.description")}
           after={
@@ -29,16 +28,13 @@ export function InvestorsSection() {
           }
         />
 
-        <div className="investor-card relative mt-14 overflow-hidden border border-line px-6 py-10 md:px-12 md:py-14">
+        <div className="investor-card relative mt-12 overflow-hidden border border-line px-6 py-10 md:mt-16 md:px-12 md:py-14">
           <div
             aria-hidden
             className="pointer-events-none absolute -right-16 top-0 h-full w-1/2 bg-[radial-gradient(circle_at_center,rgba(59,130,255,0.18),transparent_60%)]"
           />
 
           <div className="relative mx-auto max-w-xl">
-            <p className="mb-5 text-center font-mono text-[10px] tracking-[0.22em] text-muted uppercase">
-              {t("investors.formEyebrow")}
-            </p>
             <InvestorForm />
           </div>
         </div>

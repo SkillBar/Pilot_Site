@@ -63,7 +63,7 @@ export function BusinessTracksSection() {
   return (
     <section
       id="tracks"
-      className="tracks-section relative overflow-hidden px-5 py-16 md:px-8 md:py-28"
+      className="tracks-section relative overflow-hidden px-5 py-16 md:px-8 md:py-24"
     >
       <div className="tracks-ambient-grid" aria-hidden>
         <span className="tracks-ambient-cell tracks-ambient-cell--one" />
@@ -74,10 +74,8 @@ export function BusinessTracksSection() {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("tracks.eyebrow")}
           title={t("tracks.title")}
           description={t("tracks.description")}
-          eyebrowClassName="pilot-card-accent"
         />
 
         <PilotCardGrid>

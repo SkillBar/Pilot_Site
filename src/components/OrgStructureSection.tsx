@@ -5,11 +5,13 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { OrgFlowCanvas } from "@/components/org-flow/OrgFlowCanvas";
 import { createGroupStructureFlow } from "@/components/org-flow/group-structure-data";
 import { useTranslations } from "@/i18n/client";
+import { useCompactOrgLayout } from "@/lib/useCompactOrgLayout";
 
 export function OrgStructureSection() {
   const t = useTranslations();
+  const compact = useCompactOrgLayout();
 
-  const { nodes, edges } = useMemo(
+  const { nodes, edges, bounds } = useMemo(
     () =>
       createGroupStructureFlow({
         company: t("orgStructure.nodes.company"),
@@ -36,8 +38,8 @@ export function OrgStructureSection() {
           education: t("orgStructure.tags.education"),
           kids: t("orgStructure.tags.kids"),
         },
-      }),
-    [t],
+      }, compact),
+    [compact, t],
   );
 
   return (
@@ -47,10 +49,8 @@ export function OrgStructureSection() {
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("orgStructure.eyebrow")}
           title={t("orgStructure.title")}
           description={t("orgStructure.description")}
-          eyebrowClassName="font-bold tracking-[0.32em] text-[#ef5a16]"
           descriptionClassName="max-w-xl text-black/55"
         />
 
@@ -59,6 +59,9 @@ export function OrgStructureSection() {
           <OrgFlowCanvas
             nodes={nodes}
             edges={edges}
+            bounds={bounds}
+            compact={compact}
+            flowId="group-structure-flow"
             ariaLabel={t("orgStructure.title")}
             className="org-flow-canvas--group"
           />

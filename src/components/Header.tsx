@@ -1,6 +1,5 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTranslations } from "@/i18n/client";
@@ -19,11 +18,6 @@ export function Header() {
     { href: "#org-structure", label: t("header.navStructure") },
     { href: "#investors", label: t("header.navInvestors") },
   ] as const;
-  const activeNavIndex = Math.max(
-    primaryNav.findIndex((item) => item.href === activeSection),
-    0,
-  );
-
   useEffect(() => {
     const savedTheme = localStorage.getItem("pilot-theme");
     const initialTheme =
@@ -31,11 +25,12 @@ export function Header() {
 
     document.documentElement.dataset.theme = initialTheme;
     document.documentElement.classList.toggle("dark", initialTheme === "dark");
-    const themeFrame = requestAnimationFrame(() => setTheme(initialTheme));
-
     let frame = 0;
     let lastAtTop = window.scrollY < 8;
-    setIsAtTop(lastAtTop);
+    const initialFrame = requestAnimationFrame(() => {
+      setTheme(initialTheme);
+      setIsAtTop(lastAtTop);
+    });
 
     const handleScroll = () => {
       if (frame !== 0) return;
@@ -52,7 +47,7 @@ export function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      cancelAnimationFrame(themeFrame);
+      cancelAnimationFrame(initialFrame);
       if (frame !== 0) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", handleScroll);
     };
@@ -145,7 +140,7 @@ export function Header() {
             }}
           />
 
-          <div className="relative mx-auto flex h-11 max-w-7xl items-center gap-3 px-4 md:h-12 md:px-8">
+          <div className="relative mx-auto flex h-11 max-w-7xl items-center px-4 md:h-12 md:px-8">
             <a
               href="#top"
               className="group flex shrink-0 items-center border-r border-white/10 pr-5 transition-opacity hover:opacity-90"
@@ -162,25 +157,10 @@ export function Header() {
             </a>
 
             <nav
-              className="hidden h-full flex-1 items-stretch justify-center md:flex"
+              className="absolute left-1/2 hidden h-full -translate-x-1/2 items-stretch justify-center lg:flex"
               aria-label={t("header.primaryNavAria")}
             >
-              <div
-                className="relative flex h-full items-stretch"
-                style={
-                  {
-                    "--pilot-active-index": activeNavIndex,
-                  } as CSSProperties
-                }
-              >
-                <span className="pilot-nav-highlight" aria-hidden>
-                  <span
-                    className="pilot-nav-spark absolute left-1/2 top-0.5 -translate-x-1/2 text-[9px] text-white"
-                  >
-                    ✦
-                  </span>
-                </span>
-
+              <div className="flex h-full items-stretch gap-2">
                 {primaryNav.map((item) => {
                   const isActive = activeSection === item.href;
 
@@ -190,12 +170,13 @@ export function Header() {
                       href={item.href}
                       onClick={() => setActiveSection(item.href)}
                       aria-current={isActive ? "page" : undefined}
-                      className={`pilot-nav-item group relative z-10 flex w-[5.25rem] shrink-0 items-center justify-center px-1.5 font-display text-[9px] font-bold tracking-[0.05em] uppercase transition-colors duration-300 lg:w-[6.5rem] lg:px-3 lg:text-[10px] ${
+                      className={`pilot-nav-item group relative flex min-h-11 shrink-0 items-center justify-center px-4 font-display text-[9px] font-bold tracking-[0.05em] uppercase transition-[color,background-color,box-shadow] duration-300 lg:text-[10px] ${
                         isActive
-                          ? "text-white"
+                          ? "pilot-nav-item--active text-white"
                           : "text-white/38 hover:bg-white/[0.035] hover:text-white/75"
                       }`}
                     >
+                      {isActive ? <span className="pilot-nav-spark" aria-hidden>✦</span> : null}
                       <span className="relative z-10">{item.label}</span>
                     </a>
                   );
@@ -203,14 +184,9 @@ export function Header() {
               </div>
             </nav>
 
-            <div className="ml-auto flex items-center gap-4">
-              <div className="hidden items-center gap-2 font-mono text-[9px] tracking-[0.13em] text-muted uppercase xl:flex">
-                <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-ok" />
-                {t("header.fpvOnline")}
-              </div>
-
-              <details className="group relative md:hidden">
-                <summary className="flex h-9 w-9 cursor-pointer list-none items-center justify-center border border-white/15 text-fg [&::-webkit-details-marker]:hidden">
+            <div className="ml-auto flex items-center">
+              <details className="group relative lg:hidden">
+                <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center border border-white/15 text-fg [&::-webkit-details-marker]:hidden">
                   <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
                     <path
                       d="M5 7h14M5 12h14M5 17h14"
@@ -229,17 +205,13 @@ export function Header() {
                     <a
                       key={item.href}
                       href={item.href}
-                      className="border-b border-white/5 px-4 py-3 font-mono text-xs text-fg/80 transition-colors last:border-0 hover:bg-accent/10 hover:text-accent"
+                      className="flex min-h-11 items-center border-b border-white/5 px-4 py-3 font-mono text-xs text-fg/80 transition-colors last:border-0 hover:bg-accent/10 hover:text-accent"
                     >
                       {item.label}
                     </a>
                   ))}
                 </nav>
               </details>
-
-              <div className="hidden h-9 w-9 items-center justify-center rounded-full border border-white/15 font-display text-[9px] font-bold text-fg md:flex">
-                FPV
-              </div>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import type { Edge } from "@xyflow/react";
+import type { CoordinateExtent, Edge } from "@xyflow/react";
 import type { OrgFlowCardNodeType } from "@/components/org-flow/OrgFlowCardNode";
 
 const CARD_W = 220;
@@ -18,8 +18,9 @@ const DEPTS = [
 export function createDepartmentsFlow(copy: {
   company: string;
   items: Record<(typeof DEPTS)[number]["key"], string>;
-}): { nodes: OrgFlowCardNodeType[]; edges: Edge[] } {
-  const rowWidth = DEPTS.length * STEP - GAP;
+}, compact = false): { nodes: OrgFlowCardNodeType[]; edges: Edge[]; bounds: CoordinateExtent } {
+  const columns = compact ? 2 : DEPTS.length;
+  const rowWidth = columns * STEP - GAP;
   const companyX = Math.max(0, (rowWidth - CARD_W) / 2);
 
   const nodes: OrgFlowCardNodeType[] = [
@@ -34,14 +35,14 @@ export function createDepartmentsFlow(copy: {
         emphasis: true,
         source: true,
       },
-      draggable: true,
+      draggable: false,
     },
     ...DEPTS.map((dept, index) => ({
       id: dept.id,
       type: "orgCard" as const,
       position: {
-        x: index * STEP,
-        y: 240,
+        x: (index % columns) * STEP,
+        y: 240 + Math.floor(index / columns) * 190,
       },
       data: {
         title: dept.code,
@@ -50,7 +51,7 @@ export function createDepartmentsFlow(copy: {
         target: true,
       },
       style: { width: CARD_W },
-      draggable: true,
+      draggable: false,
     })),
   ];
 
@@ -61,5 +62,11 @@ export function createDepartmentsFlow(copy: {
     animated: true,
   }));
 
-  return { nodes, edges };
+  const rows = Math.ceil(DEPTS.length / columns);
+  const contentBottom = 240 + (rows - 1) * 190 + 160;
+  return {
+    nodes,
+    edges,
+    bounds: [[-64, -64], [rowWidth + 64, contentBottom + 64]],
+  };
 }

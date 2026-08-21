@@ -3,6 +3,7 @@
 import { FadeIn } from "@/components/FadeIn";
 import { LazyScrollFloat } from "@/components/LazyScrollFloat";
 import { cn } from "@/lib/utils";
+import { balanceDisplayTitle } from "@/lib/typography";
 import type { ReactNode } from "react";
 
 type SectionHeaderProps = {
@@ -13,6 +14,7 @@ type SectionHeaderProps = {
   className?: string;
   eyebrowClassName?: string;
   descriptionClassName?: string;
+  descriptionAnimated?: boolean;
   before?: ReactNode;
   after?: ReactNode;
 };
@@ -28,6 +30,7 @@ export function SectionHeader({
   className,
   eyebrowClassName,
   descriptionClassName,
+  descriptionAnimated = true,
   before,
   after,
 }: SectionHeaderProps) {
@@ -36,7 +39,7 @@ export function SectionHeader({
   return (
     <header
       className={cn(
-        centered ? "mx-auto max-w-2xl text-center" : "max-w-xl text-left",
+        centered ? "mx-auto max-w-5xl text-center" : "max-w-5xl text-left",
         className,
       )}
     >
@@ -55,22 +58,37 @@ export function SectionHeader({
 
       <LazyScrollFloat
         containerClassName={cn(eyebrow ? "mt-4" : "mt-0", !centered && "text-left")}
-        textClassName="font-display text-2xl font-bold tracking-tight text-fg md:text-3xl"
+        textClassName="section-display-title font-display text-fg"
       >
-        {title}
+        {balanceDisplayTitle(title)}
       </LazyScrollFloat>
 
-      {description ? (
-        <FadeIn
-          className={cn(
-            "mt-4 font-mono text-sm leading-relaxed text-muted md:text-[15px]",
-            centered && "mx-auto",
-            descriptionClassName,
-          )}
-        >
-          {description}
-        </FadeIn>
-      ) : null}
+      {description
+        ? descriptionAnimated
+          ? (
+              <FadeIn
+                className={cn(
+                  "mt-4 font-sans text-[15px] leading-[1.5] text-muted md:text-[17px] md:leading-[1.55]",
+                  "max-w-2xl",
+                  centered && "mx-auto",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </FadeIn>
+            )
+          : (
+              <p
+                className={cn(
+                  "mt-4 max-w-2xl font-sans text-[15px] leading-[1.5] text-muted md:text-[17px] md:leading-[1.55]",
+                  centered && "mx-auto",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
+            )
+        : null}
 
       {after}
     </header>

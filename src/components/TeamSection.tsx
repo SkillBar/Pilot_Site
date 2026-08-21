@@ -78,7 +78,7 @@ export function TeamSection() {
   return (
     <section
       id="team"
-      className="team-race-bg relative isolate overflow-hidden px-5 py-20 text-[#090b10] md:px-8 md:py-28"
+      className="team-race-bg relative isolate overflow-hidden px-5 py-16 text-[#090b10] md:px-8 md:py-24"
     >
       <svg
         className="pointer-events-none absolute inset-0 -z-10 h-full w-full"
@@ -135,14 +135,13 @@ export function TeamSection() {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("team.eyebrow")}
           title={t("team.title")}
           description={t("team.description")}
-          eyebrowClassName="font-bold tracking-[0.32em] text-[#1769ff]"
+          className="[&_.section-display-title]:!text-black"
           descriptionClassName="max-w-xl text-black/55"
         />
 
-        <div className="mx-auto mt-14 grid max-w-5xl items-end gap-2 md:mt-20 md:grid-cols-3">
+        <div className="mx-auto mt-12 grid max-w-5xl items-end gap-2 md:mt-16 md:grid-cols-3">
           {leaders.map((member) => (
             <article
               key={member.rank}
@@ -174,10 +173,10 @@ export function TeamSection() {
 
               <div className="flex items-end justify-between gap-4 px-4 py-4">
                 <div>
-                  <p className="font-display text-sm font-bold tracking-[0.04em] uppercase">
+                  <p className="font-display text-sm font-bold tracking-[0.04em]">
                     {member.name}
                   </p>
-                  <p className="font-display text-lg font-black tracking-[-0.02em] uppercase">
+                  <p className="font-display text-lg font-black tracking-[-0.02em]">
                     {member.surname}
                   </p>
                 </div>
@@ -199,7 +198,7 @@ export function TeamSection() {
               <span className="rounded-sm bg-[#1769ff] px-2 py-1 text-center font-display text-[11px] font-black tracking-[0.08em]">
                 {member.code}
               </span>
-              <span className="truncate font-display text-xs font-bold uppercase sm:text-base">
+              <span className="truncate font-display text-xs font-bold sm:text-base">
                 {member.name}
               </span>
               <span className="hidden text-right font-mono text-[10px] tracking-[0.08em] text-white/55 uppercase sm:block">

@@ -7,7 +7,6 @@ import {
   Gauge,
   Glasses,
   Globe2,
-  ImageIcon,
   Monitor,
   Smartphone,
   Store,
@@ -42,73 +41,11 @@ const LEADERS = [
   { position: "04", name: "FEYNMAN", gap: "+1.042", color: "#7857ff" },
 ] as const;
 
-const ADVANTAGES: {
-  id: string;
-  titleKey: MessageKey;
-  textKey: MessageKey;
-  wide?: boolean;
-}[] = [
-  {
-    id: "unique",
-    titleKey: "bento.advantages.unique.title",
-    textKey: "bento.advantages.unique.text",
-    wide: true,
-  },
-  {
-    id: "ar",
-    titleKey: "bento.advantages.ar.title",
-    textKey: "bento.advantages.ar.text",
-  },
-  {
-    id: "map",
-    titleKey: "bento.advantages.map.title",
-    textKey: "bento.advantages.map.text",
-  },
-  {
-    id: "app",
-    titleKey: "bento.advantages.app.title",
-    textKey: "bento.advantages.app.text",
-  },
-  {
-    id: "boards",
-    titleKey: "bento.advantages.boards.title",
-    textKey: "bento.advantages.boards.text",
-  },
-  {
-    id: "production",
-    titleKey: "bento.advantages.production.title",
-    textKey: "bento.advantages.production.text",
-    wide: true,
-  },
-];
-
 function BentoArrow({ href = "#download" }: { href?: string }) {
   return (
     <a href={href} className="bento-arrow" aria-label="Open">
       <ArrowRight size={16} strokeWidth={2.4} />
     </a>
-  );
-}
-
-function BrandMark() {
-  return <span className="bento-brand">PILOT</span>;
-}
-
-function MediaSlot({ label, image }: { label: string; image?: { src: string; alt: string; caption: string } }) {
-  if (image) {
-    return (
-      <div className="bento-media-slot bento-media-slot--image">
-        <Image src={image.src} alt={image.alt} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" className="object-cover object-center" />
-        <span className="bento-media-caption">{image.caption}</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="bento-media-slot" aria-hidden>
-      <ImageIcon size={22} strokeWidth={1.5} />
-      <span>{label}</span>
-    </div>
   );
 }
 
@@ -124,10 +61,8 @@ export function BentoSection() {
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <SectionHeader
-          eyebrow={t("bento.eyebrow")}
           title={t("bento.title")}
           description={t("bento.description")}
-          eyebrowClassName="font-bold tracking-[0.32em] text-[#ef5a16]"
           descriptionClassName="max-w-xl text-black/55"
         />
 
@@ -142,7 +77,6 @@ export function BentoSection() {
             />
             <div className="bento-card-shade" />
             <div className="bento-card-body">
-              <BrandMark />
               <h3>{t("bento.cards.universe.title")}</h3>
               <p>{t("bento.cards.universe.text")}</p>
               <BentoArrow />
@@ -151,7 +85,6 @@ export function BentoSection() {
 
           <article className="bento-card">
             <div className="bento-card-body">
-              <BrandMark />
               <h3>{t("bento.cards.modes.title")}</h3>
               <div className="bento-modes">
                 {MODES.map((mode) => (
@@ -167,7 +100,6 @@ export function BentoSection() {
 
           <article className="bento-card bento-card--dark">
             <div className="bento-card-body">
-              <BrandMark />
               <h3>{t("bento.cards.physics.title")}</h3>
               <p>{t("bento.cards.physics.text")}</p>
               <div className="bento-orb" aria-hidden />
@@ -194,7 +126,6 @@ export function BentoSection() {
           <article className="bento-card bento-card--wide bento-card--soft">
             <div className="bento-card-body bento-card-body--split">
               <div>
-                <BrandMark />
                 <h3>{t("bento.cards.build.title")}</h3>
                 <p>{t("bento.cards.build.text")}</p>
                 <div className="bento-swatches" aria-hidden>
@@ -211,7 +142,6 @@ export function BentoSection() {
 
           <article className="bento-card">
             <div className="bento-card-body">
-              <BrandMark />
               <h3>{t("bento.cards.friends.title")}</h3>
               <p>{t("bento.cards.friends.text")}</p>
               <div className="bento-avatars" aria-hidden>
@@ -227,7 +157,6 @@ export function BentoSection() {
           <article className="bento-card bento-card--wide bento-card--race-control">
             <div className="bento-race-head">
               <div>
-                <BrandMark />
                 <h3>{t("bento.cards.raceControl.title")}</h3>
               </div>
               <span className="bento-race-live">
@@ -293,7 +222,6 @@ export function BentoSection() {
               className="bento-map-img object-cover object-center opacity-40"
             />
             <div className="bento-card-body">
-              <BrandMark />
               <h3>{t("bento.cards.tracks.title")}</h3>
               <p>{t("bento.cards.tracks.text")}</p>
               <Globe2 className="bento-map-icon" size={22} strokeWidth={1.6} />
@@ -303,46 +231,12 @@ export function BentoSection() {
 
           <article className="bento-card">
             <div className="bento-card-body">
-              <BrandMark />
               <h3>{t("bento.cards.tech.title")}</h3>
               <p>{t("bento.cards.tech.text")}</p>
               <Cpu className="bento-tech-icon" size={36} strokeWidth={1.4} />
               <BentoArrow href="#stack" />
             </div>
           </article>
-        </div>
-
-        <div className="bento-adv-head mt-16 md:mt-20">
-          <p className="bento-adv-eyebrow">{t("bento.advantages.eyebrow")}</p>
-          <h3 className="bento-adv-title">{t("bento.advantages.title")}</h3>
-        </div>
-
-        <div className="bento-grid mt-8 md:mt-10">
-          {ADVANTAGES.map((item) => (
-            <article
-              key={item.id}
-              className={`bento-card bento-card--adv${
-                item.wide ? " bento-card--wide" : ""
-              }`}
-            >
-              <MediaSlot
-                label={t("bento.advantages.media")}
-                image={
-                  item.id === "boards"
-                    ? { src: "/vr-racing.jpg", alt: "Гонщик в VR-гарнитуре за рулём", caption: "VR / RACE MODE" }
-                    : item.id === "app"
-                      ? { src: "/app-launcher.webp", alt: "Экран лаунчера Pilot", caption: "PILOT / LAUNCHER" }
-                      : undefined
-                }
-              />
-              <div className="bento-card-body">
-                <BrandMark />
-                <h3>{t(item.titleKey)}</h3>
-                <p>{t(item.textKey)}</p>
-                <BentoArrow />
-              </div>
-            </article>
-          ))}
         </div>
       </div>
     </section>

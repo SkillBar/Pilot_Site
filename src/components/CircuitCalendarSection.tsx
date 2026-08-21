@@ -53,22 +53,17 @@ export function CircuitCalendarSection() {
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
       <div className="relative mx-auto max-w-[1480px]">
-        <div className="mb-10 flex flex-col gap-5 border-b border-white/20 pb-8 md:mb-12 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="font-mono text-[10px] font-bold tracking-[0.3em] text-[#ef5a16] uppercase">
-              Pilot / Race Week
-            </p>
-            <h2 className="mt-3 font-display text-[clamp(1.6rem,2.5vw,2.35rem)] font-black leading-[1.12] tracking-[-0.03em] uppercase">
-              Трассы сезона
-            </h2>
-          </div>
-          <p className="max-w-sm font-mono text-xs leading-relaxed text-white/55">
+        <div className="mb-4 border-b border-white/20 pb-8 md:mb-8">
+          <h2 className="font-display text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.1] tracking-[-0.025em]">
+            Трассы сезона
+          </h2>
+          <p className="mt-4 max-w-2xl font-sans text-base leading-[1.55] text-white/70 md:text-lg">
             Шесть городов. Шесть конфигураций. Одна стартовая решётка Pilot.
           </p>
         </div>
 
         <div className="grid gap-px bg-white/20 md:grid-cols-2 xl:grid-cols-3">
-          {circuits.map((track, index) => (
+          {circuits.map((track) => (
             <article
               key={track.venue}
               className="group relative aspect-[3/4] min-h-[440px] overflow-hidden bg-[#0c0d10]"
@@ -83,12 +78,7 @@ export function CircuitCalendarSection() {
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.24)_0%,rgba(0,0,0,0.04)_38%,rgba(0,0,0,0.18)_100%)]" />
 
               <div className="relative z-10 flex h-full flex-col p-5 sm:p-7">
-                <div className="flex items-center justify-between border-y border-white/30 py-2 font-mono text-[9px] font-bold tracking-[0.2em] uppercase text-white/75">
-                  <span>Race week</span>
-                  <span>0{index + 1} / 06</span>
-                </div>
-
-                <div className="relative flex flex-1 items-center justify-center px-1 py-7">
+                <div className="relative flex flex-1 items-center justify-center px-1 py-9">
                   <Image
                     src={track.circuit}
                     alt={`Контур трассы ${track.venue}`}
@@ -102,17 +92,12 @@ export function CircuitCalendarSection() {
                 </div>
 
                 <div className="border-t border-white/30 pt-4">
-                  <p className="font-display text-[clamp(2.55rem,5vw,4.8rem)] font-black leading-[0.8] tracking-[-0.075em] uppercase">
+                  <p className="font-display text-[clamp(2.15rem,4vw,3.9rem)] font-extrabold leading-[0.86] tracking-[-0.065em] uppercase">
                     {track.country}
                   </p>
-                  <div className="mt-3 flex items-end justify-between gap-4">
-                    <p className="font-mono text-[10px] font-bold tracking-[0.18em] text-white/80 uppercase">
-                      {track.venue}
-                    </p>
-                    <span className="font-mono text-[9px] tracking-[0.18em] text-white/50 uppercase">
-                      Pilot 2026
-                    </span>
-                  </div>
+                  <p className="mt-3 font-sans text-base font-bold leading-tight text-white/90 md:text-xl">
+                    {track.venue}
+                  </p>
                 </div>
               </div>
             </article>

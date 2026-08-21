@@ -57,7 +57,6 @@ export function SubscriptionSection() {
     >
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="landing-pricing-head">
-          <p className="landing-pricing-eyebrow">{t("subscription.eyebrow")}</p>
           <h2 className="landing-pricing-title">{t("subscription.title")}</h2>
           <p className="landing-pricing-desc">{t("subscription.description")}</p>
         </div>
@@ -65,7 +64,6 @@ export function SubscriptionSection() {
         <article className="sub-pilot-board mt-12 md:mt-16">
           <div className="sub-pilot-head">
             <div>
-              <p className="sub-pilot-kicker">{t("subscription.pilotBoard.kicker")}</p>
               <h3>{t("subscription.plans.pilot.name")}</h3>
               <p>{t("subscription.plans.pilot.info")}</p>
             </div>
@@ -88,7 +86,7 @@ export function SubscriptionSection() {
                     key={row.minutes}
                     className={row.hit ? "sub-price-row--hit" : undefined}
                   >
-                    <td>
+                    <td data-label={t("subscription.pilotBoard.colTime")}>
                       <span className="sub-price-time">
                         {t("subscription.pilotBoard.minutes", {
                           n: row.minutes,
@@ -100,10 +98,10 @@ export function SubscriptionSection() {
                         </span>
                       ) : null}
                     </td>
-                    <td className="sub-price-solo">{rub(row.solo)}</td>
-                    <td>{rub(row.perMin)}</td>
-                    <td>{rub(row.duo)}</td>
-                    <td>{rub(row.save)}</td>
+                    <td data-label={t("subscription.pilotBoard.colSolo")} className="sub-price-solo">{rub(row.solo)}</td>
+                    <td data-label={t("subscription.pilotBoard.colPerMin")}>{rub(row.perMin)}</td>
+                    <td data-label={t("subscription.pilotBoard.colDuo")}>{rub(row.duo)}</td>
+                    <td data-label={t("subscription.pilotBoard.colSave")}>{rub(row.save)}</td>
                   </tr>
                 ))}
               </tbody>

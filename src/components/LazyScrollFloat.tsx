@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import "./ScrollFloat.css";
 
@@ -64,7 +64,14 @@ export function LazyScrollFloat({
       ref={probeRef}
       className={cn("scroll-float", containerClassName)}
     >
-      <span className={cn("scroll-float-text", textClassName)}>{children}</span>
+      <span className={cn("scroll-float-text", textClassName)}>
+        {children.split("\n").map((line, index, lines) => (
+          <Fragment key={`${line}-${index}`}>
+            <span className="scroll-float-line">{line}</span>
+            {index < lines.length - 1 ? <br /> : null}
+          </Fragment>
+        ))}
+      </span>
     </h2>
   );
 }

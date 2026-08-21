@@ -73,76 +73,74 @@ export function AnatomySection() {
     <section id="system" className="anatomy-section relative overflow-hidden border-t border-line px-5 py-16 md:px-8 md:py-24">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-      <div className="relative z-10 mx-auto max-w-6xl">
+      <div className="relative z-10 mx-auto max-w-5xl">
         <SectionHeader
-          eyebrow={t("anatomy.eyebrow")}
           title={t("anatomy.title")}
           description="Выбирайте модуль — покажем его роль в настоящем гоночном железе Pilot."
         />
+      </div>
 
-        <div className="mt-12 grid gap-px border border-white/15 bg-white/15 lg:grid-cols-[minmax(0,1.35fr)_minmax(300px,0.65fr)] lg:grid-rows-[540px]">
-          <div className="relative min-h-[420px] overflow-hidden bg-[#0b0d11] p-5 sm:min-h-[540px] sm:p-8 lg:min-h-0 lg:h-full">
-            <div className="pointer-events-none absolute inset-0 opacity-60 [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:38px_38px]" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(239,90,22,0.2),transparent_42%)]" />
-            <div className="relative z-10 flex items-center justify-between border-y border-white/15 py-2 font-mono text-[9px] font-bold tracking-[0.18em] text-white/55 uppercase">
-              <span>Module {activePart.code}</span>
-              <span>{activePart.specification}</span>
-            </div>
+      <div className="anatomy-open-field relative z-10 mt-12 md:mt-16">
+        <div
+          id="anatomy-active-panel"
+          className="anatomy-stage-open"
+          role="region"
+          aria-live="polite"
+        >
+          <div className="anatomy-metadata font-mono text-[10px] font-bold tracking-[0.16em] text-white/55 uppercase">
+            <span>{activePart.specification}</span>
+          </div>
 
-            <div className="relative z-10 mx-auto mt-2 h-[330px] max-w-[650px] sm:h-[390px]">
+          <div key={`visual-${activePart.id}`} className="anatomy-visual anatomy-fade-swap">
+            <div className="relative h-full w-full">
               <Image
-                key={activePart.image}
                 src={activePart.image}
                 alt={activePart.title}
                 fill
                 sizes="(min-width: 1024px) 55vw, 100vw"
                 className={cn(
-                  "drop-shadow-[0_24px_30px_rgba(0,0,0,0.65)] transition-opacity duration-300",
+                  "drop-shadow-[0_24px_30px_rgba(0,0,0,0.65)]",
                   activePart.imageClassName,
                 )}
               />
             </div>
-
-            <div className="pointer-events-none absolute bottom-5 left-5 z-10 sm:bottom-8 sm:left-8">
-              <p className="font-mono text-[9px] tracking-[0.18em] text-white/45 uppercase">Inside Pilot</p>
-              <p className="mt-1 font-display text-2xl font-black tracking-[-0.05em] text-white uppercase">{activePart.title}</p>
-            </div>
-            <span aria-hidden className="pointer-events-none absolute bottom-5 right-5 font-display text-7xl font-black tracking-[-0.1em] text-white/[0.05] sm:bottom-7 sm:right-8">{activePart.code}</span>
           </div>
 
-          <div className="flex min-h-[540px] flex-col bg-[#111318] p-5 sm:p-7 lg:min-h-0 lg:h-full">
-            <p className="font-mono text-[9px] font-bold tracking-[0.22em] text-[#ef5a16] uppercase">Что внутри машинки</p>
-            <h3 className="mt-3 font-display text-3xl font-black tracking-[-0.06em] text-white uppercase">{activePart.title}</h3>
-            <p className="mt-3 min-h-[4.5rem] font-mono text-sm leading-relaxed text-white/60">{activePart.text}</p>
-
-            <div className="mt-6 border-y border-white/15 py-3 font-mono text-[9px] font-bold tracking-[0.16em] text-white/50 uppercase">
-              {activePart.specification}
+          <div key={`copy-${activePart.id}`} className="anatomy-copy anatomy-fade-swap">
+            <div className="anatomy-title-slot">
+              <h3 className="font-display text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-[1.15] tracking-[-0.035em] text-white text-balance">{activePart.title}</h3>
             </div>
-
-            <ul className="mt-auto space-y-1.5 pt-5" aria-label="Список компонентов машины">
-              {PARTS.map((part) => {
-                const isActive = part.id === active;
-                return (
-                  <li key={part.id}>
-                    <button
-                      type="button"
-                      onClick={() => setActive(part.id)}
-                      aria-pressed={isActive}
-                      className={cn(
-                        "flex w-full items-center gap-3 border-l px-3 py-3 text-left font-mono text-[10px] font-bold tracking-[0.1em] uppercase transition-colors",
-                        isActive
-                          ? "border-[#ef5a16] bg-[#ef5a16] text-white"
-                          : "border-white/15 text-white/50 hover:border-white/65 hover:bg-white/[0.05] hover:text-white",
-                      )}
-                    >
-                      <span className="tabular-nums opacity-70">{part.code}</span>
-                      <span>{part.title}</span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+            <p className="anatomy-description mt-3 max-w-[46ch] font-sans text-[15px] leading-[1.5] text-white/68 md:text-base">{activePart.text}</p>
           </div>
+
+          <span aria-hidden className="anatomy-watermark pointer-events-none font-display text-7xl font-black tracking-[-0.1em] text-white/[0.045]">{activePart.code}</span>
+        </div>
+
+        <div className="anatomy-selector-shell">
+          <ul className="anatomy-selector-rail" aria-label="Список компонентов машины">
+            {PARTS.map((part) => {
+              const isActive = part.id === active;
+              return (
+                <li key={part.id}>
+                  <button
+                    type="button"
+                    onClick={() => setActive(part.id)}
+                    aria-pressed={isActive}
+                    aria-controls="anatomy-active-panel"
+                    className={cn(
+                      "anatomy-selector flex h-16 w-full items-center gap-3 px-4 py-3 text-left font-sans text-[15px] font-semibold transition-colors",
+                      isActive
+                        ? "bg-[#ef5a16] text-white"
+                        : "bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white",
+                    )}
+                  >
+                    <span className="font-mono text-xs font-bold tabular-nums opacity-70">{part.code}</span>
+                    <span className="leading-[1.3]">{part.title}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </section>

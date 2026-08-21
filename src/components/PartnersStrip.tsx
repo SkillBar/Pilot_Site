@@ -16,7 +16,7 @@ export function PartnersStrip() {
   return (
     <section
       id="partners"
-      className="partners-strip relative overflow-hidden border-y border-white/15 bg-black text-white"
+      className="partners-strip relative overflow-hidden border-y border-white/[0.08] bg-black text-white"
       aria-label={t("partners.aria")}
     >
       <div className="mx-auto flex min-h-12 max-w-7xl items-stretch px-5 md:px-8">

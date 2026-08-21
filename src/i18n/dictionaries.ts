@@ -654,7 +654,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       eyebrow: "// PHYGITAL",
       title: "Два мира сходятся в одной точке",
       description:
-        "Фиджитал-игры — это формат, где физический мир и цифра не конкурируют, а усиливают друг друга. Реальная трасса, настоящие машины и ощущения пилота встречаются с лаунчером, телеметрией, рейтингами и сетью игроков. Pilot соединяет их в одну точку: ты едешь вживую — и одновременно играешь в системе.",
+        "Реальные машины и цифровая система соединяются в одной гонке — с телеметрией, рейтингами и живыми эмоциями.",
       physical: "Physical",
       digital: "Digital",
       merge: "Phygital",
@@ -751,32 +751,32 @@ export const dictionaries: Record<Locale, Dictionary> = {
       segments: {
         kids: {
           title: "Дети 3–10 лет",
-          text: "Безопасный первый опыт управления, игра и развитие реакции через реальные мини-гонки.",
+          text: "Безопасные мини-гонки для развития реакции и внимания.",
           tag: "Pilot Unior",
         },
         gamers: {
           title: "Те, кто играл в VR",
-          text: "Игроки, которым нужен следующий уровень погружения — уже в реальном мире.",
+          text: "Игроки VR переходят к управлению настоящей машиной.",
         },
         teens: {
           title: "Подростки",
-          text: "Соревнование, технологии и сообщество в понятном игровом формате.",
+          text: "Соревнование, технологии и сообщество в игровом формате.",
         },
         growth: {
           title: "Саморазвитие",
-          text: "Навыки управления, концентрация, реакция и инженерное мышление.",
+          text: "Концентрация, реакция и инженерное мышление в движении.",
         },
         thinkers: {
           title: "Интеллектуалы",
-          text: "Стратегия, телеметрия и поиск лучшей траектории на каждом круге.",
+          text: "Стратегия, телеметрия и поиск лучшей траектории.",
         },
         racing: {
           title: "Любители гонок",
-          text: "Азарт старта, борьба за позицию и настоящий соревновательный драйв.",
+          text: "Азарт старта, борьба за позицию и гоночный драйв.",
         },
         cars: {
           title: "Любители тачек",
-          text: "Техника, кастомизация и характер собственного гоночного болида.",
+          text: "Техника, кастомизация и характер собственного болида.",
         },
       },
       everyone: {
@@ -786,7 +786,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     subscription: {
       eyebrow: "// ARENA",
-      title: "Подписка ARENA",
+      title: "Подписка Arena",
       description:
         "Тарифы на линейки Pilot, Pilot Unior и доступ к Launcher.",
       popular: "Популярный",
@@ -922,7 +922,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     download: {
       eyebrow: "// MODULE_UPDATE",
-      title: "СКАЧАТЬ ЛАУНЧЕР",
+      title: "Скачивайте лаунчер Pilot",
       description:
         "Один клик — клиент Pilot под вашу систему. Остальные платформы доступны ниже.",
       get: "GET →",
@@ -1051,7 +1051,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     capTable: {
       eyebrow: "// CAP_TABLE",
-      title: "Cap Table",
+      title: "Cap table",
       description:
         "Предварительная структура долей команды и резервов. Финальный сплит уточняется перед раундом.",
       colHolder: "Держатель",
@@ -1114,7 +1114,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     investors: {
       eyebrow: "// INVESTOR_CHANNEL",
-      title: "ЗАЯВКА ИНВЕСТОРА",
+      title: "Заявка инвестора",
       description:
         "Реальные FPV-гонки на мини-машинах — новый формат спорта и развлечения. Оставьте контакты — вернёмся с deck и следующим шагом.",
       launcherFirst: "Сначала лаунчер",
@@ -1306,7 +1306,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       eyebrow: "// PHYGITAL",
       title: "Two worlds meet at one point",
       description:
-        "Phygital games are a format where the physical world and digital layer don’t compete — they amplify each other. A real track, real cars, and real pilot feel meet the launcher, telemetry, rankings, and player network. Pilot brings them to one point: you race live — and play inside the system at the same time.",
+        "Real cars and the digital system meet in one race — with telemetry, rankings, and genuine emotion.",
       physical: "Physical",
       digital: "Digital",
       merge: "Phygital",
@@ -1438,7 +1438,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     subscription: {
       eyebrow: "// ARENA",
-      title: "ARENA subscription",
+      title: "Arena subscription",
       description: "Plans for Pilot, Pilot Unior, and Launcher access.",
       popular: "Popular",
       cta: "Apply now",
@@ -1573,7 +1573,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     download: {
       eyebrow: "// MODULE_UPDATE",
-      title: "DOWNLOAD LAUNCHER",
+      title: "Download launcher",
       description:
         "One click — the Pilot client for your system. Other platforms are listed below.",
       get: "GET →",
@@ -1587,7 +1587,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     team: {
       eyebrow: "Vector platform // Pilot game",
-      title: "Pilot Team",
+      title: "Pilot team",
       description:
         "Engineers, developers, and pilots turning FPV racing into a real technology sport.",
       footer: "Build together · Race together · Learn together",
@@ -1702,7 +1702,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     capTable: {
       eyebrow: "// CAP_TABLE",
-      title: "Cap Table",
+      title: "Cap table",
       description:
         "Preliminary ownership for the team and reserves. Final split locks before the round.",
       colHolder: "Holder",
@@ -1765,7 +1765,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     investors: {
       eyebrow: "// INVESTOR_CHANNEL",
-      title: "INVESTOR APPLICATION",
+      title: "Investor application",
       description:
         "Real FPV racing on mini cars — a new format of sport and entertainment. Leave your contacts and we’ll follow up with the deck and next steps.",
       launcherFirst: "Try the launcher first",
@@ -1957,7 +1957,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       eyebrow: "// PHYGITAL",
       title: "Zwei Welten treffen sich in einem Punkt",
       description:
-        "Phygital Games sind ein Format, in dem physische Welt und digitale Schicht sich nicht ersetzen, sondern verstärken. Echte Strecke, echte Autos und das Pilot-Feeling treffen auf Launcher, Telemetrie, Rankings und Spielernetzwerk. Pilot verbindet sie in einem Punkt: du fährst live — und spielst gleichzeitig im System.",
+        "Echte Fahrzeuge und das digitale System treffen in einem Rennen aufeinander — mit Telemetrie, Rankings und echten Emotionen.",
       physical: "Physical",
       digital: "Digital",
       merge: "Phygital",
@@ -2089,7 +2089,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     subscription: {
       eyebrow: "// ARENA",
-      title: "ARENA Abo",
+      title: "Arena-Abo",
       description: "Tarife für Pilot, Pilot Unior und Launcher-Zugang.",
       popular: "Beliebt",
       cta: "Anfrage senden",
@@ -2224,7 +2224,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     download: {
       eyebrow: "// MODULE_UPDATE",
-      title: "LAUNCHER HERUNTERLADEN",
+      title: "Launcher herunterladen",
       description:
         "Ein Klick — der Pilot-Client für dein System. Weitere Plattformen findest du darunter.",
       get: "GET →",
@@ -2353,7 +2353,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     capTable: {
       eyebrow: "// CAP_TABLE",
-      title: "Cap Table",
+      title: "Cap table",
       description:
         "Vorläufige Anteilsstruktur für Team und Reserven. Finaler Split vor der Runde.",
       colHolder: "Inhaber",
@@ -2416,7 +2416,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     investors: {
       eyebrow: "// INVESTOR_CHANNEL",
-      title: "INVESTORENANFRAGE",
+      title: "Investorenanfrage",
       description:
         "Echtes FPV-Racing mit Mini-Autos — ein neues Format für Sport und Entertainment. Hinterlasse Kontakte, wir melden uns mit Deck und nächsten Schritten.",
       launcherFirst: "Zuerst den Launcher",

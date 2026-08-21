@@ -1,64 +1,97 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { RaceCheckers } from "@/components/RaceCheckers";
 import { SectionHeader } from "@/components/SectionHeader";
 import { useTranslations } from "@/i18n/client";
+import { useEffect, useRef } from "react";
 
 export function PhygitalSection() {
   const t = useTranslations();
-  const stageRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
+  const sectionTitle = t("phygital.title");
+  const balancedTitle =
+    sectionTitle === "Два мира сходятся в одной точке"
+      ? "Два мира сходятся\nв одной точке"
+      : sectionTitle;
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const el = stageRef.current;
-    if (!el) return;
+    const section = sectionRef.current;
+    const video = videoRef.current;
+    if (!section || !video) return;
 
-    const io = new IntersectionObserver(
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let isNearViewport = true;
+
+    const syncPlayback = () => {
+      if (
+        reducedMotion.matches ||
+        document.visibilityState !== "visible" ||
+        !isNearViewport
+      ) {
+        video.pause();
+        return;
+      }
+
+      void video.play().catch(() => undefined);
+    };
+
+    const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry?.isIntersecting) {
-          setActive(true);
-          io.disconnect();
-        }
+        isNearViewport = Boolean(entry?.isIntersecting);
+        syncPlayback();
       },
-      { threshold: 0.35 },
+      { rootMargin: "240px 0px" },
     );
 
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+    observer.observe(section);
+    reducedMotion.addEventListener("change", syncPlayback);
+    document.addEventListener("visibilitychange", syncPlayback);
+    syncPlayback();
 
+    return () => {
+      observer.disconnect();
+      reducedMotion.removeEventListener("change", syncPlayback);
+      document.removeEventListener("visibilitychange", syncPlayback);
+      video.pause();
+    };
+  }, []);
   return (
     <section
+      ref={sectionRef}
       id="phygital"
-      className="phygital-section relative overflow-hidden border-t border-black/10 px-5 py-16 md:px-8 md:py-28"
+      className="phygital-section phygital-video-section relative isolate flex overflow-hidden bg-[#07080a] px-5 py-16 text-white md:px-8 md:py-24"
     >
-      <RaceCheckers dark className="race-checkers--top-right" />
-
-      <div className="relative z-10 mx-auto max-w-6xl">
-        <SectionHeader
-          eyebrow={t("phygital.eyebrow")}
-          title={t("phygital.title")}
-          description={t("phygital.description")}
-          eyebrowClassName="font-bold tracking-[0.32em] text-[#ef5a16]"
-          descriptionClassName="max-w-2xl text-black/55"
+      <div className="phygital-video-poster absolute inset-0" aria-hidden />
+      <video
+        ref={videoRef}
+        className="phygital-video absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        poster="/video/phygital-poster.webp"
+        aria-hidden="true"
+        tabIndex={-1}
+      >
+        <source
+          src="/video/phygital-loop-mobile.mp4"
+          media="(max-width: 767px)"
+          type="video/mp4"
         />
+        <source src="/video/phygital-loop.mp4" type="video/mp4" />
+      </video>
+      <div className="phygital-video-shade absolute inset-0" aria-hidden />
 
-        <div
-          ref={stageRef}
-          className={`phygital-euler mt-14 md:mt-20${active ? " is-active" : ""}`}
-          aria-hidden
-        >
-          <div className="phygital-circle phygital-circle--physical">
-            <span>{t("phygital.physical")}</span>
-          </div>
-          <div className="phygital-circle phygital-circle--digital">
-            <span>{t("phygital.digital")}</span>
-          </div>
-          <div className="phygital-merge">
-            <span>{t("phygital.merge")}</span>
-          </div>
-        </div>
+      <div className="relative z-10 mx-auto flex w-full max-w-[1480px] flex-1 items-end">
+        <SectionHeader
+          align="left"
+          title={balancedTitle}
+          description={t("phygital.description")}
+          descriptionAnimated={false}
+          className="phygital-video-copy max-w-4xl"
+          descriptionClassName="max-w-2xl text-white/78"
+        />
       </div>
     </section>
   );

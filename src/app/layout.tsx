@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Providers } from "@/components/Providers";
 import { defaultLocale, dictionaries } from "@/i18n";
-import { cn } from "@/lib/utils";
 import "./globals.css";
 
 const defaultDictionary = dictionaries[defaultLocale];
@@ -19,12 +18,7 @@ export default function RootLayout({
   return (
     <html
       lang={defaultLocale}
-      className={cn("dark h-full antialiased")}
-      style={{
-        "--font-sans": "Arial, sans-serif",
-        "--font-display": "Arial, sans-serif",
-        "--font-mono": "Consolas, monospace",
-      } as React.CSSProperties}
+      className="dark h-full antialiased"
       data-theme="dark"
       suppressHydrationWarning
     >

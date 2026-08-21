@@ -1,146 +1,179 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState, type ComponentType, type SVGProps } from "react";
-import {
-  AppleIcon,
-  SteamIcon,
-  WindowsIcon,
-} from "@/components/PlatformIcons";
-import { SectionHeader } from "@/components/SectionHeader";
-import { useTranslations } from "@/i18n/client";
+import { useSyncExternalStore, type ComponentType, type SVGProps } from "react";
+import { AppleIcon, SteamIcon, WindowsIcon } from "@/components/PlatformIcons";
+import { useLocale, useTranslations } from "@/i18n/client";
 import {
   detectDownloadPlatform,
   type DownloadPlatform,
 } from "@/lib/detectPlatform";
-import { cn } from "@/lib/utils";
+import styles from "./DownloadSection.module.css";
 
 type PlatformIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
-const BUILDS: Record<
-  DownloadPlatform,
-  {
-    labelKey: "download.platformWindows" | "download.platformMac" | "download.platformSteam";
-    file: string;
-    href: string;
-    Icon: PlatformIcon;
-  }
-> = {
-  windows: {
-    labelKey: "download.platformWindows",
-    file: "pilot-launcher-win.exe",
-    href: "#",
-    Icon: WindowsIcon,
+const SUPPORT_COPY = {
+  ru: {
+    alternate: "Также доступно для",
+    conjunction: "и",
+    visualAlt: "Pilot Launcher на мониторе Pro Display XDR и смартфоне",
   },
-  macos: {
-    labelKey: "download.platformMac",
-    file: "pilot-launcher-mac.dmg",
-    href: "#",
-    Icon: AppleIcon,
+  en: {
+    alternate: "Also available for",
+    conjunction: "and",
+    visualAlt: "Pilot Launcher displayed on a Pro Display XDR and smartphone",
   },
-  steam: {
-    labelKey: "download.platformSteam",
-    file: "steam",
-    href: "#",
-    Icon: SteamIcon,
+  de: {
+    alternate: "Auch verfügbar für",
+    conjunction: "und",
+    visualAlt: "Pilot Launcher auf einem Pro Display XDR und Smartphone",
   },
-};
+} as const;
 
-const PLATFORM_ORDER: DownloadPlatform[] = ["windows", "macos", "steam"];
+const subscribeToPlatform = () => () => undefined;
+
+function usePrimaryPlatform(): Exclude<DownloadPlatform, "steam"> {
+  const detected = useSyncExternalStore(
+    subscribeToPlatform,
+    detectDownloadPlatform,
+    () => "windows",
+  );
+
+  return detected === "macos" ? "macos" : "windows";
+}
+
+function safeHttpsUrl(value: string | undefined) {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
 
 export function DownloadSection() {
   const t = useTranslations();
-  const [platform, setPlatform] = useState<DownloadPlatform>("windows");
-  const [ready, setReady] = useState(false);
+  const { locale } = useLocale();
+  const copy = SUPPORT_COPY[locale];
+  const primaryPlatform = usePrimaryPlatform();
+  const platforms = {
+    windows: {
+      label: t("download.platformWindows"),
+      url: safeHttpsUrl(process.env.NEXT_PUBLIC_PILOT_WINDOWS_URL),
+      Icon: WindowsIcon,
+    },
+    macos: {
+      label: t("download.platformMac"),
+      url: safeHttpsUrl(process.env.NEXT_PUBLIC_PILOT_MACOS_URL),
+      Icon: AppleIcon,
+    },
+    steam: {
+      label: t("download.platformSteam"),
+      url: safeHttpsUrl(process.env.NEXT_PUBLIC_PILOT_STEAM_URL),
+      Icon: SteamIcon,
+    },
+  } satisfies Record<DownloadPlatform, {
+    label: string;
+    url: string | null;
+    Icon: PlatformIcon;
+  }>;
+  const primary = platforms[primaryPlatform];
+  const alternatePlatforms: DownloadPlatform[] = [
+    primaryPlatform === "macos" ? "windows" : "macos",
+    "steam",
+  ];
 
-  useEffect(() => {
-    setPlatform(detectDownloadPlatform());
-    setReady(true);
-  }, []);
-
-  const primary = BUILDS[platform];
-  const alternates = useMemo(
-    () => PLATFORM_ORDER.filter((id) => id !== platform),
-    [platform],
-  );
+  const renderAlternate = (platform: DownloadPlatform) => {
+    const item = platforms[platform];
+    return item.url ? (
+      <a className={styles.alternateLink} href={item.url} aria-label={item.label}>
+        <item.Icon aria-hidden />
+        {item.label}
+      </a>
+    ) : (
+      <button
+        className={styles.alternateLink}
+        type="button"
+        aria-disabled="true"
+      >
+        <item.Icon aria-hidden />
+        {item.label}
+      </button>
+    );
+  };
 
   return (
-    <section
-      id="download"
-      className="relative border-t border-line px-5 py-16 md:px-8 md:py-24"
-    >
-      <div className="mx-auto max-w-6xl">
-        <SectionHeader
-          title={t("download.title")}
-          description={t("download.description")}
-          before={
-            <Image
-              src="/Logo_App.webp"
-              alt="Pilot Launcher"
-              width={96}
-              height={96}
-              className="mx-auto mb-5 h-20 w-20 object-contain md:h-24 md:w-24"
-            />
-          }
-          after={
-            <p className="mt-4 font-mono text-[11px] tracking-wider text-muted">
-              STATUS: <span className="text-ok">READY</span> · CHANNEL: PUBLIC
-            </p>
-          }
-        />
-
-        <div className="mx-auto mt-12 flex max-w-xl flex-col items-center">
-          <a
-            href={primary.href}
-            download={primary.file === "steam" ? undefined : primary.file}
-            className={cn(
-              "btn-tech download-cta font-mono text-[12px] md:text-[13px]",
-              !ready && "opacity-90",
+    <section id="download" className={styles.section}>
+      <div className={styles.shell}>
+        <div className={styles.copy}>
+          <Image
+            src="/launcher/pilot-launcher-icon.webp"
+            alt="Pilot Launcher"
+            width={256}
+            height={256}
+            sizes="(max-width: 900px) 64px, 80px"
+            className={styles.launcherLogo}
+          />
+          <h2>
+            {locale === "ru" ? (
+              <>
+                <span className={styles.titleLine}>Скачивайте</span>
+                <span className={styles.titleLine}>лаунчер Pilot</span>
+              </>
+            ) : (
+              t("download.title")
             )}
-            aria-label={t("download.ctaFor", {
-              os: t(primary.labelKey),
-            })}
-          >
-            <span className="inline-flex items-center gap-3">
-              <primary.Icon className="h-5 w-5 shrink-0" aria-hidden />
-              <span>
-                {t("download.ctaFor", {
-                  os: t(primary.labelKey),
-                })}
+          </h2>
+          <p className={styles.description}>{t("download.description")}</p>
+
+          {primary.url ? (
+            <a className={styles.primaryCta} href={primary.url}>
+              <span className={styles.primaryCtaInner}>
+                <primary.Icon aria-hidden />
+                <span>{t("download.ctaFor", { os: primary.label })}</span>
               </span>
-            </span>
-          </a>
+            </a>
+          ) : (
+            <button className={styles.primaryCta} type="button">
+              <span className={styles.primaryCtaInner}>
+                <primary.Icon aria-hidden />
+                <span>{t("download.ctaFor", { os: primary.label })}</span>
+              </span>
+            </button>
+          )}
 
-          <p className="mt-6 font-mono text-[10px] tracking-[0.22em] text-muted uppercase">
-            {t("download.alsoAvailable")}
-          </p>
+          <div className={styles.alternate}>
+            <span>{copy.alternate}</span>
+            {alternatePlatforms.map((platform, index) => (
+              <span className={styles.alternateItem} key={platform}>
+                {index > 0 ? <span aria-hidden>{copy.conjunction}</span> : null}
+                {renderAlternate(platform)}
+              </span>
+            ))}
+          </div>
+        </div>
 
-          <ul className="mt-4 flex items-center justify-center gap-6">
-            {alternates.map((id) => {
-              const item = BUILDS[id];
-              return (
-                <li key={id}>
-                  <a
-                    href={item.href}
-                    download={item.file === "steam" ? undefined : item.file}
-                    className="group flex flex-col items-center gap-2 text-white/70 transition-colors hover:text-white"
-                    aria-label={t("download.ctaFor", {
-                      os: t(item.labelKey),
-                    })}
-                    title={t(item.labelKey)}
-                  >
-                    <item.Icon
-                      className="h-6 w-6 transition-transform group-hover:scale-110"
-                      aria-hidden
-                    />
-                    <span className="font-mono text-[10px] tracking-[0.16em] uppercase">
-                      {t(item.labelKey)}
-                    </span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+        <div className={styles.visual}>
+          <div className={styles.visualGlow} aria-hidden />
+          <Image
+            src="/launcher/pro-display-xdr.png"
+            alt={copy.visualAlt}
+            width={568}
+            height={421}
+            sizes="(max-width: 900px) calc(100vw - 64px), 568px"
+            className={styles.mockup}
+            unoptimized
+          />
+          <Image
+            src="/launcher/iphone-16-dark.png"
+            alt=""
+            width={149}
+            height={304}
+            sizes="(max-width: 900px) 28vw, 168px"
+            className={styles.phoneMockup}
+            unoptimized
+          />
         </div>
       </div>
     </section>

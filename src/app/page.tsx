@@ -4,16 +4,10 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { PartnersStrip } from "@/components/PartnersStrip";
+import { ScaleShowcaseSection } from "@/components/ScaleShowcaseSection";
 
 const PhygitalSection = dynamic(
   () => import("@/components/PhygitalSection").then((m) => m.PhygitalSection),
-  { loading: () => <SectionSkeleton /> },
-);
-const ScaleShowcaseSection = dynamic(
-  () =>
-    import("@/components/ScaleShowcaseSection").then(
-      (m) => m.ScaleShowcaseSection,
-    ),
   { loading: () => <SectionSkeleton /> },
 );
 const CircuitCalendarSection = dynamic(
@@ -27,12 +21,26 @@ const BentoSection = dynamic(
   () => import("@/components/BentoSection").then((m) => m.BentoSection),
   { loading: () => <SectionSkeleton /> },
 );
+const AdvantagesSection = dynamic(
+  () =>
+    import("@/components/AdvantagesSection").then(
+      (m) => m.AdvantagesSection,
+    ),
+  { loading: () => <SectionSkeleton /> },
+);
 const AudienceSection = dynamic(
   () => import("@/components/AudienceSection").then((m) => m.AudienceSection),
   { loading: () => <SectionSkeleton /> },
 );
 const CompaniesSection = dynamic(
   () => import("@/components/CompaniesSection").then((m) => m.CompaniesSection),
+  { loading: () => <SectionSkeleton /> },
+);
+const PilotInfrastructureSection = dynamic(
+  () =>
+    import("@/components/PilotInfrastructureSection").then(
+      (m) => m.PilotInfrastructureSection,
+    ),
   { loading: () => <SectionSkeleton /> },
 );
 const BusinessTracksSection = dynamic(
@@ -119,12 +127,12 @@ const InvestorsSection = dynamic(
 function SectionSkeleton() {
   return (
     <div
-      className="mx-auto min-h-[40vh] max-w-6xl animate-pulse px-5 py-16 md:px-8"
+      className="mx-auto min-h-[40vh] max-w-6xl animate-pulse px-5 py-16 md:px-8 md:py-24"
       aria-hidden
     >
       <div className="mx-auto h-8 w-48 rounded bg-white/5" />
       <div className="mx-auto mt-4 h-4 w-80 max-w-full rounded bg-white/5" />
-      <div className="mt-10 h-64 rounded-2xl bg-white/[0.03]" />
+      <div className="mt-12 h-64 rounded-2xl bg-white/[0.03] md:mt-16" />
     </div>
   );
 }
@@ -140,8 +148,10 @@ export default function Home() {
         <ScaleShowcaseSection />
         <CircuitCalendarSection />
         <BentoSection />
+        <AdvantagesSection />
         <AudienceSection />
         <CompaniesSection />
+        <PilotInfrastructureSection />
         <DownloadSection />
         <BusinessTracksSection />
         <SubscriptionSection />

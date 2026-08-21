@@ -1,4 +1,4 @@
-import type { Edge } from "@xyflow/react";
+import type { CoordinateExtent, Edge } from "@xyflow/react";
 import type { OrgFlowCardNodeType } from "@/components/org-flow/OrgFlowCardNode";
 
 const CARD_W = 280;
@@ -25,9 +25,20 @@ export function createGroupStructureFlow(copy: {
     education: string;
     kids: string;
   };
-}): { nodes: OrgFlowCardNodeType[]; edges: Edge[] } {
-  const rowWidth = STEP * 2 + CARD_W;
+}, compact = false): { nodes: OrgFlowCardNodeType[]; edges: Edge[]; bounds: CoordinateExtent } {
+  const rowWidth = compact ? STEP + CARD_W : STEP * 2 + CARD_W;
   const companyX = (rowWidth - COMPANY_W) / 2;
+  const projectPositions = compact
+    ? [
+        { x: 0, y: PROJECTS_Y },
+        { x: STEP, y: PROJECTS_Y },
+        { x: (rowWidth - CARD_W) / 2, y: PROJECTS_Y + 240 },
+      ]
+    : [
+        { x: 0, y: PROJECTS_Y },
+        { x: STEP, y: PROJECTS_Y },
+        { x: STEP * 2, y: PROJECTS_Y },
+      ];
 
   const nodes: OrgFlowCardNodeType[] = [
     {
@@ -57,12 +68,12 @@ export function createGroupStructureFlow(copy: {
           },
         ],
       },
-      draggable: true,
+      draggable: false,
     },
     {
       id: "pilot",
       type: "orgCard",
-      position: { x: 0, y: PROJECTS_Y },
+      position: projectPositions[0],
       data: {
         title: "Pilot",
         description: copy.pilot,
@@ -70,12 +81,12 @@ export function createGroupStructureFlow(copy: {
         tags: [copy.tags.racing, copy.tags.venues],
         target: true,
       },
-      draggable: true,
+      draggable: false,
     },
     {
       id: "launcher",
       type: "orgCard",
-      position: { x: STEP, y: PROJECTS_Y },
+      position: projectPositions[1],
       data: {
         title: "Pilot Launcher",
         description: copy.launcher,
@@ -83,12 +94,12 @@ export function createGroupStructureFlow(copy: {
         tags: [copy.tags.software, copy.tags.telemetry],
         target: true,
       },
-      draggable: true,
+      draggable: false,
     },
     {
       id: "unior",
       type: "orgCard",
-      position: { x: STEP * 2, y: PROJECTS_Y },
+      position: projectPositions[2],
       data: {
         title: "Pilot Unior",
         description: copy.unior,
@@ -96,7 +107,7 @@ export function createGroupStructureFlow(copy: {
         tags: [copy.tags.education, copy.tags.kids],
         target: true,
       },
-      draggable: true,
+      draggable: false,
     },
   ];
 
@@ -121,5 +132,10 @@ export function createGroupStructureFlow(copy: {
     },
   ];
 
-  return { nodes, edges };
+  const contentBottom = compact ? PROJECTS_Y + 440 : PROJECTS_Y + 200;
+  return {
+    nodes,
+    edges,
+    bounds: [[-64, -64], [rowWidth + 64, contentBottom + 64]],
+  };
 }
